@@ -15,11 +15,11 @@ onMounted(() => {
 const allPossibleContentNavs = [
   { module: 'site_settings', label: 'Pengaturan Situs & SEO', path: '/dashboard/settings', icon: '⚙️' },
   { module: 'hero_slides', label: 'Slide Beranda (Hero)', path: '/dashboard/hero', icon: '🖼️' },
+  { module: 'vision_mission', label: 'Visi, Misi & Nilai', path: '/dashboard/vision-mission', icon: '🎯' },
+  { module: 'statistics', label: 'Statistik & Prestasi', path: '/dashboard/statistics', icon: '📈' },
   { module: 'programs', label: 'Program Unggulan', path: '/dashboard/programs', icon: '🎓' },
   { module: 'facilities', label: 'Fasilitas & Sarana', path: '/dashboard/facilities', icon: '🏢' },
   { module: 'news', label: 'Berita & Pengumuman', path: '/dashboard/news', icon: '📰' },
-  { module: 'vision_mission', label: 'Visi, Misi & Nilai', path: '/dashboard/vision-mission', icon: '🎯' },
-  { module: 'statistics', label: 'Sejarah & Statistik', path: '/dashboard/statistics', icon: '📈' },
   { module: 'staff', label: 'Guru & Staf Pendidik', path: '/dashboard/staff', icon: '👨‍🏫' },
   { module: 'student_organizations', label: 'Organisasi & Ekskul', path: '/dashboard/student-orgs', icon: '👥' },
   { module: 'testimonials', label: 'Testimoni Alumni', path: '/dashboard/testimonials', icon: '💬' },
@@ -33,24 +33,9 @@ const navItems = computed(() => {
     { label: 'Ringkasan & Status', path: '/dashboard', icon: '📊' }
   ];
 
-  // If template has defined sections, use them; otherwise filter by supportedModules
-  const manifestSections = template.value?.sections || [];
-  if (manifestSections.length > 0) {
-    for (const sec of manifestSections) {
-      const match = allPossibleContentNavs.find(n => n.module === sec.module);
-      if (match) {
-        items.push({
-          label: sec.label || match.label,
-          path: sec.path || match.path,
-          icon: sec.icon || match.icon
-        });
-      }
-    }
-  } else {
-    for (const nav of allPossibleContentNavs) {
-      if (supportsModule(nav.module)) {
-        items.push(nav);
-      }
+  for (const nav of allPossibleContentNavs) {
+    if (supportsModule(nav.module) || (template.value?.sections || []).some(s => s.module === nav.module)) {
+      items.push(nav);
     }
   }
 
