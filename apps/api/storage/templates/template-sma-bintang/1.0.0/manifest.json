@@ -1,0 +1,27 @@
+{
+  "templateKey": "template-sma-bintang",
+  "name": "SMA Bintang Harapan",
+  "description": "Template HTML mandiri diunggah oleh Super Admin",
+  "version": "1.0.0",
+  "schemaVersion": "1.0.0",
+  "author": "Super Admin",
+  "supportedModules": [
+    "hero_slides",
+    "programs",
+    "facilities",
+    "news",
+    "vision_mission",
+    "statistics",
+    "staff",
+    "student_organizations",
+    "testimonials",
+    "ppdb",
+    "contact",
+    "navigation"
+  ],
+  "theme": {
+    "primaryColor": "#087F5B",
+    "secondaryColor": "#0CA678",
+    "fontFamily": "Inter"
+  }
+}

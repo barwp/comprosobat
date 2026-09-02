@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.name }} - Official Academic Portal</title>
+  <meta name="description" content="{{ site.description }}">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --color-primary: {{ site.primaryColor }};
+      --color-secondary: {{ site.secondaryColor }};
+      --font-family-base: 'Poppins', sans-serif;
+    }
+    body {
+      font-family: var(--font-family-base, 'Poppins', sans-serif);
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 antialiased">
+
+  <!-- ================= TOPBAR ================= -->
+  <div class="bg-blue-950 text-white text-xs py-2 px-4 border-b border-blue-900 hidden md:block">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-6">
+        <span data-cms-text="site.contact.address">{{ site.contact.address }}</span>
+        <span data-cms-text="site.contact.phone">{{ site.contact.phone }}</span>
+      </div>
+      <div class="font-medium text-blue-200">
+        Portal Informasi Resmi
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <img data-cms-image="site.logo" src="{{ site.logo.url }}" alt="{{ site.logo.alt }}" class="w-10 h-10 object-contain">
+        <div>
+          <span class="font-bold text-base text-blue-950 tracking-tight block uppercase" data-cms-text="site.name">{{ site.name }}</span>
+          <span class="text-xs text-slate-500 font-medium" data-cms-text="site.tagline">{{ site.tagline }}</span>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-700">
+        <a href="#hero" class="hover:text-blue-900">Beranda</a>
+        <a href="#visi" class="hover:text-blue-900">Visi Misi</a>
+        <a href="#program" class="hover:text-blue-900">Program</a>
+        <a href="#fasilitas" class="hover:text-blue-900">Fasilitas</a>
+        <a href="#berita" class="hover:text-blue-900">Berita</a>
+        <a href="#staff" class="hover:text-blue-900">Pendidik</a>
+        <a href="#kontak" class="hover:text-blue-900">Kontak</a>
+      </nav>
+
+      <a href="#kontak" class="bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs uppercase px-5 py-2.5 rounded-lg transition-all">
+        Hubungi Kami
+      </a>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section id="hero" class="relative bg-blue-950 text-white py-20" data-cms-repeat="hero_slides" data-cms-limit="1">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div class="space-y-6">
+          <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight" data-cms-text="item.title">
+            {{ item.title }}
+          </h1>
+          <p class="text-sm md:text-base text-blue-100 leading-relaxed" data-cms-text="item.subtitle">
+            {{ item.subtitle }}
+          </p>
+          <div>
+            <a data-cms-link="item.ctaUrl" href="{{ item.ctaUrl }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-8 py-3.5 rounded-lg shadow transition">
+              <span data-cms-text="item.ctaText">{{ item.ctaText }}</span>
+            </a>
+          </div>
+        </div>
+        <div class="rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
+          <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="Hero" class="w-full h-80 object-cover">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VISI & MISI ================= -->
+  <section id="visi" class="py-16 bg-white border-b border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-xs font-bold text-blue-900 uppercase tracking-widest mb-2" data-cms-text="vision_mission.visionTitle">
+        {{ vision_mission.visionTitle }}
+      </h2>
+      <p class="text-lg md:text-xl font-medium text-slate-800 leading-relaxed italic" data-cms-text="vision_mission.visionContent">
+        "{{ vision_mission.visionContent }}"
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= PROGRAM ================= -->
+  <section id="program" class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-950">Program Akademik</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div data-cms-repeat="programs" data-cms-limit="6" class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs">
+          <span class="text-xs font-bold text-blue-600 uppercase" data-cms-text="item.category">{{ item.category }}</span>
+          <h3 class="font-bold text-base text-slate-900 mt-1 mb-2" data-cms-text="item.title">{{ item.title }}</h3>
+          <p class="text-xs text-slate-600 leading-relaxed" data-cms-text="item.description">{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FASILITAS ================= -->
+  <section id="fasilitas" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-950">Fasilitas Kampus</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div data-cms-repeat="facilities" data-cms-limit="6" class="bg-slate-50 rounded-xl overflow-hidden border border-slate-200">
+          <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="{{ item.name }}" class="w-full h-44 object-cover">
+          <div class="p-4">
+            <h3 class="font-bold text-slate-900 text-sm" data-cms-text="item.name">{{ item.name }}</h3>
+            <p class="text-xs text-slate-500 mt-1" data-cms-text="item.description">{{ item.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BERITA ================= -->
+  <section id="berita" class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-950">Warta Akademik</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <article data-cms-repeat="news" data-cms-limit="3" class="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-xs flex flex-col justify-between">
+          <img data-cms-image="item.coverImageUrl" src="{{ item.coverImageUrl }}" alt="{{ item.title }}" class="w-full h-40 object-cover">
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-bold text-sm text-slate-900 mb-2" data-cms-text="item.title">{{ item.title }}</h3>
+              <p class="text-xs text-slate-600 line-clamp-2" data-cms-text="item.summary">{{ item.summary }}</p>
+            </div>
+            <a data-cms-link="item.url" href="{{ item.url }}" class="mt-4 text-xs font-bold text-blue-700 hover:text-blue-900 inline-block">
+              Selengkapnya →
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer id="kontak" class="bg-blue-950 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-bold text-base uppercase" data-cms-text="site.name">{{ site.name }}</h3>
+          <p class="text-xs text-blue-200 mt-2" data-cms-text="site.description">{{ site.description }}</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-xs uppercase text-blue-300 mb-3">Informasi Kontak</h4>
+          <p class="text-xs text-blue-100" data-cms-text="site.contact.address">{{ site.contact.address }}</p>
+          <p class="text-xs text-blue-100 mt-1" data-cms-text="site.contact.phone">{{ site.contact.phone }}</p>
+          <p class="text-xs text-blue-100 mt-1" data-cms-text="site.contact.email">{{ site.contact.email }}</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-xs uppercase text-blue-300 mb-3">SobatWeb Portal</h4>
+          <p class="text-xs text-blue-200">Platform Website Builder Mandiri untuk Sekolah Indonesia.</p>
+        </div>
+      </div>
+      <div class="mt-8 pt-6 border-t border-blue-900 text-center text-xs text-blue-300">
+        © 2026 <strong data-cms-text="site.name">{{ site.name }}</strong>. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.name }} - {{ site.tagline }}</title>
+  <meta name="description" content="{{ site.description }}">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f2faf4',
+              100: '#e1f5e8',
+              200: '#c5ebd3',
+              500: 'var(--color-primary, #1a6b2f)',
+              600: '#155826',
+              700: '#11461e',
+              800: '#0d3d1a',
+              900: '#082811',
+            },
+            gold: {
+              300: '#f5e082',
+              400: '#e8c84a',
+              500: 'var(--color-secondary, #c9a227)',
+              600: '#b08a1c',
+              700: '#8c6c10',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            arabic: ['"Amiri"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --color-primary: {{ site.primaryColor }};
+      --color-secondary: {{ site.secondaryColor }};
+      --font-family-base: 'Plus Jakarta Sans', sans-serif;
+    }
+    body {
+      font-family: var(--font-family-base, 'Plus Jakarta Sans', sans-serif);
+      overflow-x: hidden;
+    }
+
+    /* Core brand & gold utility classes */
+    .bg-brand-900 { background-color: #082811 !important; color: #ffffff !important; }
+    .bg-brand-800 { background-color: #0d3d1a !important; color: #ffffff !important; }
+    .bg-brand-700 { background-color: #11461e !important; }
+    .bg-brand-600 { background-color: #155826 !important; }
+    .bg-brand-500 { background-color: var(--color-primary, #1a6b2f) !important; }
+    .bg-brand-50 { background-color: #f2faf4 !important; }
+    .bg-brand-50\/40 { background-color: rgba(242, 250, 244, 0.4) !important; }
+    .bg-brand-50\/80 { background-color: rgba(242, 250, 244, 0.8) !important; }
+
+    .text-brand-900 { color: #082811 !important; }
+    .text-brand-800 { color: #0d3d1a !important; }
+    .text-brand-700 { color: #11461e !important; }
+    .text-brand-600 { color: #155826 !important; }
+    .text-brand-500 { color: var(--color-primary, #1a6b2f) !important; }
+
+    .bg-gold-500 { background-color: var(--color-secondary, #c9a227) !important; }
+    .bg-gold-400 { background-color: #e8c84a !important; }
+    .text-gold-300 { color: #f5e082 !important; }
+    .text-gold-400 { color: #e8c84a !important; }
+    .text-gold-500 { color: var(--color-secondary, #c9a227) !important; }
+    .text-gold-600 { color: #b08a1c !important; }
+
+    .border-brand-800 { border-color: #11461e !important; }
+    .border-brand-700 { border-color: #155826 !important; }
+    .border-brand-500 { border-color: var(--color-primary, #1a6b2f) !important; }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1a6b2f;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #0d3d1a;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #e8c84a 0%, #c9a227 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-slide {
+      transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+    }
+    
+    .hero-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+    
+    .hero-slide.inactive {
+      opacity: 0;
+      transform: scale(1.04);
+      pointer-events: none;
+    }
+
+    /* Floating animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-[#fafdfb] text-slate-800 antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- ================= TOPBAR ================= -->
+  <div class="bg-brand-800 text-white/90 text-xs py-2 px-4 border-b border-brand-700/60 hidden md:block">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-6">
+        <span class="flex items-center gap-2">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-gold-400"></i>
+          <span data-cms-text="site.contact.address">{{ site.contact.address }}</span>
+        </span>
+        <span class="flex items-center gap-2">
+          <i data-lucide="phone" class="w-3.5 h-3.5 text-gold-400"></i>
+          <span data-cms-text="site.contact.phone">{{ site.contact.phone }}</span>
+        </span>
+        <span class="flex items-center gap-2">
+          <i data-lucide="mail" class="w-3.5 h-3.5 text-gold-400"></i>
+          <span data-cms-text="site.contact.email">{{ site.contact.email }}</span>
+        </span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="text-gold-300 font-semibold flex items-center gap-1.5">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-gold-400"></i>
+          Akreditasi <span data-cms-text="modules.statistics.accreditation">{{ modules.statistics.accreditation }}</span>
+        </span>
+        <div class="h-3 w-px bg-white/20"></div>
+        <div class="flex items-center gap-2.5">
+          <a data-cms-show="site.social.facebook" data-cms-href="site.social.facebook" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition-colors" title="Facebook">Facebook</a>
+          <a data-cms-show="site.social.instagram" data-cms-href="site.social.instagram" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition-colors" title="Instagram">Instagram</a>
+          <a data-cms-show="site.social.youtube" data-cms-href="site.social.youtube" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition-colors" title="Youtube">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= HEADER & NAVBAR ================= -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-brand-100 transition-all duration-300" id="main-header">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#beranda" class="flex items-center gap-3.5 group">
+        <!-- SVG Emblem Kemenag Style / Logo Image -->
+        <div class="w-11 h-12 flex-shrink-0 transition-transform duration-300 group-hover:scale-105 flex items-center justify-center">
+          <img data-cms-image="site.logo" src="{{ site.logo.url }}" alt="{{ site.logo.alt }}" class="w-full h-full object-contain drop-shadow-sm rounded-xl">
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-lg md:text-xl text-brand-800 tracking-tight leading-tight group-hover:text-brand-500 transition-colors uppercase" data-cms-text="site.name">
+            {{ site.name }}
+          </span>
+          <span class="text-[11px] md:text-xs font-semibold text-gold-600 tracking-wide" data-cms-text="site.tagline">
+            {{ site.tagline }}
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden lg:flex items-center gap-7">
+        <a data-cms-repeat="navigation.header" data-cms-href="item.target" href="#" class="nav-link text-sm font-medium text-slate-700 hover:text-brand-500 transition-colors py-2">
+          <span data-cms-text="item.label">Menu</span>
+        </a>
+      </nav>
+
+      <!-- Desktop CTA -->
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="#ppdb" class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white font-bold text-xs uppercase tracking-wider px-5 py-2.5 rounded-full shadow-md shadow-brand-500/20 hover:shadow-lg transition-all duration-200">
+          <span>PPDB 2026/2027</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <div class="flex items-center gap-2 lg:hidden">
+        <a href="#ppdb" class="bg-brand-500 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+          PPDB
+        </a>
+        <button data-toggle="menu" data-target="mobile-menu" class="p-2 rounded-xl text-slate-700 hover:bg-brand-50 hover:text-brand-500 transition-colors" aria-label="Toggle Menu">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-brand-100 bg-white px-5 py-4 shadow-xl">
+      <div class="flex flex-col space-y-3 font-medium text-slate-700 text-sm">
+        <a data-cms-repeat="navigation.header" data-cms-href="item.target" href="#" class="mobile-nav-link py-2 px-3 rounded-lg hover:bg-brand-50 hover:text-brand-500">
+          <span data-cms-text="item.label">Menu</span>
+        </a>
+        <div class="pt-3 border-t border-slate-100">
+          <a href="#ppdb" class="flex items-center justify-center gap-2 w-full bg-brand-500 text-white font-bold py-2.5 rounded-xl shadow">
+            <span>Daftar PPDB Sekarang</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO CAROUSEL SECTION ================= -->
+  <section id="beranda" class="relative overflow-hidden bg-brand-900 text-white min-h-[580px] md:min-h-[640px] flex items-center">
+    
+    <!-- Slides Container -->
+    <div class="absolute inset-0 z-0">
+      <div data-cms-repeat="hero_slides" data-cms-limit="1" class="w-full h-full">
+        <div class="hero-slide active absolute inset-0 bg-cover bg-center" style="background-image: url('{{ item.imageUrl }}');">
+          <div class="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/80 to-brand-900/60"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative Overlay Shapes -->
+    <div class="absolute inset-0 pointer-events-none opacity-20 z-0">
+      <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M0,0 L100,0 L100,100 Z" fill="rgba(201, 162, 39, 0.15)"></path>
+      </svg>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-28 w-full">
+      <div data-cms-repeat="hero_slides" data-cms-limit="1">
+        <div class="max-w-3xl">
+          
+          <!-- Tagline Pill -->
+          <div class="inline-flex items-center gap-2 bg-brand-500/40 backdrop-blur-md border border-gold-500/40 text-gold-300 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6 animate-float">
+            <span class="w-2 h-2 rounded-full bg-gold-400 animate-ping"></span>
+            <span data-cms-text="site.name">{{ site.name }}</span>
+          </div>
+
+          <!-- Dynamic Title -->
+          <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white mb-6" data-cms-text="item.title">
+            {{ item.title }}
+          </h1>
+
+          <!-- Dynamic Description -->
+          <p class="text-base md:text-lg text-emerald-100/90 mb-8 leading-relaxed max-w-2xl" data-cms-text="item.subtitle">
+            {{ item.subtitle }}
+          </p>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-wrap items-center gap-4">
+            <a data-cms-link="item.ctaUrl" href="{{ item.ctaUrl }}" class="inline-flex items-center gap-2.5 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-brand-900 font-extrabold text-sm px-7 py-3.5 rounded-full shadow-lg shadow-gold-500/30 hover:scale-105 transition-all duration-200">
+              <i data-lucide="user-plus" class="w-4 h-4"></i>
+              <span data-cms-text="item.ctaText">{{ item.ctaText }}</span>
+            </a>
+            <a href="#profil" class="inline-flex items-center gap-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold text-sm px-6 py-3.5 rounded-full transition-all hover:scale-105">
+              <span>Profil Madrasah</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= VIDEO PROFIL ================= -->
+  <section id="video" data-cms-show="modules.video_profile.hasVideo" class="py-16 md:py-24 bg-brand-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-10 items-center">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-gold-400">Video Profil</span>
+        <h2 class="text-2xl md:text-4xl font-extrabold mt-3" data-cms-text="modules.video_profile.title">Video Profil Sekolah</h2>
+        <p class="text-sm md:text-base text-white/70 mt-4 leading-relaxed" data-cms-text="modules.video_profile.description">Kenali sekolah kami lebih dekat.</p>
+        <a data-cms-href="modules.video_profile.videoUrl" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex mt-6 px-5 py-3 rounded-xl bg-gold-400 text-brand-900 font-extrabold text-sm">Buka Video</a>
+      </div>
+      <div class="aspect-video rounded-3xl overflow-hidden bg-black shadow-2xl border border-white/10">
+        <iframe data-cms-src="modules.video_profile.embedUrl" src="" title="Video profil sekolah" class="w-full h-full" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= QUICK STATS BANNER ================= -->
+  <div data-cms-show="modules.statistics.stats" class="relative z-20 max-w-7xl mx-auto px-4 md:px-6 -mt-10">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 bg-white rounded-2xl shadow-xl shadow-slate-200/50 p-6 md:p-8 border border-green-100">
+      <div data-cms-repeat="modules.statistics.stats" class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center text-brand-500 flex-shrink-0">
+          <i data-lucide="bar-chart-3" class="w-6 h-6 text-brand-500"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-extrabold text-brand-800" data-cms-text="item.value">{{ item.value }}</div>
+          <div class="text-xs font-semibold text-slate-500" data-cms-text="item.label">{{ item.label }}</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= PROFIL MADRASAH ================= -->
+  <section id="profil" class="py-16 md:py-24 bg-brand-50/50">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      
+      <!-- Section Title -->
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-bold uppercase tracking-widest text-gold-600 bg-gold-400/10 px-3 py-1 rounded-full">
+          Kenali Lebih Dekat
+        </span>
+        <h2 class="text-2xl md:text-4xl font-extrabold text-brand-800 mt-2">
+          Profil & Visi Madrasah
+        </h2>
+        <p class="text-sm md:text-base text-slate-600 mt-2" data-cms-text="site.description">
+          {{ site.description }}
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Sejarah Madrasah -->
+        <div data-cms-show="modules.statistics.historySummary" class="lg:col-span-5">
+          <div class="relative bg-white rounded-3xl p-6 md:p-8 shadow-md border border-green-100/80 overflow-hidden">
+            <div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-gold-400/10 -z-0"></div>
+            
+            <div class="relative z-10">
+              <img data-cms-show="modules.statistics.historyImageUrl" data-cms-image="modules.statistics.historyImageUrl" src="" alt="Sejarah madrasah" class="w-full h-44 object-cover rounded-2xl mb-5">
+              <h3 class="font-extrabold text-brand-800 text-xl" data-cms-text="modules.statistics.historyTitle">{{ modules.statistics.historyTitle }}</h3>
+              <p class="text-xs font-semibold text-gold-600 mt-1">Berdiri sejak <span data-cms-text="modules.statistics.establishmentYear">{{ modules.statistics.establishmentYear }}</span></p>
+              <p class="text-sm text-slate-600 leading-relaxed mt-4" data-cms-text="modules.statistics.historySummary">{{ modules.statistics.historySummary }}</p>
+              <div data-cms-show="modules.statistics.accreditation" class="mt-4 pt-3 border-t border-slate-100 text-xs font-bold text-brand-600">Akreditasi: <span data-cms-text="modules.statistics.accreditation">{{ modules.statistics.accreditation }}</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visi & Misi -->
+        <div class="lg:col-span-7 space-y-5">
+          
+          <!-- Visi Card -->
+          <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-green-100">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-9 h-9 rounded-xl bg-brand-500 text-white flex items-center justify-center font-bold">
+                <i data-lucide="compass" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-lg md:text-xl font-bold text-brand-800" data-cms-text="modules.vision_mission.visionTitle">{{ modules.vision_mission.visionTitle }}</h3>
+            </div>
+            <p class="text-sm md:text-base font-semibold text-brand-600 leading-relaxed bg-brand-50/60 p-4 rounded-2xl border-l-4 border-brand-500" data-cms-text="modules.vision_mission.visionContent">
+              {{ modules.vision_mission.visionContent }}
+            </p>
+          </div>
+
+          <!-- Misi List -->
+          <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-green-100">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-xl bg-gold-500 text-white flex items-center justify-center font-bold">
+                <i data-lucide="target" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-lg md:text-xl font-bold text-brand-800" data-cms-text="modules.vision_mission.missionTitle">{{ modules.vision_mission.missionTitle }}</h3>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-3.5 text-xs md:text-sm text-slate-700">
+              <div data-cms-repeat="modules.vision_mission.missionItems" class="flex items-start gap-2.5">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-500 flex-shrink-0 mt-0.5"></i>
+                <span data-cms-text="item">{{ item }}</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= GALERI MEDIA ================= -->
+  <section id="galeri" data-cms-show="modules.media" class="py-16 md:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-gold-600">Dokumentasi Sekolah</span>
+        <h2 class="text-2xl md:text-4xl font-extrabold text-brand-800 mt-2">Galeri Media Terbaru</h2>
+        <p class="text-sm text-slate-600 mt-2">Foto yang diunggah melalui Media Library akan langsung tersedia di Live Preview.</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <figure data-cms-repeat="modules.media" class="group aspect-square rounded-2xl overflow-hidden bg-slate-100 relative shadow-sm">
+          <img data-cms-image="item.url" src="" alt="{{ item.alt }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <figcaption class="absolute inset-x-0 bottom-0 p-3 text-xs font-semibold text-white bg-gradient-to-t from-black/70 to-transparent" data-cms-text="item.alt">Foto sekolah</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GURU & STAF ================= -->
+  <section id="guru-staf" data-cms-show="modules.staff" class="py-16 md:py-24 bg-brand-50/50">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-gold-600">Tenaga Profesional</span>
+        <h2 class="text-2xl md:text-4xl font-extrabold text-brand-800 mt-2">Guru & Staf Pendidik</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <article data-cms-repeat="modules.staff" class="bg-white rounded-3xl p-5 text-center border border-green-100 shadow-sm">
+          <div class="relative w-28 h-28 rounded-full mx-auto bg-brand-500/15 text-brand-700 flex items-center justify-center text-xl font-extrabold overflow-hidden">
+            <span data-cms-text="item.initials">G</span>
+            <img data-cms-show="item.photoUrl" data-cms-image="item.photoUrl" src="" alt="{{ item.name }}" class="absolute inset-0 w-full h-full object-cover">
+          </div>
+          <h3 class="font-bold text-brand-800 mt-4" data-cms-text="item.name">Nama Guru</h3>
+          <p class="text-xs font-semibold text-brand-600 mt-1" data-cms-text="item.position">Jabatan</p>
+          <p data-cms-show="item.bio" class="text-xs text-slate-500 mt-3 leading-relaxed" data-cms-text="item.bio">Profil singkat</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROGRAM UNGGULAN ================= -->
+  <section id="program" class="py-16 md:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-gold-600 bg-gold-400/10 px-3 py-1 rounded-full">
+            Keunggulan Kami
+          </span>
+          <h2 class="text-2xl md:text-4xl font-extrabold text-brand-800 mt-2">
+            Program Unggulan Madrasah
+          </h2>
+          <p class="text-sm text-slate-600 mt-1 max-w-xl">
+            Kurikulum terintegrasi yang dirancang untuk membekali siswa dengan kompetensi akademis, riset, dan spiritual.
+          </p>
+        </div>
+        <a href="#ppdb" class="mt-4 md:mt-0 inline-flex items-center gap-1.5 text-xs font-bold text-brand-600 hover:text-brand-700">
+          <span>Informasi Kurikulum & Pendaftaran</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div data-cms-repeat="programs" data-cms-limit="8" class="group bg-brand-50/40 hover:bg-brand-500 rounded-3xl p-6 border border-green-100 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-2xl bg-brand-500 group-hover:bg-white text-white group-hover:text-brand-500 flex items-center justify-center mb-5 transition-colors shadow-sm">
+            <i data-lucide="book-marked" class="w-6 h-6"></i>
+          </div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-gold-600 group-hover:text-gold-300" data-cms-text="item.category">{{ item.category }}</span>
+          <h3 class="text-lg font-bold text-brand-800 group-hover:text-white mt-1 mb-2.5 transition-colors" data-cms-text="item.title">
+            {{ item.title }}
+          </h3>
+          <p class="text-xs text-slate-600 group-hover:text-white/90 leading-relaxed transition-colors" data-cms-text="item.description">
+            {{ item.description }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= KONTAK ================= -->
+  <section id="kontak" data-cms-show="site.contact.hasContent" class="py-16 md:py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="bg-brand-50 rounded-3xl border border-green-100 p-7 md:p-10 grid md:grid-cols-2 gap-8">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-gold-600">Hubungi Kami</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-brand-800 mt-2">Kontak Madrasah</h2>
+          <div class="space-y-3 text-sm text-slate-600 mt-6">
+            <p><strong>Alamat:</strong> <span data-cms-text="site.contact.address">Alamat sekolah</span></p>
+            <p><strong>Telepon:</strong> <span data-cms-text="site.contact.phone">Nomor telepon</span></p>
+            <p><strong>Email:</strong> <span data-cms-text="site.contact.email">Email sekolah</span></p>
+            <p><strong>Jam layanan:</strong> <span data-cms-text="site.contact.operationalHours">Jam operasional</span></p>
+          </div>
+        </div>
+        <div class="flex flex-col justify-center gap-3">
+          <a data-cms-show="site.contact.whatsapp" data-cms-href="site.contact.whatsappUrl" href="#" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl bg-brand-600 text-white text-center font-bold text-sm">Hubungi via WhatsApp</a>
+          <a data-cms-show="site.contact.googleMapsUrl" data-cms-href="site.contact.googleMapsUrl" href="#" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl bg-white border border-brand-500 text-brand-700 text-center font-bold text-sm">Buka Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALERI FASILITAS ================= -->
+  <section id="fasilitas" class="py-16 md:py-24 bg-brand-50/40">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-bold uppercase tracking-widest text-gold-600 bg-gold-400/10 px-3 py-1 rounded-full">
+          Infrastruktur
+        </span>
+        <h2 class="text-2xl md:text-4xl font-extrabold text-brand-800 mt-2">
+          Galeri Fasilitas Madrasah
+        </h2>
+        <p class="text-sm md:text-base text-slate-600 mt-2">
+          Sarana dan prasarana pendukung kegiatan belajar mengajar yang komprehensif, modern, dan nyaman.
+        </p>
+      </div>
+
+      <!-- Facility Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div data-cms-repeat="facilities" class="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-green-100/60">
+          <div class="relative h-56 overflow-hidden bg-slate-100">
+            <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="{{ item.name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <span class="absolute top-3 right-3 bg-brand-500/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-sm" data-cms-text="item.category">
+              {{ item.category }}
+            </span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-brand-800 text-lg group-hover:text-brand-500 transition-colors" data-cms-text="item.name">{{ item.name }}</h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed" data-cms-text="item.description">
+              {{ item.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= BERITA & PENGUMUMAN ================= -->
+  <section id="berita" class="py-16 md:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-bold uppercase tracking-widest text-gold-600 bg-gold-400/10 px-3 py-1 rounded-full">
+          Informasi Terkini
+        </span>
+        <h2 class="text-2xl md:text-4xl font-extrabold text-brand-800 mt-2">
+          Berita, Prestasi & Pengumuman
+        </h2>
+        <p class="text-sm md:text-base text-slate-600 mt-2">
+          Update seputar kegiatan madrasah, prestasi peserta didik, serta pengumuman resmi.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-8">
+        
+        <!-- Left Side: Main News List (8 Cols) -->
+        <div class="lg:col-span-8 space-y-4">
+          <article data-cms-repeat="news" class="group bg-brand-50/30 hover:bg-brand-50/80 p-4 md:p-5 rounded-2xl border border-green-100/80 transition-all duration-200 flex flex-col sm:flex-row gap-4 items-start">
+            <div class="w-full sm:w-48 h-36 rounded-xl overflow-hidden flex-shrink-0 bg-slate-100 relative">
+              <img data-cms-image="item.coverImageUrl" src="{{ item.coverImageUrl }}" alt="{{ item.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <span class="absolute top-2 left-2 bg-gold-500 text-brand-900 text-[10px] font-bold px-2 py-0.5 rounded" data-cms-text="item.category">{{ item.category }}</span>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-3 text-xs text-slate-400 mb-1.5">
+                <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> <span data-cms-text="item.publishedAt">{{ item.publishedAt }}</span></span>
+                <span>•</span>
+                <span class="text-brand-600 font-semibold">Humas Madrasah</span>
+              </div>
+              <h3 class="text-base font-bold text-brand-800 group-hover:text-brand-500 transition-colors leading-snug mb-2" data-cms-text="item.title">
+                {{ item.title }}
+              </h3>
+              <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-3" data-cms-text="item.summary">
+                {{ item.summary }}
+              </p>
+              <a data-cms-link="item.url" href="{{ item.url }}" class="inline-flex items-center gap-1 text-xs font-bold text-brand-600 group-hover:text-brand-700">
+                <span>Baca Selengkapnya</span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Right Side: Pengumuman Sidebar (4 Cols) -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="bg-gradient-to-br from-brand-800 to-brand-900 text-white rounded-3xl p-6 shadow-lg relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-gold-400/10 rounded-full"></div>
+            
+            <div class="flex items-center gap-2.5 mb-4 text-gold-400">
+              <i data-lucide="megaphone" class="w-5 h-5"></i>
+              <h3 class="font-extrabold text-white text-base">Pengumuman Penting</h3>
+            </div>
+
+            <div class="space-y-3.5">
+              <div class="bg-white/10 p-3.5 rounded-2xl border border-white/10 hover:bg-white/15 transition-colors">
+                <span class="text-[10px] font-bold text-gold-300 uppercase">PPDB 2026/2027</span>
+                <h4 class="text-xs font-bold text-white mt-1">Verifikasi Berkas Jalur Prestasi & Tahfidz</h4>
+                <p class="text-[11px] text-emerald-100/70 mt-1">Batas akhir penyerahan berkas fisik di sekretariat PPDB madrasah.</p>
+              </div>
+
+              <div class="bg-white/10 p-3.5 rounded-2xl border border-white/10 hover:bg-white/15 transition-colors">
+                <span class="text-[10px] font-bold text-gold-300 uppercase">Akademik</span>
+                <h4 class="text-xs font-bold text-white mt-1">Jadwal Ujian Penilaian Akhir Semester (PAS)</h4>
+                <p class="text-[11px] text-emerald-100/70 mt-1">Pelaksanaan PAS Genap dimulai menggunakan sistem CBT madrasah.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= KESISWAAN & TESTIMONI ================= -->
+  <section id="kesiswaan" class="py-16 md:py-24 bg-brand-50/50">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      
+      <!-- Section Title -->
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-bold uppercase tracking-widest text-gold-600 bg-gold-400/10 px-3 py-1 rounded-full">
+          Kehidupan Siswa
+        </span>
+        <h2 class="text-2xl md:text-4xl font-extrabold text-brand-800 mt-2">
+          Kesiswaan & Testimoni Alumni
+        </h2>
+        <p class="text-sm md:text-base text-slate-600 mt-2">
+          Wadah kreasi dan pengembangan potensi minat, bakat, kepemimpinan, dan kecakapan sosial.
+        </p>
+      </div>
+
+      <!-- Testimoni Alumni Cards -->
+      <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-green-100">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-10 h-10 rounded-2xl bg-gold-400/20 text-gold-600 flex items-center justify-center">
+            <i data-lucide="quote" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-brand-800">Kata Alumni & Lulusan</h3>
+            <p class="text-xs text-slate-500">Inspirasi dan jejak langkah sukses lulusan kami di berbagai universitas ternama.</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div data-cms-repeat="testimonials" class="bg-brand-50/40 p-6 rounded-2xl border border-green-100 relative">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="relative w-12 h-12 rounded-full bg-brand-500/20 text-brand-700 font-bold flex items-center justify-center text-base uppercase overflow-hidden">
+                <span data-cms-text="item.initials">{{ item.initials }}</span>
+                <img data-cms-show="item.photoUrl" data-cms-image="item.photoUrl" src="" alt="Foto testimoni" class="absolute w-12 h-12 rounded-full object-cover">
+              </div>
+              <div>
+                <h4 class="font-bold text-sm text-brand-800" data-cms-text="item.name">{{ item.name }}</h4>
+                <p class="text-[11px] text-slate-500"><span data-cms-text="item.role">{{ item.role }}</span><span data-cms-show="item.graduationYear"> · <span data-cms-text="item.graduationYear">{{ item.graduationYear }}</span></span></p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 italic leading-relaxed" data-cms-text="item.quote">
+              "{{ item.quote }}"
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= PPDB SECTION ================= -->
+  <section id="ppdb" data-cms-show="modules.ppdb.isActive" class="relative py-16 md:py-24 bg-brand-800 text-white overflow-hidden">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 md:px-6">
+      <div class="grid lg:grid-cols-12 gap-10 items-start">
+        
+        <div class="lg:col-span-6">
+          <span class="inline-block text-xs font-extrabold tracking-widest uppercase px-3.5 py-1 rounded-full mb-4 bg-gold-400 text-brand-900 shadow">
+            PPDB TAHUN AJARAN <span data-cms-text="modules.ppdb.academicYear">{{ modules.ppdb.academicYear }}</span>
+          </span>
+          <h2 class="text-2xl md:text-4xl font-extrabold text-white leading-tight mb-4">
+            <span data-cms-text="modules.ppdb.title">{{ modules.ppdb.title }}</span>
+          </h2>
+          <p class="text-sm text-emerald-100/85 mb-6 leading-relaxed" data-cms-text="modules.ppdb.description">
+            {{ modules.ppdb.description }}
+          </p>
+
+          <div class="grid grid-cols-2 gap-3 mb-6">
+            <div data-cms-repeat="modules.ppdb.registrationPaths" class="bg-white/10 backdrop-blur-sm p-3.5 rounded-2xl border border-white/10">
+              <h4 class="text-xs font-bold text-white mt-0.5" data-cms-text="item.title">{{ item.title }}</h4>
+              <p class="text-[11px] text-white/70 mt-1" data-cms-text="item.description">{{ item.description }}</p>
+            </div>
+          </div>
+          <div class="text-xs text-white/80 space-y-1 mb-6"><div data-cms-repeat="modules.ppdb.requirements">✓ <span data-cms-text="item">{{ item }}</span></div></div>
+          <a data-cms-show="modules.ppdb.showExternalCta" data-cms-href="modules.ppdb.ctaUrl" href="#" class="inline-flex px-6 py-3 rounded-xl bg-gold-400 text-brand-900 font-extrabold text-sm"><span data-cms-text="modules.ppdb.ctaText">{{ modules.ppdb.ctaText }}</span></a>
+        </div>
+
+        <div class="lg:col-span-6" data-cms-show="modules.ppdb.showInternalForm">
+          <div class="bg-white text-slate-800 rounded-3xl p-6 md:p-8 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+              <div>
+                <h3 class="font-extrabold text-brand-800 text-lg">Formulir Minat PPDB Online</h3>
+                <p class="text-xs text-slate-500">Isi data awal untuk mendapatkan notifikasi dan nomor antrean.</p>
+              </div>
+              <div class="w-10 h-10 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center">
+                <i data-lucide="clipboard-check" class="w-5 h-5"></i>
+              </div>
+            </div>
+
+            <form id="ppdb-form" data-ppdb-form="{{ meta.siteId }}" class="space-y-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap Calon Siswa *</label>
+                <input name="studentName" type="text" required placeholder="Contoh: Muhammad Akbar" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none">
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">NISN *</label>
+                  <input name="nisn" type="text" required placeholder="10 Digit NISN" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Nomor WhatsApp *</label>
+                  <input name="whatsapp" type="tel" required placeholder="08xxxxxxxxxx" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                </div>
+              </div>
+
+              <div class="pt-2">
+                <button type="submit" class="w-full py-3.5 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2">
+                  <i data-lucide="send" class="w-4 h-4"></i>
+                  <span>Kirim Formulir Pendaftaran</span>
+                </button>
+                <p data-ppdb-message class="text-xs text-center text-slate-500"></p>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-brand-900 text-white border-t border-brand-800" style="background-color: #082811 !important; color: #ffffff !important;">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <img data-cms-image="site.logo" src="{{ site.logo.url }}" alt="{{ site.logo.alt }}" class="w-10 h-10 rounded-xl object-contain">
+            <div>
+              <div class="font-extrabold text-sm text-white uppercase" data-cms-text="site.name">{{ site.name }}</div>
+              <div class="text-xs font-semibold text-gold-400">Ikhlas Beramal</div>
+            </div>
+          </div>
+          <p class="text-xs text-white/60 leading-relaxed" data-cms-text="site.description">
+            {{ site.description }}
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-sm text-white mb-4 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-gold-400"></span>
+            Tautan Cepat
+          </h4>
+          <ul class="space-y-2.5 text-xs text-white/70">
+            <li data-cms-repeat="navigation.footer"><a data-cms-href="item.target" href="#" class="hover:text-gold-300 transition-colors" data-cms-text="item.label">Tautan</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-sm text-white mb-4 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-gold-400"></span>
+            Portal Terkait
+          </h4>
+          <ul class="space-y-2.5 text-xs text-white/70">
+            <li><a href="https://kemenag.go.id" target="_blank" class="hover:text-gold-300 transition-colors flex items-center gap-1.5"><i data-lucide="external-link" class="w-3 h-3"></i> Kemenag RI</a></li>
+            <li><a href="https://emis.kemenag.go.id" target="_blank" class="hover:text-gold-300 transition-colors flex items-center gap-1.5"><i data-lucide="external-link" class="w-3 h-3"></i> EMIS Madrasah</a></li>
+            <li><a href="https://rdm.kemenag.go.id" target="_blank" class="hover:text-gold-300 transition-colors flex items-center gap-1.5"><i data-lucide="external-link" class="w-3 h-3"></i> RDM Kemenag</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-sm text-white mb-4 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-gold-400"></span>
+            Kontak Madrasah
+          </h4>
+          <div class="space-y-3 text-xs text-white/70">
+            <div class="flex items-start gap-2.5">
+              <i data-lucide="map-pin" class="w-4 h-4 text-gold-400 flex-shrink-0 mt-0.5"></i>
+              <span data-cms-text="site.contact.address">{{ site.contact.address }}</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="phone" class="w-4 h-4 text-gold-400 flex-shrink-0"></i>
+              <span data-cms-text="site.contact.phone">{{ site.contact.phone }}</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="mail" class="w-4 h-4 text-gold-400 flex-shrink-0"></i>
+              <span data-cms-text="site.contact.email">{{ site.contact.email }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-brand-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
+        <div>
+          © 2026 <strong data-cms-text="site.name">{{ site.name }}</strong>. Ikhlas Beramal. Powered by SobatWeb.
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

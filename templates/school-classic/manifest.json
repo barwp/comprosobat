@@ -1,0 +1,129 @@
+{
+  "$schema": "../../packages/contracts/src/template.schema.json",
+  "schemaVersion": "1.0.0",
+  "templateKey": "school-classic",
+  "name": "Template Klasik Akademik",
+  "version": "1.0.0",
+  "category": "Akademik & Tradisional",
+  "description": "Template bernuansa akademik klasik dengan warna navy wibawa, kartu staf terstruktur, dan tata letak institusional resmi.",
+  "author": "SobatWeb Core Team",
+  "entry": "index.html",
+  "preview": "assets/preview.webp",
+  "supportedModules": [
+    "site_settings",
+    "hero_slides",
+    "programs",
+    "facilities",
+    "news",
+    "vision_mission",
+    "statistics",
+    "staff",
+    "testimonials",
+    "ppdb",
+    "contact",
+    "navigation",
+    "media"
+  ],
+  "sections": [
+    {
+      "key": "settings",
+      "module": "site_settings",
+      "label": "Pengaturan Situs & SEO",
+      "icon": "⚙️",
+      "path": "/dashboard/settings",
+      "order": 1
+    },
+    {
+      "key": "hero",
+      "module": "hero_slides",
+      "label": "Slide Beranda (Hero)",
+      "icon": "🖼️",
+      "path": "/dashboard/hero",
+      "order": 2
+    },
+    {
+      "key": "vision_mission",
+      "module": "vision_mission",
+      "label": "Visi, Misi & Sejarah",
+      "icon": "🎯",
+      "path": "/dashboard/vision-mission",
+      "order": 3
+    },
+    {
+      "key": "programs",
+      "module": "programs",
+      "label": "Program Akademik",
+      "icon": "🎓",
+      "path": "/dashboard/programs",
+      "order": 4
+    },
+    {
+      "key": "facilities",
+      "module": "facilities",
+      "label": "Fasilitas Kampus",
+      "icon": "🏢",
+      "path": "/dashboard/facilities",
+      "order": 5
+    },
+    {
+      "key": "news",
+      "module": "news",
+      "label": "Warta Akademik",
+      "icon": "📰",
+      "path": "/dashboard/news",
+      "order": 6
+    },
+    {
+      "key": "staff",
+      "module": "staff",
+      "label": "Dewan Guru & Pendidik",
+      "icon": "👨‍🏫",
+      "path": "/dashboard/staff",
+      "order": 7
+    },
+    {
+      "key": "testimonials",
+      "module": "testimonials",
+      "label": "Alumni Berprestasi",
+      "icon": "💬",
+      "path": "/dashboard/testimonials",
+      "order": 8
+    },
+    {
+      "key": "contact",
+      "module": "contact",
+      "label": "Kontak & Sekretariat",
+      "icon": "📍",
+      "path": "/dashboard/contact",
+      "order": 9
+    },
+    {
+      "key": "navigation",
+      "module": "navigation",
+      "label": "Menu & Navigasi",
+      "icon": "🧭",
+      "path": "/dashboard/navigation",
+      "order": 10
+    }
+  ],
+  "themeFields": [
+    {
+      "key": "primaryColor",
+      "label": "Warna Primer (Navy)",
+      "type": "color",
+      "defaultValue": "#1E3A8A"
+    },
+    {
+      "key": "secondaryColor",
+      "label": "Warna Sekunder (Biru)",
+      "type": "color",
+      "defaultValue": "#3B82F6"
+    },
+    {
+      "key": "fontFamily",
+      "label": "Font Utama",
+      "type": "font",
+      "defaultValue": "Poppins"
+    }
+  ]
+}

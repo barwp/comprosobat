@@ -1,0 +1,139 @@
+{
+  "$schema": "../../packages/contracts/src/template.schema.json",
+  "schemaVersion": "1.0.0",
+  "templateKey": "school-modern",
+  "name": "Template Modern SMA/SMK",
+  "version": "1.0.0",
+  "category": "SMA/SMK",
+  "description": "Template modern dinamis dengan tata letak visual elegan, gradien kontemporer, dan dukungan penuh modul CMS SobatWeb.",
+  "author": "SobatWeb Core Team",
+  "entry": "index.html",
+  "preview": "assets/preview.webp",
+  "supportedModules": [
+    "site_settings",
+    "hero_slides",
+    "programs",
+    "facilities",
+    "news",
+    "vision_mission",
+    "statistics",
+    "staff",
+    "student_organizations",
+    "testimonials",
+    "ppdb",
+    "video_profile",
+    "contact",
+    "navigation",
+    "media"
+  ],
+  "sections": [
+    {
+      "key": "settings",
+      "module": "site_settings",
+      "label": "Pengaturan Situs & SEO",
+      "icon": "⚙️",
+      "path": "/dashboard/settings",
+      "order": 1
+    },
+    {
+      "key": "hero",
+      "module": "hero_slides",
+      "label": "Slide Beranda (Hero)",
+      "icon": "🖼️",
+      "path": "/dashboard/hero",
+      "order": 2
+    },
+    {
+      "key": "vision_mission",
+      "module": "vision_mission",
+      "label": "Visi & Misi Sekolah",
+      "icon": "🎯",
+      "path": "/dashboard/vision-mission",
+      "order": 3
+    },
+    {
+      "key": "programs",
+      "module": "programs",
+      "label": "Jurusan & Program Unggulan",
+      "icon": "🎓",
+      "path": "/dashboard/programs",
+      "order": 4
+    },
+    {
+      "key": "facilities",
+      "module": "facilities",
+      "label": "Fasilitas & Lab Sekolah",
+      "icon": "🏢",
+      "path": "/dashboard/facilities",
+      "order": 5
+    },
+    {
+      "key": "news",
+      "module": "news",
+      "label": "Berita & Pengumuman",
+      "icon": "📰",
+      "path": "/dashboard/news",
+      "order": 6
+    },
+    {
+      "key": "staff",
+      "module": "staff",
+      "label": "Guru & Tenaga Pendidik",
+      "icon": "👨‍🏫",
+      "path": "/dashboard/staff",
+      "order": 7
+    },
+    {
+      "key": "testimonials",
+      "module": "testimonials",
+      "label": "Testimoni & Prestasi Alumni",
+      "icon": "💬",
+      "path": "/dashboard/testimonials",
+      "order": 8
+    },
+    {
+      "key": "ppdb",
+      "module": "ppdb",
+      "label": "Informasi PPDB Online",
+      "icon": "📝",
+      "path": "/dashboard/ppdb",
+      "order": 9
+    },
+    {
+      "key": "contact",
+      "module": "contact",
+      "label": "Kontak & Lokasi Kampus",
+      "icon": "📍",
+      "path": "/dashboard/contact",
+      "order": 10
+    },
+    {
+      "key": "navigation",
+      "module": "navigation",
+      "label": "Menu & Navigasi",
+      "icon": "🧭",
+      "path": "/dashboard/navigation",
+      "order": 11
+    }
+  ],
+  "themeFields": [
+    {
+      "key": "primaryColor",
+      "label": "Warna Primer",
+      "type": "color",
+      "defaultValue": "#087F5B"
+    },
+    {
+      "key": "secondaryColor",
+      "label": "Warna Sekunder",
+      "type": "color",
+      "defaultValue": "#0CA678"
+    },
+    {
+      "key": "fontFamily",
+      "label": "Font Utama",
+      "type": "font",
+      "defaultValue": "Inter"
+    }
+  ]
+}
