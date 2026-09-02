@@ -1,0 +1,163 @@
+{
+  "$schema": "../../packages/contracts/src/template.schema.json",
+  "schemaVersion": "1.0.0",
+  "templateKey": "school-pesantren",
+  "name": "Template Pesantren & Islamic Boarding",
+  "version": "1.0.0",
+  "category": "Pesantren / Boarding School",
+  "description": "Template elegan bernuansa islami pesantren modern dengan palet deep teal & bronze, fokus pada pembinaan santri, kepesantrenan, tahfidz, dan bahasa.",
+  "author": "SobatWeb Core Team",
+  "entry": "index.html",
+  "preview": "assets/preview.webp",
+  "supportedModules": [
+    "site_settings",
+    "hero_slides",
+    "programs",
+    "facilities",
+    "news",
+    "vision_mission",
+    "statistics",
+    "staff",
+    "student_organizations",
+    "testimonials",
+    "ppdb",
+    "video_profile",
+    "contact",
+    "navigation",
+    "media"
+  ],
+  "sections": [
+    {
+      "key": "settings",
+      "module": "site_settings",
+      "label": "Pengaturan Situs & SEO",
+      "icon": "⚙️",
+      "path": "/dashboard/settings",
+      "order": 1
+    },
+    {
+      "key": "hero",
+      "module": "hero_slides",
+      "label": "Slide Beranda (Hero)",
+      "icon": "🖼️",
+      "path": "/dashboard/hero",
+      "order": 2
+    },
+    {
+      "key": "vision_mission",
+      "module": "vision_mission",
+      "label": "Visi, Misi & Panca Jiwa",
+      "icon": "🎯",
+      "path": "/dashboard/vision-mission",
+      "order": 3
+    },
+    {
+      "key": "statistics",
+      "module": "statistics",
+      "label": "Statistik Santri & Prestasi",
+      "icon": "📈",
+      "path": "/dashboard/statistics",
+      "order": 4
+    },
+    {
+      "key": "programs",
+      "module": "programs",
+      "label": "Program Unggulan & Kepesantrenan",
+      "icon": "🎓",
+      "path": "/dashboard/programs",
+      "order": 5
+    },
+    {
+      "key": "facilities",
+      "module": "facilities",
+      "label": "Sarana Asrama & Kampus",
+      "icon": "🏢",
+      "path": "/dashboard/facilities",
+      "order": 6
+    },
+    {
+      "key": "news",
+      "module": "news",
+      "label": "Warta Pesantren & Kegiatan",
+      "icon": "📰",
+      "path": "/dashboard/news",
+      "order": 7
+    },
+    {
+      "key": "staff",
+      "module": "staff",
+      "label": "Masyayikh & Asatidz",
+      "icon": "👨‍🏫",
+      "path": "/dashboard/staff",
+      "order": 8
+    },
+    {
+      "key": "student_organizations",
+      "module": "student_organizations",
+      "label": "Organisasi Santri (OPPM/OSIS)",
+      "icon": "👥",
+      "path": "/dashboard/student-orgs",
+      "order": 9
+    },
+    {
+      "key": "testimonials",
+      "module": "testimonials",
+      "label": "Kisah Alumni & Kiprah Santri",
+      "icon": "💬",
+      "path": "/dashboard/testimonials",
+      "order": 10
+    },
+    {
+      "key": "ppdb",
+      "module": "ppdb",
+      "label": "Pendaftaran Santri Baru (PSB)",
+      "icon": "📝",
+      "path": "/dashboard/ppdb",
+      "order": 11
+    },
+    {
+      "key": "video_profile",
+      "module": "video_profile",
+      "label": "Video Dokumenter Pesantren",
+      "icon": "🎬",
+      "path": "/dashboard/contact",
+      "order": 12
+    },
+    {
+      "key": "contact",
+      "module": "contact",
+      "label": "Kontak & Sekretariat PSB",
+      "icon": "📍",
+      "path": "/dashboard/contact",
+      "order": 13
+    },
+    {
+      "key": "navigation",
+      "module": "navigation",
+      "label": "Menu & Navigasi",
+      "icon": "🧭",
+      "path": "/dashboard/navigation",
+      "order": 14
+    }
+  ],
+  "themeFields": [
+    {
+      "key": "primaryColor",
+      "label": "Warna Primer (Deep Teal)",
+      "type": "color",
+      "defaultValue": "#0f766e"
+    },
+    {
+      "key": "secondaryColor",
+      "label": "Warna Sekunder (Bronze)",
+      "type": "color",
+      "defaultValue": "#d97706"
+    },
+    {
+      "key": "fontFamily",
+      "label": "Font Utama",
+      "type": "font",
+      "defaultValue": "Plus Jakarta Sans"
+    }
+  ]
+}

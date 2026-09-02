@@ -195,7 +195,105 @@ export async function runSeed() {
     isActive: true
   }).returning();
 
-  console.log('✅ Official templates seeded (man5-sleman, school-modern, school-classic)');
+  // 5. Seed Template 4: School Vocational (SMK Vokasi & Kejuruan)
+  const [tplVocational] = await db.insert(schema.templates).values({
+    key: 'school-vocational',
+    name: 'Template SMK Vokasi & Kejuruan',
+    category: 'SMK / Vokasi',
+    status: 'ACTIVE'
+  }).returning();
+
+  const [tplVocationalVer] = await db.insert(schema.templateVersions).values({
+    templateId: tplVocational.id,
+    version: '1.0.0',
+    schemaVersion: '1.0.0',
+    manifest: {
+      templateKey: 'school-vocational',
+      name: 'Template SMK Vokasi & Kejuruan',
+      version: '1.0.0',
+      category: 'SMK / Vokasi',
+      description: 'Template modern kejuruan dengan aksen amber/indigo berenergi tinggi, fokus pada program keahlian, teaching factory, dan sertifikasi industri.',
+      entry: 'index.html',
+      preview: 'assets/preview.webp',
+      supportedModules: ['site_settings', 'hero_slides', 'programs', 'facilities', 'news', 'vision_mission', 'statistics', 'staff', 'student_organizations', 'testimonials', 'ppdb', 'video_profile', 'contact', 'navigation', 'media'],
+      sections: [
+        { key: 'settings', module: 'site_settings', label: 'Pengaturan Situs & SEO', icon: '⚙️', path: '/dashboard/settings', order: 1 },
+        { key: 'hero', module: 'hero_slides', label: 'Slide Beranda (Hero)', icon: '🖼️', path: '/dashboard/hero', order: 2 },
+        { key: 'vision_mission', module: 'vision_mission', label: 'Visi, Misi & Sasaran Mutu', icon: '🎯', path: '/dashboard/vision-mission', order: 3 },
+        { key: 'statistics', module: 'statistics', label: 'Statistik & Capaian Lulusan', icon: '📈', path: '/dashboard/statistics', order: 4 },
+        { key: 'programs', module: 'programs', label: 'Konsentrasi & Kompetensi Keahlian', icon: '🎓', path: '/dashboard/programs', order: 5 },
+        { key: 'facilities', module: 'facilities', label: 'Bengkel & Laboratorium Praktik', icon: '🏢', path: '/dashboard/facilities', order: 6 },
+        { key: 'news', module: 'news', label: 'Berita & Info Industri', icon: '📰', path: '/dashboard/news', order: 7 },
+        { key: 'staff', module: 'staff', label: 'Instruktur & Guru Kejuruan', icon: '👨‍🏫', path: '/dashboard/staff', order: 8 },
+        { key: 'student_organizations', module: 'student_organizations', label: 'Unit Kegiatan & Komunitas', icon: '👥', path: '/dashboard/student-orgs', order: 9 },
+        { key: 'testimonials', module: 'testimonials', label: 'Alumni Sukses & Mitra Industri', icon: '💬', path: '/dashboard/testimonials', order: 10 },
+        { key: 'ppdb', module: 'ppdb', label: 'Penerimaan Siswa Baru (PPDB)', icon: '📝', path: '/dashboard/ppdb', order: 11 },
+        { key: 'video_profile', module: 'video_profile', label: 'Video Teaching Factory', icon: '🎬', path: '/dashboard/contact', order: 12 },
+        { key: 'contact', module: 'contact', label: 'Kontak & BKK Sekolah', icon: '📍', path: '/dashboard/contact', order: 13 },
+        { key: 'navigation', module: 'navigation', label: 'Menu & Navigasi', icon: '🧭', path: '/dashboard/navigation', order: 14 }
+      ],
+      themeFields: [
+        { key: 'primaryColor', label: 'Warna Primer (Amber)', type: 'color', defaultValue: '#d97706' },
+        { key: 'secondaryColor', label: 'Warna Sekunder (Indigo)', type: 'color', defaultValue: '#4f46e5' },
+        { key: 'fontFamily', label: 'Font Utama', type: 'font', defaultValue: 'Plus Jakarta Sans' }
+      ]
+    },
+    storagePath: 'templates/school-vocational',
+    checksum: 'sha256-school-vocational-v1-official-template',
+    validationStatus: 'VALID',
+    isActive: true
+  }).returning();
+
+  // 6. Seed Template 5: School Pesantren (Pesantren & Islamic Boarding)
+  const [tplPesantren] = await db.insert(schema.templates).values({
+    key: 'school-pesantren',
+    name: 'Template Pesantren & Islamic Boarding',
+    category: 'Pesantren / Boarding School',
+    status: 'ACTIVE'
+  }).returning();
+
+  const [tplPesantrenVer] = await db.insert(schema.templateVersions).values({
+    templateId: tplPesantren.id,
+    version: '1.0.0',
+    schemaVersion: '1.0.0',
+    manifest: {
+      templateKey: 'school-pesantren',
+      name: 'Template Pesantren & Islamic Boarding',
+      version: '1.0.0',
+      category: 'Pesantren / Boarding School',
+      description: 'Template elegan bernuansa islami pesantren modern dengan palet deep teal & bronze, fokus pada pembinaan santri, kepesantrenan, tahfidz, dan bahasa.',
+      entry: 'index.html',
+      preview: 'assets/preview.webp',
+      supportedModules: ['site_settings', 'hero_slides', 'programs', 'facilities', 'news', 'vision_mission', 'statistics', 'staff', 'student_organizations', 'testimonials', 'ppdb', 'video_profile', 'contact', 'navigation', 'media'],
+      sections: [
+        { key: 'settings', module: 'site_settings', label: 'Pengaturan Situs & SEO', icon: '⚙️', path: '/dashboard/settings', order: 1 },
+        { key: 'hero', module: 'hero_slides', label: 'Slide Beranda (Hero)', icon: '🖼️', path: '/dashboard/hero', order: 2 },
+        { key: 'vision_mission', module: 'vision_mission', label: 'Visi, Misi & Panca Jiwa', icon: '🎯', path: '/dashboard/vision-mission', order: 3 },
+        { key: 'statistics', module: 'statistics', label: 'Statistik Santri & Prestasi', icon: '📈', path: '/dashboard/statistics', order: 4 },
+        { key: 'programs', module: 'programs', label: 'Program Unggulan & Kepesantrenan', icon: '🎓', path: '/dashboard/programs', order: 5 },
+        { key: 'facilities', module: 'facilities', label: 'Sarana Asrama & Kampus', icon: '🏢', path: '/dashboard/facilities', order: 6 },
+        { key: 'news', module: 'news', label: 'Warta Pesantren & Kegiatan', icon: '📰', path: '/dashboard/news', order: 7 },
+        { key: 'staff', module: 'staff', label: 'Masyayikh & Asatidz', icon: '👨‍🏫', path: '/dashboard/staff', order: 8 },
+        { key: 'student_organizations', module: 'student_organizations', label: 'Organisasi Santri (OPPM/OSIS)', icon: '👥', path: '/dashboard/student-orgs', order: 9 },
+        { key: 'testimonials', module: 'testimonials', label: 'Kisah Alumni & Kiprah Santri', icon: '💬', path: '/dashboard/testimonials', order: 10 },
+        { key: 'ppdb', module: 'ppdb', label: 'Pendaftaran Santri Baru (PSB)', icon: '📝', path: '/dashboard/ppdb', order: 11 },
+        { key: 'video_profile', module: 'video_profile', label: 'Video Dokumenter Pesantren', icon: '🎬', path: '/dashboard/contact', order: 12 },
+        { key: 'contact', module: 'contact', label: 'Kontak & Sekretariat PSB', icon: '📍', path: '/dashboard/contact', order: 13 },
+        { key: 'navigation', module: 'navigation', label: 'Menu & Navigasi', icon: '🧭', path: '/dashboard/navigation', order: 14 }
+      ],
+      themeFields: [
+        { key: 'primaryColor', label: 'Warna Primer (Deep Teal)', type: 'color', defaultValue: '#0f766e' },
+        { key: 'secondaryColor', label: 'Warna Sekunder (Bronze)', type: 'color', defaultValue: '#d97706' },
+        { key: 'fontFamily', label: 'Font Utama', type: 'font', defaultValue: 'Plus Jakarta Sans' }
+      ]
+    },
+    storagePath: 'templates/school-pesantren',
+    checksum: 'sha256-school-pesantren-v1-official-template',
+    validationStatus: 'VALID',
+    isActive: true
+  }).returning();
+
+  console.log('✅ All 5 Official Templates seeded (man5-sleman, school-modern, school-classic, school-vocational, school-pesantren)');
 
   const baseDomain = process.env.BASE_DOMAIN || 'localhost:3005';
 
@@ -882,7 +980,189 @@ export async function runSeed() {
     secondaryColor: '#3B82F6'
   });
 
-  console.log('🎉 Multi-template seeding successfully finished with 6 distinct accounts (3 Populated + 3 Empty Fresh)!');
+  // =========================================================================
+  // 6. POPULATED & EMPTY ACCOUNTS: TEMPLATE 4 (school-vocational)
+  // =========================================================================
+  await seedPopulatedSchool({
+    adminName: 'Ir. Hendro Wijaya, M.T.',
+    adminEmail: 'admin.smkvokasi@sobat.com',
+    schoolName: 'SMK Negeri 1 Vokasi Industri',
+    npsn: '20405566',
+    level: 'SMK',
+    province: 'Jawa Timur',
+    city: 'Kota Surabaya',
+    address: 'Kawasan Industri Rungkut No. 88, Surabaya 60293',
+    phone: '(031) 8439900',
+    email: 'humas@smkn1vokasi.sch.id',
+    slug: 'smk-vokasi',
+    templateVerId: tplVocationalVer.id,
+    releaseSummary: 'Publikasi Portal SMK Negeri 1 Vokasi Industri Surabaya',
+    settings: {
+      siteName: 'SMKN 1 Vokasi Industri',
+      tagline: 'Pusat Keunggulan Vokasi & Teaching Factory Bersertifikasi Internasional',
+      description: 'SMK Pusat Keunggulan dengan kemitraan 150+ industri terkemuka nasional dan multinasional, menjamin keterserapan kerja dan wirausaha berdaya saing global.',
+      primaryColor: '#d97706',
+      secondaryColor: '#4f46e5',
+      fontFamily: 'Plus Jakarta Sans',
+      address: 'Kawasan Industri Rungkut No. 88, Surabaya 60293',
+      phone: '(031) 8439900 / +62 813-8899-0011',
+      email: 'humas@smkn1vokasi.sch.id',
+      operationalHours: 'Senin - Jumat: 07:00 - 17:00 WIB',
+      sectionHeadlines: {
+        hero: { badge: 'Vokasi Masa Depan', title: 'Mencetak Tenaga Ahli Kejuruan Terampil, Adaptif, dan Siap Kerja' },
+        facilities: { badge: 'Bengkel & Lab', title: 'Fasilitas Praktik Standar Industri 4.0' },
+        news: { badge: 'Warta Vokasi', title: 'Kabar Teaching Factory & Kerjasama Industri' },
+        programs: { badge: 'Keahlian Industri', title: 'Konsentrasi Keahlian Unggulan' },
+        vision_mission: { badge: 'Visi Kejuruan', title: 'Visi, Misi & Sasaran Mutu Vokasi' },
+        staff: { badge: 'Instruktur Ahli', title: 'Pendidik & Praktisi Industri Tersertifikasi' },
+        student_orgs: { badge: 'Unit Kreatif', title: 'Komunitas Riset & Ekstrakurikuler Siswa' },
+        testimonials: { badge: 'Kisah Sukses', title: 'Jejak Karir Alumni di Industri Multinasional' },
+        ppdb: { badge: 'PPDB Vokasi 2026', title: 'Penerimaan Peserta Didik Baru Jalur Industri' }
+      }
+    },
+    hero: {
+      title: 'Mencetak Tenaga Ahli Kejuruan Terampil, Adaptif, dan Siap Kerja',
+      subtitle: 'Kurikulum berbasis proyek (PBL) dan magang industri terstruktur selama 1 tahun di Jepang dan Jerman.',
+      imageUrl: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1600&h=900&fit=crop',
+      ctaText: 'Daftar PPDB Vokasi',
+      ctaUrl: '#ppdb'
+    },
+    vision: {
+      vision: 'Menjadi pusat pendidikan kejuruan terdepan di Asia Tenggara yang menghasilkan teknisi profesional berintegritas tinggi dan berdaya saing global.'
+    },
+    programs: [
+      { title: 'Teknik Mekatronika & Robotika', category: 'Teknologi & Rekayasa', description: 'Penguasaan automasi industri, PLC programming, robot industri FANUC, dan sensor presisi.' },
+      { title: 'Rekayasa Perangkat Lunak & AI', category: 'Teknologi Informasi', description: 'Pengembangan web skala enterprise, machine learning, mobile app development, dan cloud computing.' },
+      { title: 'Teknik Pemesinan CNC & 3D Prototyping', category: 'Manufaktur Modern', description: 'Pengoperasian mesin CNC 5-Axis, perancangan CAD/CAM, dan manufaktur presisi aerospace.' }
+    ],
+    facilities: [
+      { name: 'Pusat Teaching Factory & Machining Center', category: 'Bengkel Produksi', description: 'Lini produksi komponen otomotif bekerja sama langsung dengan PT Astra Otoparts Tbk.', imageUrl: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=800&h=500&fit=crop' },
+      { name: 'Laboratorium Cyber Security & Data Center', category: 'Lab Komputer', description: 'Fasilitas server tier-3 dan simulasi pengujian penetrasi keamanan siber perbankan.', imageUrl: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=500&fit=crop' }
+    ],
+    news: [
+      { title: 'SMKN 1 Vokasi Ekspor 50.000 Komponen Presisi ke Manufaktur Otomotif Jepang', slug: 'ekspor-komponen-jepang-2026', category: 'Teaching Factory', summary: 'Hasil produksi siswa mekatronika dan CNC berhasil menembus standar kualitas ekspor pasar internasional.', coverImageUrl: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=500&fit=crop', publishedAt: '30 Agustus 2026' }
+    ],
+    staff: [
+      { name: 'Ir. Hendro Wijaya, M.T.', role: 'Kepala Sekolah', subject: 'Manajemen Rekayasa Vokasi', photoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop' },
+      { name: 'Aris Wicaksono, S.T., M.Kom.', role: 'Kepala Bengkel CNC', subject: 'Pemesinan Presisi & CAD/CAM', photoUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop' }
+    ],
+    testimonials: [
+      { alumniName: 'Bagus Prakoso, S.Tr.T.', graduationYear: '2021', content: 'Belajar langsung di Teaching Factory SMKN 1 Vokasi membuat saya langsung direkrut sebagai Automation Engineer di Toyota Motor Mfg Indonesia.' }
+    ]
+  });
+
+  // Empty Account Template 4: SMK Karya Kreatif
+  await seedEmptySchool({
+    adminName: 'Admin SMK Karya Kreatif',
+    adminEmail: 'admin.kreatif@sobat.com',
+    schoolName: 'SMK Karya Kreatif Digital',
+    npsn: '20408899',
+    level: 'SMK',
+    province: 'Jawa Barat',
+    city: 'Kota Bandung',
+    address: 'Jl. Dago Asri No. 44, Bandung',
+    phone: '(022) 2501234',
+    email: 'info@karyakreatif.sch.id',
+    slug: 'smk-karyakreatif',
+    templateVerId: tplVocationalVer.id,
+    siteName: 'SMK Karya Kreatif Digital Bandung',
+    tagline: 'Inovasi Vokasi dan Kreativitas Digital Masa Depan',
+    primaryColor: '#d97706',
+    secondaryColor: '#4f46e5'
+  });
+
+  // =========================================================================
+  // 7. POPULATED & EMPTY ACCOUNTS: TEMPLATE 5 (school-pesantren)
+  // =========================================================================
+  await seedPopulatedSchool({
+    adminName: 'K.H. Ahmad Dahlan, Lc., M.A.',
+    adminEmail: 'admin.pesantren@sobat.com',
+    schoolName: 'Pondok Pesantren Darussalam Modern',
+    npsn: '69901122',
+    level: 'MADRASAH',
+    province: 'Jawa Timur',
+    city: 'Kabupaten Ponorogo',
+    address: 'Jl. Raya Siman No. 1, Siman, Ponorogo 63471',
+    phone: '(0352) 481234',
+    email: 'sekretariat@darussalam-pesantren.ac.id',
+    slug: 'pesantren-darussalam',
+    templateVerId: tplPesantrenVer.id,
+    releaseSummary: 'Publikasi Portal Resmi Pondok Pesantren Darussalam Modern',
+    settings: {
+      siteName: 'Pesantren Darussalam Modern',
+      tagline: 'Mencetak Santri Berakhlak Karimah, Berwawasan Global & Berjiwa Pemimpin',
+      description: 'Lembaga pendidikan islam terpadu yang memadukan kedalaman ilmu salafiah (Kulliyatul Muallimin Al-Islamiyah), hafalan Al-Qur\'an 30 juz, serta penguasaan aktif Bahasa Arab & Inggris.',
+      primaryColor: '#0f766e',
+      secondaryColor: '#d97706',
+      fontFamily: 'Plus Jakarta Sans',
+      address: 'Jl. Raya Siman No. 1, Siman, Ponorogo 63471',
+      phone: '(0352) 481234 / +62 811-9988-7766',
+      email: 'sekretariat@darussalam-pesantren.ac.id',
+      operationalHours: 'Senin - Ahad: 08:00 - 21:00 WIB',
+      sectionHeadlines: {
+        hero: { badge: 'Pesantren Unggulan', title: 'Mendidik Kader Ulama dan Pemimpin Umat yang Berkarakter Qur\'ani' },
+        facilities: { badge: 'Sarana Kampus', title: 'Asrama, Masjid Megah & Fasilitas Santri' },
+        news: { badge: 'Warta Pesantren', title: 'Kajian Ilmiah, Haflah & Prestasi Santri' },
+        programs: { badge: 'Kulliyatul Muallimin', title: 'Program Pendidikan & Kepesantrenan' },
+        vision_mission: { badge: 'Panca Jiwa', title: 'Visi, Misi & Landasan Falsafah Pesantren' },
+        staff: { badge: 'Dewan Asatidz', title: 'Masyayikh & Asatidz Pembina Santri' },
+        student_orgs: { badge: 'Organisasi Santri', title: 'OPPM & Pembinaan Kepemimpinan Santri' },
+        testimonials: { badge: 'Kiprah Santri', title: 'Pengabdian dan Jejak Alumni di Pelosok Negeri' },
+        ppdb: { badge: 'PSB 2026/2027', title: 'Pendaftaran Santri Baru (PSB) Online' }
+      }
+    },
+    hero: {
+      title: 'Mendidik Kader Ulama dan Pemimpin Umat yang Berkarakter Qur\'ani',
+      subtitle: 'Memadukan tradisi keilmuan Islam klasik dengan sains modern dan penguasaan bahasa internasional selama 24 jam.',
+      imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1600&h=900&fit=crop',
+      ctaText: 'Daftar Santri Baru (PSB)',
+      ctaUrl: '#ppdb'
+    },
+    vision: {
+      vision: 'Terwujudnya pusat kaderisasi ulama yang menguasai ilmu agama mendalam, berjiwa ikhlas, mandiri, dan istiqomah dalam dakwah risalah Islam rahmatan lil alamin.'
+    },
+    programs: [
+      { title: 'Kulliyatul Muallimin Al-Islamiyah (KMI)', category: 'Kepesantrenan 6 Tahun', description: 'Kurikulum tarbiyah islamiyah komprehensif mencakup Dirasah Islamiyah, Nahwu-Shorof, Ushul Fiqih, Balaghah, dan Mantiq.' },
+      { title: 'Tahfidzul Qur\'an Mutqin 30 Juz', category: 'Tahfidz & Sanad', description: 'Bimbingan intensif setoran hafalan dengan sanad bacaan bersambung hingga Rasulullah SAW.' },
+      { title: 'Bilingual Immersion (Arab & Inggris)', category: 'Bahasa Internasional', description: 'Lingkungan percakapan 24 jam aktif dengan pidato tiga bahasa (muhadharah) mingguan.' }
+    ],
+    facilities: [
+      { name: 'Masjid Jami\' Baitul Muttaqin (Kapasitas 5.000 Santri)', category: 'Pusat Ibadah', description: 'Pusat ibadah shalat berjamaah 5 waktu, kajian kitab kuning ba\'da subuh, dan muhasabah malam.', imageUrl: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?w=800&h=500&fit=crop' },
+      { name: 'Kompleks Asrama & Perpustakaan Kitab Turats', category: 'Kajian Ilmiah', description: 'Asrama bertingkat dengan sirkulasi udara alami dan perpustakaan ribuan jilid kitab kuning klasik.', imageUrl: 'https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=800&h=500&fit=crop' }
+    ],
+    news: [
+      { title: 'Santri Pesantren Darussalam Raih Juara 1 Musabaqah Hifdzil Qur\'an Internasional di Dubai', slug: 'juara-mhq-dubai-2026', category: 'Prestasi Santri', summary: 'Muhammad Rizqi (Kelas 5 KMI) mengharumkan nama bangsa di ajang kompetisi hafalan Al-Qur\'an tingkat dunia.', coverImageUrl: 'https://images.unsplash.com/photo-1585036156171-384164a8c675?w=800&h=500&fit=crop', publishedAt: '28 Agustus 2026' }
+    ],
+    staff: [
+      { name: 'K.H. Ahmad Dahlan, Lc., M.A.', role: 'Pimpinan Pesantren', subject: 'Tafsir & Hadits Tematik', photoUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop' },
+      { name: 'Ustadz Farid Ridwan, S.Th.I., M.Pd.I.', role: 'Direktur KMI', subject: 'Ushul Fiqh & Fiqh Muamalah', photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop' }
+    ],
+    testimonials: [
+      { alumniName: 'Dr. H. Muhammad Zulkarnain, Lc., M.A.', graduationYear: '2014', content: 'Jiwa kemandirian dan keikhlasan yang ditanamkan selama nyantri di Darussalam menjadi bekal terbesar saya saat menyelesaikan doktor di Universitas Al-Azhar Kairo.' }
+    ]
+  });
+
+  // Empty Account Template 5: Pesantren Nurul Iman
+  await seedEmptySchool({
+    adminName: 'Admin Pesantren Nurul Iman',
+    adminEmail: 'admin.nuruliman@sobat.com',
+    schoolName: 'Pesantren Modern Nurul Iman',
+    npsn: '69904455',
+    level: 'MADRASAH',
+    province: 'DI Yogyakarta',
+    city: 'Kabupaten Bantul',
+    address: 'Jl. Imogiri Timur Km. 10, Bantul, Yogyakarta',
+    phone: '(0274) 439000',
+    email: 'info@nuruliman-boarding.sch.id',
+    slug: 'pesantren-nuruliman',
+    templateVerId: tplPesantrenVer.id,
+    siteName: 'Pesantren Modern Nurul Iman Bantul',
+    tagline: 'Mencetak Generasi Hafidz Qur\'an yang Cerdas dan Mandiri',
+    primaryColor: '#0f766e',
+    secondaryColor: '#d97706'
+  });
+
+  console.log('🎉 Multi-template seeding successfully finished with 10 distinct accounts (5 Populated + 5 Empty Fresh)!');
 }
 
 // Only run automatically when executed directly as a script
@@ -892,3 +1172,4 @@ if (process.argv[1] && process.argv[1].replace(/\\/g, '/').endsWith('src/seed.ts
     process.exit(1);
   });
 }
+

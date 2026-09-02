@@ -1,0 +1,163 @@
+{
+  "$schema": "../../packages/contracts/src/template.schema.json",
+  "schemaVersion": "1.0.0",
+  "templateKey": "school-vocational",
+  "name": "Template SMK Vokasi & Kejuruan",
+  "version": "1.0.0",
+  "category": "SMK / Vokasi",
+  "description": "Template modern kejuruan dengan aksen amber/indigo berenergi tinggi, fokus pada program keahlian, teaching factory, dan sertifikasi industri.",
+  "author": "SobatWeb Core Team",
+  "entry": "index.html",
+  "preview": "assets/preview.webp",
+  "supportedModules": [
+    "site_settings",
+    "hero_slides",
+    "programs",
+    "facilities",
+    "news",
+    "vision_mission",
+    "statistics",
+    "staff",
+    "student_organizations",
+    "testimonials",
+    "ppdb",
+    "video_profile",
+    "contact",
+    "navigation",
+    "media"
+  ],
+  "sections": [
+    {
+      "key": "settings",
+      "module": "site_settings",
+      "label": "Pengaturan Situs & SEO",
+      "icon": "⚙️",
+      "path": "/dashboard/settings",
+      "order": 1
+    },
+    {
+      "key": "hero",
+      "module": "hero_slides",
+      "label": "Slide Beranda (Hero)",
+      "icon": "🖼️",
+      "path": "/dashboard/hero",
+      "order": 2
+    },
+    {
+      "key": "vision_mission",
+      "module": "vision_mission",
+      "label": "Visi, Misi & Sasaran Mutu",
+      "icon": "🎯",
+      "path": "/dashboard/vision-mission",
+      "order": 3
+    },
+    {
+      "key": "statistics",
+      "module": "statistics",
+      "label": "Statistik & Capaian Lulusan",
+      "icon": "📈",
+      "path": "/dashboard/statistics",
+      "order": 4
+    },
+    {
+      "key": "programs",
+      "module": "programs",
+      "label": "Konsentrasi & Kompetensi Keahlian",
+      "icon": "🎓",
+      "path": "/dashboard/programs",
+      "order": 5
+    },
+    {
+      "key": "facilities",
+      "module": "facilities",
+      "label": "Bengkel & Laboratorium Praktik",
+      "icon": "🏢",
+      "path": "/dashboard/facilities",
+      "order": 6
+    },
+    {
+      "key": "news",
+      "module": "news",
+      "label": "Berita & Info Industri",
+      "icon": "📰",
+      "path": "/dashboard/news",
+      "order": 7
+    },
+    {
+      "key": "staff",
+      "module": "staff",
+      "label": "Instruktur & Guru Kejuruan",
+      "icon": "👨‍🏫",
+      "path": "/dashboard/staff",
+      "order": 8
+    },
+    {
+      "key": "student_organizations",
+      "module": "student_organizations",
+      "label": "Unit Kegiatan & Komunitas",
+      "icon": "👥",
+      "path": "/dashboard/student-orgs",
+      "order": 9
+    },
+    {
+      "key": "testimonials",
+      "module": "testimonials",
+      "label": "Alumni Sukses & Mitra Industri",
+      "icon": "💬",
+      "path": "/dashboard/testimonials",
+      "order": 10
+    },
+    {
+      "key": "ppdb",
+      "module": "ppdb",
+      "label": "Penerimaan Siswa Baru (PPDB)",
+      "icon": "📝",
+      "path": "/dashboard/ppdb",
+      "order": 11
+    },
+    {
+      "key": "video_profile",
+      "module": "video_profile",
+      "label": "Video Teaching Factory",
+      "icon": "🎬",
+      "path": "/dashboard/contact",
+      "order": 12
+    },
+    {
+      "key": "contact",
+      "module": "contact",
+      "label": "Kontak & BKK Sekolah",
+      "icon": "📍",
+      "path": "/dashboard/contact",
+      "order": 13
+    },
+    {
+      "key": "navigation",
+      "module": "navigation",
+      "label": "Menu & Navigasi",
+      "icon": "🧭",
+      "path": "/dashboard/navigation",
+      "order": 14
+    }
+  ],
+  "themeFields": [
+    {
+      "key": "primaryColor",
+      "label": "Warna Primer (Amber/Orange)",
+      "type": "color",
+      "defaultValue": "#d97706"
+    },
+    {
+      "key": "secondaryColor",
+      "label": "Warna Sekunder (Indigo)",
+      "type": "color",
+      "defaultValue": "#4f46e5"
+    },
+    {
+      "key": "fontFamily",
+      "label": "Font Utama",
+      "type": "font",
+      "defaultValue": "Plus Jakarta Sans"
+    }
+  ]
+}
