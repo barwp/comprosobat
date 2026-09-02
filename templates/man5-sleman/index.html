@@ -630,6 +630,19 @@
         </p>
       </div>
 
+      <!-- Organisasi & Ekskul Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16" data-cms-show="student_organizations">
+        <div data-cms-repeat="student_organizations" class="bg-white rounded-3xl p-6 border border-green-100 shadow-sm hover:shadow-md transition-all text-center group">
+          <div class="w-16 h-16 rounded-2xl mx-auto bg-brand-50 text-brand-700 flex items-center justify-center font-bold text-xl mb-4 group-hover:bg-brand-500 group-hover:text-white transition-colors overflow-hidden">
+            <img data-cms-show="item.logoUrl" data-cms-image="item.logoUrl" src="" alt="Logo organisasi" class="w-full h-full object-cover">
+            <span data-cms-hide="item.logoUrl"><i data-lucide="users" class="w-7 h-7"></i></span>
+          </div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-gold-600 bg-gold-50 px-2.5 py-0.5 rounded-full" data-cms-text="item.category">{{ item.category }}</span>
+          <h3 class="font-bold text-brand-800 text-base mt-2" data-cms-text="item.name">{{ item.name }}</h3>
+          <p class="text-xs text-slate-600 mt-1.5 leading-relaxed" data-cms-text="item.description">{{ item.description }}</p>
+        </div>
+      </div>
+
       <!-- Testimoni Alumni Cards -->
       <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-green-100">
         <div class="flex items-center gap-3 mb-8">

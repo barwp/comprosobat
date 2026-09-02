@@ -232,6 +232,17 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
   const ppdbEntry = snapshot.modules?.ppdb ? { payload: snapshot.modules.ppdb } : entries.find(e => e.type === 'ppdb');
   const videoEntry = snapshot.modules?.video_profile ? { payload: snapshot.modules.video_profile } : entries.find(e => e.type === 'video_profile');
   const videoProfile = normalizeVideoProfile(videoEntry?.payload || {});
+  const studentOrgsSource = snapshot.modules?.student_organizations || activeEntries.filter(e => e.type === 'student_organization' || e.type === 'student_orgs').map(e => e.payload);
+  const student_organizations = studentOrgsSource.filter((item: any) => item.isActive !== false)
+    .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0))
+    .map((item: any) => ({
+      ...item,
+      name: item.name || item.title || '',
+      category: item.category || 'Organisasi Siswa',
+      description: item.description || '',
+      logoUrl: item.logoUrl || item.imageUrl || '',
+      badge: item.badge || item.category || 'Ekskul'
+    }));
   const media = mediaAssets
     .filter((asset: any) => String(asset.mimeType || '').startsWith('image/'))
     .map((asset: any) => ({
@@ -250,6 +261,7 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
       vision_mission: normalizeVisionMission(visionMissionEntry?.payload || {}),
       statistics: normalizeHistoryStatistics(statsEntry?.payload || {}),
       staff,
+      student_organizations,
       testimonials,
       ppdb: normalizePpdb(ppdbEntry?.payload || {}),
       video_profile: videoProfile,
@@ -314,6 +326,8 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
     vision_mission: modules.vision_mission,
     statistics: modules.statistics,
     staff: modules.staff,
+    student_organizations: modules.student_organizations,
+    student_orgs: modules.student_organizations,
     testimonials: modules.testimonials,
     ppdb: modules.ppdb,
     video_profile: modules.video_profile,

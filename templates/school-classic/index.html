@@ -31,14 +31,24 @@
 <body class="bg-slate-100 text-slate-900 antialiased">
 
   <!-- ================= TOPBAR ================= -->
-  <div class="bg-blue-950 text-white text-xs py-2 px-4 border-b border-blue-900 hidden md:block">
+  <div class="bg-blue-950 text-white text-xs py-2.5 px-4 border-b border-blue-900 hidden md:block">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <div class="flex items-center gap-6">
-        <span data-cms-text="site.contact.address">{{ site.contact.address }}</span>
-        <span data-cms-text="site.contact.phone">{{ site.contact.phone }}</span>
+        <span class="flex items-center gap-1.5" data-cms-show="site.contact.address">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-blue-300"></i>
+          <span data-cms-text="site.contact.address">{{ site.contact.address }}</span>
+        </span>
+        <span class="flex items-center gap-1.5" data-cms-show="site.contact.phone">
+          <i data-lucide="phone" class="w-3.5 h-3.5 text-blue-300"></i>
+          <span data-cms-text="site.contact.phone">{{ site.contact.phone }}</span>
+        </span>
+        <span class="flex items-center gap-1.5" data-cms-show="site.contact.email">
+          <i data-lucide="mail" class="w-3.5 h-3.5 text-blue-300"></i>
+          <span data-cms-text="site.contact.email">{{ site.contact.email }}</span>
+        </span>
       </div>
-      <div class="font-medium text-blue-200">
-        Portal Informasi Resmi
+      <div class="flex items-center gap-3 font-semibold text-blue-200">
+        <span data-cms-show="modules.statistics.accreditation">Akreditasi: <span data-cms-text="modules.statistics.accreditation" class="text-white">{{ modules.statistics.accreditation }}</span></span>
       </div>
     </div>
   </div>
@@ -46,7 +56,7 @@
   <!-- ================= NAVBAR ================= -->
   <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between gap-4">
-      <a href="#" class="flex items-center gap-3 min-w-0 flex-shrink">
+      <a href="#hero" class="flex items-center gap-3 min-w-0 flex-shrink">
         <img data-cms-image="site.logo" src="{{ site.logo.url }}" alt="{{ site.logo.alt }}" class="w-10 h-10 object-contain flex-shrink-0" onerror="this.style.display='none'">
         <div class="min-w-0">
           <span class="font-bold text-base text-blue-950 tracking-tight block uppercase truncate" data-cms-text="site.name">{{ site.name }}</span>
@@ -54,18 +64,35 @@
         </div>
       </a>
 
+      <!-- Dynamic Header Nav -->
       <nav class="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-700 flex-shrink-0">
-        <a href="#hero" class="hover:text-blue-900">Beranda</a>
-        <a href="#visi" class="hover:text-blue-900">Visi Misi</a>
-        <a href="#program" class="hover:text-blue-900">Program</a>
-        <a href="#fasilitas" class="hover:text-blue-900">Fasilitas</a>
-        <a href="#berita" class="hover:text-blue-900">Berita</a>
-        <a href="#staff" class="hover:text-blue-900">Pendidik</a>
-        <a href="#kontak" class="hover:text-blue-900">Kontak</a>
+        <a data-cms-repeat="navigation.header" data-cms-href="item.target" href="#" class="hover:text-blue-900 transition-colors py-1">
+          <span data-cms-text="item.label">Menu</span>
+        </a>
       </nav>
 
-      <a href="#kontak" class="bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs uppercase px-5 py-2.5 rounded-lg transition-all flex-shrink-0 whitespace-nowrap">
-        Hubungi Kami
+      <div class="hidden lg:flex items-center gap-3 flex-shrink-0">
+        <a href="#ppdb" class="bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs uppercase px-5 py-2.5 rounded-lg transition-all whitespace-nowrap shadow-sm">
+          PPDB Online
+        </a>
+      </div>
+
+      <!-- Mobile Button -->
+      <div class="flex items-center gap-2 lg:hidden">
+        <a href="#ppdb" class="bg-blue-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg">PPDB</a>
+        <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="p-2 text-slate-700 hover:bg-slate-100 rounded-lg">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white px-5 py-4 space-y-3">
+      <a data-cms-repeat="navigation.header" data-cms-href="item.target" href="#" class="block py-2 text-xs font-bold uppercase text-slate-700 hover:text-blue-900">
+        <span data-cms-text="item.label">Menu</span>
+      </a>
+      <a href="#ppdb" class="block w-full text-center bg-blue-900 text-white font-bold py-2.5 rounded-lg text-xs uppercase">
+        Pendaftaran PPDB
       </a>
     </div>
   </header>
@@ -84,32 +111,89 @@
           <p class="text-sm md:text-base text-blue-100 leading-relaxed" data-cms-text="item.subtitle">
             {{ item.subtitle }}
           </p>
-          <div>
+          <div class="flex flex-wrap gap-4">
             <a data-cms-link="item.ctaUrl" href="{{ item.ctaUrl }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-8 py-3.5 rounded-lg shadow transition">
               <span data-cms-text="item.ctaText">{{ item.ctaText }}</span>
+            </a>
+            <a href="#visi" class="inline-block bg-white/10 hover:bg-white/20 text-white font-bold text-sm px-6 py-3.5 rounded-lg border border-white/20 transition">
+              Profil Akademik
             </a>
           </div>
         </div>
         <div class="rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
-          <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="Hero" class="w-full h-80 object-cover">
+          <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="Hero" class="w-full h-80 object-cover" onerror="this.style.display='none'">
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= QUICK STATS BANNER ================= -->
+  <div data-cms-show="modules.statistics.stats" class="relative z-20 max-w-7xl mx-auto px-4 md:px-6 -mt-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white rounded-xl shadow-md border border-slate-200 p-6">
+      <div data-cms-repeat="modules.statistics.stats" class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg bg-blue-50 text-blue-900 flex items-center justify-center font-bold flex-shrink-0">
+          <i data-lucide="award" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <div class="text-xl font-bold text-blue-950" data-cms-text="item.value">{{ item.value }}</div>
+          <div class="text-xs text-slate-500 font-medium" data-cms-text="item.label">{{ item.label }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= VIDEO PROFIL ================= -->
+  <section id="video" data-cms-show="modules.video_profile.hasVideo" class="py-16 bg-blue-950 text-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-10 items-center">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-blue-300">Video Dokumentasi</span>
+        <h2 class="text-2xl md:text-3xl font-bold mt-2" data-cms-text="modules.video_profile.title">Video Profil Sekolah</h2>
+        <p class="text-sm text-blue-100 mt-3 leading-relaxed" data-cms-text="modules.video_profile.description">Kenali lingkungan kampus dan budaya akademik kami.</p>
+        <a data-cms-href="modules.video_profile.videoUrl" href="#" target="_blank" rel="noopener noreferrer" class="inline-block mt-6 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm">Buka Video Lengkap</a>
+      </div>
+      <div class="aspect-video rounded-xl overflow-hidden bg-black shadow-xl border border-white/10">
+        <iframe data-cms-src="modules.video_profile.embedUrl" src="" title="Video profil sekolah" class="w-full h-full" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </section>
 
   <!-- ================= VISI & MISI ================= -->
   <section id="visi" class="py-16 bg-white border-b border-slate-200">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <img data-cms-show="vision_mission.coverImageUrl" data-cms-image="vision_mission.coverImageUrl" src="" alt="Cover visi dan misi" class="w-full h-56 object-cover rounded-2xl shadow-lg mb-6" onerror="this.style.display='none'">
-      <span class="text-xs font-bold text-blue-900 uppercase tracking-widest mb-2 block" data-cms-text="sections.vision_mission.badge">
-        {{ sections.vision_mission.badge }}
-      </span>
-      <h2 class="text-2xl md:text-3xl font-bold text-blue-950 mb-4" data-cms-text="sections.vision_mission.title">
-        {{ sections.vision_mission.title }}
-      </h2>
-      <p class="text-lg md:text-xl font-medium text-slate-800 leading-relaxed italic" data-cms-text="vision_mission.visionContent">
-        "{{ vision_mission.visionContent }}"
-      </p>
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="max-w-4xl mx-auto text-center mb-12">
+        <span class="text-xs font-bold text-blue-900 uppercase tracking-widest mb-2 block" data-cms-text="sections.vision_mission.badge">
+          {{ sections.vision_mission.badge }}
+        </span>
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-950 mb-3" data-cms-text="sections.vision_mission.title">
+          {{ sections.vision_mission.title }}
+        </h2>
+        <p class="text-sm text-slate-600 leading-relaxed" data-cms-text="site.description">
+          {{ site.description }}
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div class="bg-blue-50 p-8 rounded-xl border border-blue-100">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-blue-900 mb-2" data-cms-text="modules.vision_mission.visionTitle">{{ modules.vision_mission.visionTitle }}</h3>
+          <p class="text-base font-semibold text-blue-950 italic leading-relaxed" data-cms-text="modules.vision_mission.visionContent">
+            "{{ modules.vision_mission.visionContent }}"
+          </p>
+          <div data-cms-show="modules.statistics.historySummary" class="mt-6 pt-6 border-t border-blue-200">
+            <h4 class="font-bold text-xs uppercase text-blue-900 mb-1" data-cms-text="modules.statistics.historyTitle">{{ modules.statistics.historyTitle }}</h4>
+            <p class="text-xs text-slate-700 leading-relaxed" data-cms-text="modules.statistics.historySummary">{{ modules.statistics.historySummary }}</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 text-white p-8 rounded-xl">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-blue-300 mb-4" data-cms-text="modules.vision_mission.missionTitle">{{ modules.vision_mission.missionTitle }}</h3>
+          <div class="space-y-3">
+            <div data-cms-repeat="modules.vision_mission.missionItems" class="flex items-start gap-3 text-xs md:text-sm text-slate-200">
+              <i data-lucide="check-circle" class="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5"></i>
+              <span data-cms-text="item">{{ item }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -119,6 +203,7 @@
       <div class="text-center mb-10">
         <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-1" data-cms-text="sections.programs.badge">{{ sections.programs.badge }}</span>
         <h2 class="text-2xl md:text-3xl font-bold text-blue-950" data-cms-text="sections.programs.title">{{ sections.programs.title }}</h2>
+        <p class="text-xs text-slate-600 mt-1" data-cms-text="sections.programs.description">{{ sections.programs.description }}</p>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
         <div data-cms-repeat="programs" data-cms-limit="6" class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs">
@@ -136,12 +221,14 @@
       <div class="text-center mb-10">
         <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-1" data-cms-text="sections.facilities.badge">{{ sections.facilities.badge }}</span>
         <h2 class="text-2xl md:text-3xl font-bold text-blue-950" data-cms-text="sections.facilities.title">{{ sections.facilities.title }}</h2>
+        <p class="text-xs text-slate-600 mt-1" data-cms-text="sections.facilities.description">{{ sections.facilities.description }}</p>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div data-cms-repeat="facilities" data-cms-limit="6" class="bg-slate-50 rounded-xl overflow-hidden border border-slate-200">
           <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="{{ item.name }}" class="w-full h-44 object-cover" onerror="this.style.display='none'">
           <div class="p-4">
-            <h3 class="font-bold text-slate-900 text-sm" data-cms-text="item.name">{{ item.name }}</h3>
+            <span class="text-[10px] font-bold text-blue-600 uppercase" data-cms-text="item.category">{{ item.category }}</span>
+            <h3 class="font-bold text-slate-900 text-sm mt-0.5" data-cms-text="item.name">{{ item.name }}</h3>
             <p class="text-xs text-slate-500 mt-1" data-cms-text="item.description">{{ item.description }}</p>
           </div>
         </div>
@@ -155,13 +242,15 @@
       <div class="text-center mb-10">
         <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-1" data-cms-text="sections.news.badge">{{ sections.news.badge }}</span>
         <h2 class="text-2xl md:text-3xl font-bold text-blue-950" data-cms-text="sections.news.title">{{ sections.news.title }}</h2>
+        <p class="text-xs text-slate-600 mt-1" data-cms-text="sections.news.description">{{ sections.news.description }}</p>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
         <article data-cms-repeat="news" data-cms-limit="3" class="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-xs flex flex-col justify-between">
           <img data-cms-image="item.coverImageUrl" src="{{ item.coverImageUrl }}" alt="{{ item.title }}" class="w-full h-40 object-cover" onerror="this.style.display='none'">
           <div class="p-5 flex-1 flex flex-col justify-between">
             <div>
-              <h3 class="font-bold text-sm text-slate-900 mb-2" data-cms-text="item.title">{{ item.title }}</h3>
+              <span class="text-[10px] font-bold text-blue-600 uppercase" data-cms-text="item.category">{{ item.category }}</span>
+              <h3 class="font-bold text-sm text-slate-900 mt-1 mb-2" data-cms-text="item.title">{{ item.title }}</h3>
               <p class="text-xs text-slate-600 line-clamp-2" data-cms-text="item.summary">{{ item.summary }}</p>
             </div>
             <a data-cms-link="item.url" href="{{ item.url }}" class="mt-4 text-xs font-bold text-blue-700 hover:text-blue-900 inline-block">
@@ -173,13 +262,137 @@
     </div>
   </section>
 
-  <!-- ================= FOOTER ================= -->
-  <footer id="kontak" class="bg-blue-950 text-white py-12">
+  <!-- ================= GURU & STAF ================= -->
+  <section id="staff" class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
-      <div class="grid md:grid-cols-3 gap-8">
+      <div class="text-center mb-10">
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-1" data-cms-text="sections.staff.badge">{{ sections.staff.badge }}</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-950" data-cms-text="sections.staff.title">{{ sections.staff.title }}</h2>
+        <p class="text-xs text-slate-600 mt-1" data-cms-text="sections.staff.description">{{ sections.staff.description }}</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div data-cms-repeat="staff" data-cms-limit="8" class="text-center p-6 bg-slate-50 rounded-xl border border-slate-200">
+          <div class="w-24 h-24 mx-auto rounded-full overflow-hidden bg-slate-200 mb-3">
+            <img data-cms-image="item.photoUrl" src="{{ item.photoUrl }}" alt="{{ item.name }}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+          </div>
+          <h3 class="font-bold text-slate-900 text-sm" data-cms-text="item.name">{{ item.name }}</h3>
+          <p class="text-xs text-blue-700 font-semibold" data-cms-text="item.role">{{ item.role }}</p>
+          <p class="text-[11px] text-slate-500 mt-0.5" data-cms-text="item.subject">{{ item.subject }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ORGANISASI & EKSKUL ================= -->
+  <section id="ekskul" class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-10">
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-1" data-cms-text="sections.student_orgs.badge">{{ sections.student_orgs.badge }}</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-950" data-cms-text="sections.student_orgs.title">{{ sections.student_orgs.title }}</h2>
+        <p class="text-xs text-slate-600 mt-1" data-cms-text="sections.student_orgs.description">{{ sections.student_orgs.description }}</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div data-cms-repeat="student_organizations" class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs text-center">
+          <div class="w-12 h-12 mx-auto rounded-lg bg-blue-50 text-blue-900 flex items-center justify-center font-bold mb-3 overflow-hidden">
+            <img data-cms-show="item.logoUrl" data-cms-image="item.logoUrl" src="" alt="{{ item.name }}" class="w-full h-full object-cover">
+            <span data-cms-hide="item.logoUrl"><i data-lucide="users" class="w-6 h-6"></i></span>
+          </div>
+          <span class="text-[10px] font-bold text-blue-700 uppercase" data-cms-text="item.category">{{ item.category }}</span>
+          <h3 class="font-bold text-slate-900 text-sm mt-1" data-cms-text="item.name">{{ item.name }}</h3>
+          <p class="text-xs text-slate-500 mt-1 leading-relaxed" data-cms-text="item.description">{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONI ================= -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-10">
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-1" data-cms-text="sections.testimonials.badge">{{ sections.testimonials.badge }}</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-950" data-cms-text="sections.testimonials.title">{{ sections.testimonials.title }}</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div data-cms-repeat="testimonials" data-cms-limit="3" class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+          <p class="text-xs text-slate-600 italic leading-relaxed mb-4" data-cms-text="item.content">"{{ item.content }}"</p>
+          <div>
+            <h4 class="font-bold text-sm text-slate-900" data-cms-text="item.alumniName">{{ item.alumniName }}</h4>
+            <p class="text-xs text-blue-700 font-medium" data-cms-text="item.graduationYear">Alumni {{ item.graduationYear }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PPDB SECTION ================= -->
+  <section id="ppdb" class="py-16 bg-blue-950 text-white" data-cms-show="modules.ppdb.isActive">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="grid lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <span class="text-xs font-bold uppercase tracking-widest text-blue-300 bg-blue-900/60 px-3 py-1 rounded" data-cms-text="sections.ppdb.badge">{{ sections.ppdb.badge }}</span>
+          <h2 class="text-2xl md:text-4xl font-extrabold text-white" data-cms-text="modules.ppdb.title">{{ modules.ppdb.title }}</h2>
+          <p class="text-sm text-blue-100 leading-relaxed" data-cms-text="modules.ppdb.description">{{ modules.ppdb.description }}</p>
+          <div class="grid sm:grid-cols-2 gap-3 pt-2">
+            <div data-cms-repeat="modules.ppdb.registrationPaths" class="bg-white/10 p-4 rounded-lg border border-white/10">
+              <h4 class="font-bold text-xs text-white" data-cms-text="item.title">{{ item.title }}</h4>
+              <p class="text-[11px] text-blue-200 mt-1" data-cms-text="item.description">{{ item.description }}</p>
+            </div>
+          </div>
+          <div class="pt-2">
+            <a data-cms-show="modules.ppdb.showExternalCta" data-cms-href="modules.ppdb.ctaUrl" href="#" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-8 py-3.5 rounded-lg shadow">
+              <span data-cms-text="modules.ppdb.ctaText">{{ modules.ppdb.ctaText }}</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white text-slate-800 p-8 rounded-2xl shadow-xl">
+          <h3 class="font-bold text-blue-950 text-base mb-1">Formulir PPDB Online</h3>
+          <p class="text-xs text-slate-500 mb-4">Lengkapi data awal pendaftaran calon peserta didik.</p>
+          <form id="ppdb-form" data-ppdb-form="{{ meta.siteId }}" class="space-y-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap *</label>
+              <input name="studentName" type="text" required placeholder="Nama calon siswa" class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">NISN *</label>
+              <input name="nisn" type="text" required placeholder="Nomor Induk Siswa Nasional" class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">WhatsApp *</label>
+              <input name="whatsapp" type="tel" required placeholder="08xxxxxxxxxx" class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200">
+            </div>
+            <button type="submit" class="w-full py-3 bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs uppercase rounded-lg shadow mt-2">
+              Kirim Pendaftaran
+            </button>
+            <p data-ppdb-message class="text-xs text-center text-slate-500"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALERI MEDIA ================= -->
+  <section id="galeri" data-cms-show="modules.media" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="text-center mb-10">
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-1">Galeri Kampus</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-950">Dokumentasi & Kegiatan</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div data-cms-repeat="modules.media" class="aspect-square rounded-xl overflow-hidden bg-slate-100">
+          <img data-cms-image="item.url" src="" alt="{{ item.alt }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer id="kontak" class="bg-blue-950 text-white py-14 border-t border-blue-900">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+      <div class="grid md:grid-cols-4 gap-8">
         <div>
           <h3 class="font-bold text-base uppercase" data-cms-text="site.name">{{ site.name }}</h3>
-          <p class="text-xs text-blue-200 mt-2" data-cms-text="site.description">{{ site.description }}</p>
+          <p class="text-xs text-blue-200 mt-2 leading-relaxed" data-cms-text="site.description">{{ site.description }}</p>
         </div>
         <div>
           <h4 class="font-bold text-xs uppercase text-blue-300 mb-3" data-cms-text="sections.contact.title">{{ sections.contact.title }}</h4>
@@ -188,12 +401,23 @@
           <p class="text-xs text-blue-100 mt-1" data-cms-text="site.contact.email">{{ site.contact.email }}</p>
         </div>
         <div>
-          <h4 class="font-bold text-xs uppercase text-blue-300 mb-3">SobatWeb Portal</h4>
-          <p class="text-xs text-blue-200">Platform Website Builder Mandiri untuk Sekolah Indonesia.</p>
+          <h4 class="font-bold text-xs uppercase text-blue-300 mb-3">Tautan Halaman</h4>
+          <ul class="text-xs space-y-2 text-blue-100">
+            <li data-cms-repeat="navigation.footer">
+              <a data-cms-href="item.target" href="#" class="hover:text-white" data-cms-text="item.label">Tautan</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xs uppercase text-blue-300 mb-3">Jam Layanan</h4>
+          <p class="text-xs text-blue-100" data-cms-text="site.contact.operationalHours">{{ site.contact.operationalHours }}</p>
+          <div class="mt-4">
+            <a data-cms-show="site.contact.whatsapp" data-cms-href="site.contact.whatsappUrl" href="#" target="_blank" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold">Hubungi WhatsApp</a>
+          </div>
         </div>
       </div>
-      <div class="mt-8 pt-6 border-t border-blue-900 text-center text-xs text-blue-300">
-        © 2026 <strong data-cms-text="site.name">{{ site.name }}</strong>. All rights reserved.
+      <div class="mt-12 pt-6 border-t border-blue-900 text-center text-xs text-blue-300">
+        © 2026 <strong data-cms-text="site.name">{{ site.name }}</strong>. All rights reserved. Powered by SobatWeb.
       </div>
     </div>
   </footer>

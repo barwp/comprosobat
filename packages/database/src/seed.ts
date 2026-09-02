@@ -224,6 +224,9 @@ export async function runSeed() {
     staff: any[];
     testimonials: any[];
     ppdb?: any;
+    statistics?: any;
+    videoProfile?: any;
+    studentOrgs?: any[];
     releaseSummary: string;
   }) {
     const [user] = await db.insert(schema.users).values({
@@ -373,20 +376,121 @@ export async function runSeed() {
       });
     }
 
+    // Statistics
+    const statsData = opts.statistics || {
+      establishmentYear: '1985',
+      historyTitle: `Sejarah & Perjalanan ${opts.schoolName}`,
+      historySummary: `Didirikan dengan komitmen memberikan pendidikan unggul dan berkarakter, ${opts.schoolName} telah berkembang menjadi salah satu institusi pendidikan terpercaya dan berprestasi di tingkat nasional.`,
+      accreditation: 'A (Unggul)',
+      stats: [
+        { label: 'Siswa Aktif', value: '1.250+', sortOrder: 1 },
+        { label: 'Guru & Pendidik', value: '72+', sortOrder: 2 },
+        { label: 'Kelulusan PTN/Karir', value: '98.5%', sortOrder: 3 },
+        { label: 'Piala Prestasi', value: '150+', sortOrder: 4 }
+      ]
+    };
+    await db.insert(schema.contentEntries).values({
+      siteId: site.id,
+      type: 'history_statistic',
+      title: 'Statistik & Sejarah Sekolah',
+      slug: 'statistik-sejarah',
+      status: 'PUBLISHED',
+      payload: statsData
+    });
+
+    // Video Profile
+    const videoData = opts.videoProfile || {
+      title: `Profil Singkat ${opts.schoolName}`,
+      description: 'Kenali lingkungan belajar, fasilitas modern, serta budaya prestasi kami melalui tayangan profil resmi.',
+      videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+    };
+    await db.insert(schema.contentEntries).values({
+      siteId: site.id,
+      type: 'video_profile',
+      title: 'Video Profil Sekolah',
+      slug: 'video-profil',
+      status: 'PUBLISHED',
+      payload: videoData
+    });
+
+    // Student Organizations
+    const studentOrgsData = opts.studentOrgs || [
+      { name: 'OSIS / MPK', category: 'Organisasi Siswa', description: 'Wadah kepemimpinan, musyawarah, dan koordinasi seluruh aktivitas siswa di sekolah.' },
+      { name: 'Pramuka & PMR', category: 'Kepanduan & Kemanusiaan', description: 'Pembinaan karakter disiplin, kemandirian, kepemimpinan lapangan, dan pertolongan pertama.' },
+      { name: 'Klub Robotika & IT', category: 'Sains & Teknologi', description: 'Pengembangan skill programming, robotika, IoT, dan kompetisi inovasi digital.' },
+      { name: 'KIR & Jurnalistik', category: 'Literasi & Riset', description: 'Wadah karya tulis ilmiah, majalah sekolah, fotografi, dan peliputan kegiatan.' }
+    ];
+    for (let i = 0; i < studentOrgsData.length; i++) {
+      await db.insert(schema.contentEntries).values({
+        siteId: site.id,
+        type: 'student_organization',
+        title: studentOrgsData[i].name,
+        slug: `organisasi-${i + 1}`,
+        status: 'PUBLISHED',
+        sortOrder: i + 1,
+        payload: studentOrgsData[i]
+      });
+    }
+
+    // Navigation Menus
+    const headerMenus = [
+      { label: 'Beranda', target: '#hero', location: 'header' as const, sortOrder: 1, linkType: 'section' as const },
+      { label: 'Visi & Misi', target: '#profil', location: 'header' as const, sortOrder: 2, linkType: 'section' as const },
+      { label: 'Program', target: '#jurusan', location: 'header' as const, sortOrder: 3, linkType: 'section' as const },
+      { label: 'Fasilitas', target: '#fasilitas', location: 'header' as const, sortOrder: 4, linkType: 'section' as const },
+      { label: 'Berita', target: '#berita', location: 'header' as const, sortOrder: 5, linkType: 'section' as const },
+      { label: 'Guru & Staf', target: '#guru', location: 'header' as const, sortOrder: 6, linkType: 'section' as const },
+      { label: 'Ekskul', target: '#ekskul', location: 'header' as const, sortOrder: 7, linkType: 'section' as const },
+      { label: 'Kontak', target: '#kontak', location: 'header' as const, sortOrder: 8, linkType: 'section' as const }
+    ];
+    for (const m of headerMenus) {
+      await db.insert(schema.menuItems).values({
+        siteId: site.id,
+        label: m.label,
+        target: m.target,
+        linkType: m.linkType,
+        location: m.location,
+        sortOrder: m.sortOrder,
+        isActive: true
+      });
+    }
+
+    const footerMenus = [
+      { label: 'Beranda Utama', target: '#hero', location: 'footer' as const, sortOrder: 1, linkType: 'section' as const },
+      { label: 'Visi Misi Sekolah', target: '#profil', location: 'footer' as const, sortOrder: 2, linkType: 'section' as const },
+      { label: 'Program Unggulan', target: '#jurusan', location: 'footer' as const, sortOrder: 3, linkType: 'section' as const },
+      { label: 'Fasilitas Kampus', target: '#fasilitas', location: 'footer' as const, sortOrder: 4, linkType: 'section' as const },
+      { label: 'Pendaftaran PPDB', target: '#ppdb', location: 'footer' as const, sortOrder: 5, linkType: 'section' as const }
+    ];
+    for (const m of footerMenus) {
+      await db.insert(schema.menuItems).values({
+        siteId: site.id,
+        label: m.label,
+        target: m.target,
+        linkType: m.linkType,
+        location: m.location,
+        sortOrder: m.sortOrder,
+        isActive: true
+      });
+    }
+
     // Snapshot Manifest
     const snapshotManifest = {
       settings: opts.settings,
       modules: {
         hero_slides: [opts.hero],
         vision_mission: opts.vision,
+        statistics: statsData,
         programs: opts.programs,
         facilities: opts.facilities,
         news: opts.news,
         staff: opts.staff,
+        student_organizations: studentOrgsData,
         testimonials: opts.testimonials,
-        ppdb: opts.ppdb || { isOpen: true, title: 'PPDB Online' }
+        ppdb: opts.ppdb || { isOpen: true, title: 'PPDB Online' },
+        video_profile: videoData
       },
-      navigation: { header: [], footer: [] }
+      navigation: { header: headerMenus, footer: footerMenus }
     };
 
     const [rel] = await db.insert(schema.publicationReleases).values({
