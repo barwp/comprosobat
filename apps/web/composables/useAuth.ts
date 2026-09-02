@@ -82,13 +82,23 @@ export function useAuth() {
   }
 
   async function logout() {
-    await useApiClient('/auth/logout', { method: 'POST' });
-    currentUser.value = null;
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('sobatweb_token');
-      localStorage.removeItem('sobatweb_user');
+    try {
+      await useApiClient('/auth/logout', { method: 'POST' });
+    } catch (err) {
+      console.warn('Logout API error (proceeding with local cleanup):', err);
+    } finally {
+      currentUser.value = null;
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('sobatweb_token');
+        localStorage.removeItem('sobatweb_user');
+        document.cookie = 'sobatweb_session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = 'sobatweb_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      }
+      toast.info('Keluar', 'Anda telah berhasil keluar dari sistem.');
+      if (typeof window !== 'undefined') {
+        window.location.href = '/login';
+      }
     }
-    toast.info('Keluar', 'Anda telah berhasil keluar.');
   }
 
   function setUser(user: UserState) {

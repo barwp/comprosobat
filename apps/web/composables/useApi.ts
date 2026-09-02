@@ -43,6 +43,7 @@ export async function useApiClient<T = any>(
       if (res.status === 401 && typeof window !== 'undefined' && !window.location.pathname.startsWith('/login') && !window.location.pathname.startsWith('/register')) {
         localStorage.removeItem('sobatweb_token');
         localStorage.removeItem('sobatweb_user');
+        window.location.href = '/login';
       }
       return { success: false, error: json.error || { message: errMsg } };
     }
