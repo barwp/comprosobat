@@ -38,7 +38,14 @@ export const SiteSettingsSchema = z.object({
     youtube: z.string().default(''),
     tiktok: z.string().default(''),
     twitter: z.string().default('')
-  }).default({})
+  }).default({}),
+
+  // Section Headlines & Subheadings
+  sectionHeadlines: z.record(z.string(), z.object({
+    badge: z.string().default(''),
+    title: z.string().default(''),
+    description: z.string().default('')
+  })).default({})
 });
 
 export type SiteSettings = z.infer<typeof SiteSettingsSchema>;

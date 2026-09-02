@@ -256,6 +256,32 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
       media
     };
 
+    const rawHeadlines = (settings.sectionHeadlines || {}) as Record<string, any>;
+    const defaultHeadlines: Record<string, { badge: string; title: string; description: string }> = {
+      hero: { badge: 'Selamat Datang', title: 'Selamat Datang di Website Resmi', description: '' },
+      programs: { badge: 'Pendidikan Unggulan', title: 'Program & Jurusan Unggulan', description: 'Program pendidikan berkualitas untuk mencetak lulusan berprestasi.' },
+      facilities: { badge: 'Sarana Belajar', title: 'Fasilitas Kampus', description: 'Sarana dan prasarana modern untuk mendukung proses belajar mengajar.' },
+      news: { badge: 'Informasi Terkini', title: 'Berita & Kegiatan', description: 'Kumpulan berita, kegiatan, dan pengumuman terbaru dari sekolah kami.' },
+      vision_mission: { badge: 'Visi & Misi', title: 'Visi, Misi & Tujuan', description: 'Landasan dan arah perjuangan dalam membina generasi bangsa.' },
+      staff: { badge: 'Tenaga Pendidik', title: 'Guru & Tenaga Kependidikan', description: 'Didukung oleh pendidik profesional dan berdedikasi tinggi.' },
+      testimonials: { badge: 'Kata Alumni', title: 'Testimoni & Kisah Sukses', description: 'Apa kata para alumni mengenai pengalaman berharga mereka.' },
+      student_orgs: { badge: 'Pengembangan Diri', title: 'Organisasi & Ekstrakurikuler', description: 'Wadah mengasah bakat, kepemimpinan, dan kreativitas siswa.' },
+      statistics: { badge: 'Capaian Prestasi', title: 'Statistik & Prestasi Sekolah', description: 'Bukti dedikasi dan kualitas mutu pendidikan kami.' },
+      ppdb: { badge: 'Penerimaan Siswa Baru', title: 'Pendaftaran PPDB Online', description: 'Bergabunglah bersama keluarga besar kami dan raih masa depan gemilang.' },
+      contact: { badge: 'Hubungi Kami', title: 'Kontak & Lokasi Kampus', description: 'Kunjungi kampus kami atau hubungi kami melalui saluran resmi.' },
+      video_profile: { badge: 'Video Profil', title: 'Mengenal Lebih Dekat', description: 'Tayangan profil singkat seputar lingkungan dan kegiatan sekolah.' }
+    };
+
+    const sectionHeadlines: Record<string, { badge: string; title: string; description: string }> = {};
+    for (const [secKey, defVal] of Object.entries(defaultHeadlines)) {
+      const userVal = rawHeadlines[secKey] || {};
+      sectionHeadlines[secKey] = {
+        badge: userVal.badge || defVal.badge,
+        title: userVal.title || defVal.title,
+        description: userVal.description || defVal.description
+      };
+    }
+
   return {
     site: {
       name: settings.siteName || 'Website Sekolah',
@@ -279,6 +305,7 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
       social: settings.socialLinks || settings.social || {}
     },
     modules,
+    sections: sectionHeadlines,
     // Backwards-compatible aliases for official templates using the old root paths.
     hero_slides: modules.hero_slides,
     programs: modules.programs,

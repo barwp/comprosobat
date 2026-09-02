@@ -29,6 +29,13 @@ const form = ref({
   isActive: true
 });
 
+const headline = ref({
+  badge: 'Sarana Belajar',
+  title: 'Fasilitas Kampus',
+  description: 'Sarana dan prasarana modern untuk mendukung proses belajar mengajar.'
+});
+const isSavingHeadline = ref(false);
+
 async function loadData() {
   if (!user.value?.school?.id) return;
   isLoading.value = true;
@@ -39,8 +46,36 @@ async function loadData() {
     if (res.success && res.data) {
       items.value = res.data;
     }
+    const setRes = await useApiClient(`/sites/${siteId.value}/settings`);
+    if (setRes.success && setRes.data?.sectionHeadlines?.facilities) {
+      headline.value = {
+        ...headline.value,
+        ...setRes.data.sectionHeadlines.facilities
+      };
+    }
   }
   isLoading.value = false;
+}
+
+async function saveHeadline() {
+  if (!siteId.value) return;
+  isSavingHeadline.value = true;
+  const curRes = await useApiClient(`/sites/${siteId.value}/settings`);
+  const curSettings = curRes.data || {};
+  const newHeadlines = {
+    ...(curSettings.sectionHeadlines || {}),
+    facilities: headline.value
+  };
+  const res = await useApiClient(`/sites/${siteId.value}/settings`, {
+    method: 'PATCH',
+    body: { sectionHeadlines: newHeadlines }
+  });
+  isSavingHeadline.value = false;
+  if (res.success) {
+    toast.success('Judul Seksi Disimpan', 'Teks headline dan badge seksi fasilitas berhasil diperbarui.');
+  } else {
+    toast.error('Gagal Menyimpan', res.error?.message);
+  }
 }
 
 function openCreateModal() {
@@ -142,6 +177,41 @@ onMounted(() => {
         <span>+</span> Tambah Fasilitas
       </button>
     </div>
+
+    <!-- Headline Customization Box -->
+    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider text-emerald-800">Teks Header Seksi Fasilitas di Website</h3>
+          <p class="text-[11px] text-slate-500">Sesuaikan judul dan badge yang muncul pada bagian fasilitas di halaman depan</p>
+        </div>
+        <button
+          type="button"
+          @click="saveHeadline"
+          :disabled="isSavingHeadline"
+          class="px-4 py-1.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs shadow-sm transition disabled:opacity-50"
+        >
+          {{ isSavingHeadline ? 'Menyimpan...' : 'Simpan Header Seksi' }}
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Badge Atas</label>
+          <input v-model="headline.badge" type="text" placeholder="Sarana Belajar" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200">
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Judul Utama Seksi</label>
+          <input v-model="headline.title" type="text" placeholder="Fasilitas Kampus" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200">
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Deskripsi Singkat</label>
+          <input v-model="headline.description" type="text" placeholder="Sarana dan prasarana modern..." class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200">
+        </div>
+      </div>
+    </div>
+
+    <!-- Items Grid -->
 
     <div v-if="items.length === 0" class="bg-white rounded-3xl p-12 text-center border border-slate-200 text-slate-400">
       <p class="text-4xl mb-3">🏢</p>

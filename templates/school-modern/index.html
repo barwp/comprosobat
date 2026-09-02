@@ -32,17 +32,17 @@
 
   <!-- ================= NAVBAR ================= -->
   <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3.5">
-        <img data-cms-image="site.logo" src="{{ site.logo.url }}" alt="{{ site.logo.alt }}" class="w-11 h-11 object-contain rounded-xl shadow-xs">
-        <div>
-          <span class="font-extrabold text-base text-slate-900 tracking-tight block leading-tight uppercase" data-cms-text="site.name">{{ site.name }}</span>
-          <span class="text-xs font-semibold text-emerald-700" data-cms-text="site.tagline">{{ site.tagline }}</span>
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between gap-4">
+      <a href="#" class="flex items-center gap-3 min-w-0 flex-shrink">
+        <img data-cms-image="site.logo" src="{{ site.logo.url }}" alt="{{ site.logo.alt }}" class="w-10 h-10 object-contain rounded-xl shadow-xs flex-shrink-0" onerror="this.style.display='none'">
+        <div class="min-w-0">
+          <span class="font-extrabold text-base text-slate-900 tracking-tight block leading-tight uppercase truncate" data-cms-text="site.name">{{ site.name }}</span>
+          <span class="text-xs font-semibold text-emerald-700 truncate block max-w-[260px] sm:max-w-md" data-cms-text="site.tagline">{{ site.tagline }}</span>
         </div>
       </a>
 
       <!-- Desktop Nav -->
-      <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-slate-700">
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-slate-700 flex-shrink-0">
         <a href="#hero" class="hover:text-emerald-700 transition-colors">Beranda</a>
         <a href="#profil" class="hover:text-emerald-700 transition-colors">Visi & Misi</a>
         <a href="#jurusan" class="hover:text-emerald-700 transition-colors">Program</a>
@@ -52,8 +52,8 @@
         <a href="#kontak" class="hover:text-emerald-700 transition-colors">Kontak</a>
       </nav>
 
-      <div class="hidden lg:flex items-center gap-3">
-        <a href="#ppdb" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs uppercase px-5 py-2.5 rounded-full shadow-md transition-all">
+      <div class="hidden lg:flex items-center gap-3 flex-shrink-0">
+        <a href="#ppdb" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-full shadow-md transition-all whitespace-nowrap">
           PPDB Online
         </a>
       </div>
@@ -65,8 +65,8 @@
     <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-10" data-cms-repeat="hero_slides" data-cms-limit="1">
       <div class="grid lg:grid-cols-12 gap-12 items-center">
         <div class="lg:col-span-7 space-y-6">
-          <span class="inline-block text-xs font-bold uppercase tracking-widest text-emerald-300 bg-emerald-950/60 border border-emerald-800/80 px-4 py-1.5 rounded-full">
-            Selamat Datang di Website Resmi
+          <span class="inline-block text-xs font-bold uppercase tracking-widest text-emerald-300 bg-emerald-950/60 border border-emerald-800/80 px-4 py-1.5 rounded-full" data-cms-text="sections.hero.badge">
+            {{ sections.hero.badge }}
           </span>
           <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight text-white" data-cms-text="item.title">
             {{ item.title }}
@@ -97,12 +97,12 @@
   <section id="profil" class="py-16 md:py-24 bg-white border-b border-slate-100">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="max-w-3xl mx-auto text-center space-y-4">
-        <img data-cms-show="vision_mission.coverImageUrl" data-cms-image="vision_mission.coverImageUrl" src="" alt="Cover visi dan misi" class="w-full h-56 object-cover rounded-3xl shadow-lg">
-        <span class="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">
-          Komitmen & Nilai Luhur
+        <img data-cms-show="vision_mission.coverImageUrl" data-cms-image="vision_mission.coverImageUrl" src="" alt="Cover visi dan misi" class="w-full h-56 object-cover rounded-3xl shadow-lg" onerror="this.style.display='none'">
+        <span class="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full" data-cms-text="sections.vision_mission.badge">
+          {{ sections.vision_mission.badge }}
         </span>
-        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900" data-cms-text="vision_mission.visionTitle">
-          Visi & Misi Sekolah
+        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900" data-cms-text="sections.vision_mission.title">
+          {{ sections.vision_mission.title }}
         </h2>
         <p class="text-base text-slate-600 leading-relaxed italic bg-emerald-50/50 p-6 rounded-2xl border border-emerald-100" data-cms-text="vision_mission.visionContent">
           "{{ vision_mission.visionContent }}"
@@ -115,12 +115,15 @@
   <section id="jurusan" class="py-16 md:py-24 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">
-          Kurikulum & Karir
+        <span class="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full" data-cms-text="sections.programs.badge">
+          {{ sections.programs.badge }}
         </span>
-        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 mt-2">
-          Program & Jurusan Unggulan
+        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 mt-2" data-cms-text="sections.programs.title">
+          {{ sections.programs.title }}
         </h2>
+        <p class="text-xs md:text-sm text-slate-600 mt-2" data-cms-text="sections.programs.description">
+          {{ sections.programs.description }}
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -137,12 +140,15 @@
   <section id="fasilitas" class="py-16 md:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">
-          Sarana Belajar
+        <span class="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full" data-cms-text="sections.facilities.badge">
+          {{ sections.facilities.badge }}
         </span>
-        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 mt-2">
-          Fasilitas Kampus
+        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 mt-2" data-cms-text="sections.facilities.title">
+          {{ sections.facilities.title }}
         </h2>
+        <p class="text-xs md:text-sm text-slate-600 mt-2" data-cms-text="sections.facilities.description">
+          {{ sections.facilities.description }}
+        </p>
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -164,12 +170,15 @@
   <section id="berita" class="py-16 md:py-24 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">
-          Informasi Terkini
+        <span class="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full" data-cms-text="sections.news.badge">
+          {{ sections.news.badge }}
         </span>
-        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 mt-2">
-          Berita & Kegiatan
+        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 mt-2" data-cms-text="sections.news.title">
+          {{ sections.news.title }}
         </h2>
+        <p class="text-xs md:text-sm text-slate-600 mt-2" data-cms-text="sections.news.description">
+          {{ sections.news.description }}
+        </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
@@ -197,18 +206,21 @@
   <section id="guru" class="py-16 md:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">
-          Pendidik Profesional
+        <span class="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full" data-cms-text="sections.staff.badge">
+          {{ sections.staff.badge }}
         </span>
-        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 mt-2">
-          Guru & Tenaga Pendidik
+        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 mt-2" data-cms-text="sections.staff.title">
+          {{ sections.staff.title }}
         </h2>
+        <p class="text-xs md:text-sm text-slate-600 mt-2" data-cms-text="sections.staff.description">
+          {{ sections.staff.description }}
+        </p>
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div data-cms-repeat="staff" data-cms-limit="8" class="text-center p-6 bg-slate-50 rounded-2xl border border-slate-200">
           <div class="w-24 h-24 mx-auto rounded-full overflow-hidden bg-slate-200 mb-4">
-            <img data-cms-image="item.photoUrl" src="{{ item.photoUrl }}" alt="{{ item.name }}" class="w-full h-full object-cover">
+            <img data-cms-image="item.photoUrl" src="{{ item.photoUrl }}" alt="{{ item.name }}" class="w-full h-full object-cover" onerror="this.style.display='none'">
           </div>
           <h3 class="font-bold text-slate-900 text-sm" data-cms-text="item.name">{{ item.name }}</h3>
           <p class="text-xs text-emerald-700 font-semibold mt-0.5" data-cms-text="item.role">{{ item.role }}</p>
@@ -222,8 +234,11 @@
   <section class="py-16 md:py-24 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900">
-          Kata Alumni Kami
+        <span class="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full" data-cms-text="sections.testimonials.badge">
+          {{ sections.testimonials.badge }}
+        </span>
+        <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 mt-2" data-cms-text="sections.testimonials.title">
+          {{ sections.testimonials.title }}
         </h2>
       </div>
 
@@ -248,7 +263,7 @@
           <p class="text-xs text-slate-400 mt-2" data-cms-text="site.description">{{ site.description }}</p>
         </div>
         <div>
-          <h4 class="font-bold text-sm text-emerald-400 mb-3">Kontak & Lokasi</h4>
+          <h4 class="font-bold text-sm text-emerald-400 mb-3" data-cms-text="sections.contact.title">{{ sections.contact.title }}</h4>
           <p class="text-xs text-slate-300" data-cms-text="site.contact.address">{{ site.contact.address }}</p>
           <p class="text-xs text-slate-300 mt-1" data-cms-text="site.contact.phone">{{ site.contact.phone }}</p>
           <p class="text-xs text-slate-300 mt-1" data-cms-text="site.contact.email">{{ site.contact.email }}</p>

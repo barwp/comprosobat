@@ -157,40 +157,47 @@ publicRoutes.get('/render', async (c) => {
     return c.html(renderedHtml);
   } catch (err: any) {
     const requestId = `req_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+    const statusCode = err.statusCode || (err.message?.includes('belum dipublikasikan') ? 404 : 500);
     const errorHtml = `<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagnostik Render Template - SobatWeb</title>
+  <title>${statusCode === 404 ? 'Website Belum Dipublikasikan' : 'Diagnostik Render Template'} - SobatWeb</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-6">
-  <div class="max-w-lg w-full bg-slate-900 border border-rose-900/50 rounded-3xl p-8 shadow-2xl space-y-5">
+  <div class="max-w-lg w-full bg-slate-900 border ${statusCode === 404 ? 'border-amber-700/50' : 'border-rose-900/50'} rounded-3xl p-8 shadow-2xl space-y-5">
     <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl font-bold">⚠️</div>
+      <div class="w-10 h-10 rounded-2xl ${statusCode === 404 ? 'bg-amber-500/20 text-amber-400' : 'bg-rose-500/20 text-rose-400'} flex items-center justify-center text-xl font-bold">
+        ${statusCode === 404 ? '🌐' : '⚠️'}
+      </div>
       <div>
-        <h2 class="text-lg font-bold text-white leading-tight">Gagal Merender Halaman</h2>
-        <p class="text-xs text-rose-300">Terjadi kesalahan pada saat kompilasi template</p>
+        <h2 class="text-lg font-bold text-white leading-tight">
+          ${statusCode === 404 ? 'Website Belum Aktif' : 'Gagal Merender Halaman'}
+        </h2>
+        <p class="text-xs ${statusCode === 404 ? 'text-amber-300' : 'text-rose-300'}">
+          ${statusCode === 404 ? 'Website sekolah ini masih dalam status draft' : 'Terjadi kesalahan pada saat kompilasi template'}
+        </p>
       </div>
     </div>
     <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 space-y-2 text-xs">
       <div><span class="text-slate-400">Template Aktif:</span> <strong class="text-emerald-400 font-mono">${templateKey}</strong></div>
       <div><span class="text-slate-400">Request ID:</span> <span class="text-slate-300 font-mono">${requestId}</span></div>
-      <div><span class="text-slate-400">Pesan Kesalahan:</span> <p class="text-rose-300 font-mono mt-1">${err.message || 'Unknown render error'}</p></div>
+      <div><span class="text-slate-400">Keterangan:</span> <p class="${statusCode === 404 ? 'text-amber-300' : 'text-rose-300'} font-mono mt-1">${err.message || 'Unknown render error'}</p></div>
     </div>
     <p class="text-xs text-slate-400 leading-relaxed">
-      Silakan periksa kembali kelengkapan data di CMS atau pastikan template yang dipilih memiliki file <code>index.html</code> yang valid.
+      ${statusCode === 404 ? 'Silakan masuk ke Dashboard Admin Sekolah dan klik menu <strong>Publikasi</strong> untuk mempublikasikan website secara langsung.' : 'Silakan periksa kembali kelengkapan data di CMS atau pastikan template yang dipilih memiliki file <code>index.html</code> yang valid.'}
     </p>
     <div class="pt-2">
-      <button onclick="window.location.reload()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-3 rounded-xl transition">
-        🔄 Coba Muat Ulang
-      </button>
+      <a href="/login" class="block text-center w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-3 rounded-xl transition">
+        🔑 Buka Dashboard CMS
+      </a>
     </div>
   </div>
 </body>
 </html>`;
-    return c.html(errorHtml, 500);
+    return c.html(errorHtml, statusCode as any);
   }
 });
 

@@ -45,16 +45,16 @@
 
   <!-- ================= NAVBAR ================= -->
   <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <img data-cms-image="site.logo" src="{{ site.logo.url }}" alt="{{ site.logo.alt }}" class="w-10 h-10 object-contain">
-        <div>
-          <span class="font-bold text-base text-blue-950 tracking-tight block uppercase" data-cms-text="site.name">{{ site.name }}</span>
-          <span class="text-xs text-slate-500 font-medium" data-cms-text="site.tagline">{{ site.tagline }}</span>
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between gap-4">
+      <a href="#" class="flex items-center gap-3 min-w-0 flex-shrink">
+        <img data-cms-image="site.logo" src="{{ site.logo.url }}" alt="{{ site.logo.alt }}" class="w-10 h-10 object-contain flex-shrink-0" onerror="this.style.display='none'">
+        <div class="min-w-0">
+          <span class="font-bold text-base text-blue-950 tracking-tight block uppercase truncate" data-cms-text="site.name">{{ site.name }}</span>
+          <span class="text-xs text-slate-500 font-medium truncate block max-w-[260px] sm:max-w-md" data-cms-text="site.tagline">{{ site.tagline }}</span>
         </div>
       </a>
 
-      <nav class="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-700">
+      <nav class="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-700 flex-shrink-0">
         <a href="#hero" class="hover:text-blue-900">Beranda</a>
         <a href="#visi" class="hover:text-blue-900">Visi Misi</a>
         <a href="#program" class="hover:text-blue-900">Program</a>
@@ -64,7 +64,7 @@
         <a href="#kontak" class="hover:text-blue-900">Kontak</a>
       </nav>
 
-      <a href="#kontak" class="bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs uppercase px-5 py-2.5 rounded-lg transition-all">
+      <a href="#kontak" class="bg-blue-900 hover:bg-blue-950 text-white font-bold text-xs uppercase px-5 py-2.5 rounded-lg transition-all flex-shrink-0 whitespace-nowrap">
         Hubungi Kami
       </a>
     </div>
@@ -75,6 +75,9 @@
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="grid lg:grid-cols-2 gap-10 items-center">
         <div class="space-y-6">
+          <span class="inline-block text-xs font-bold uppercase tracking-widest text-blue-300 bg-blue-900/60 px-3 py-1 rounded-md" data-cms-text="sections.hero.badge">
+            {{ sections.hero.badge }}
+          </span>
           <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight" data-cms-text="item.title">
             {{ item.title }}
           </h1>
@@ -97,9 +100,12 @@
   <!-- ================= VISI & MISI ================= -->
   <section id="visi" class="py-16 bg-white border-b border-slate-200">
     <div class="max-w-4xl mx-auto px-4 text-center">
-      <img data-cms-show="vision_mission.coverImageUrl" data-cms-image="vision_mission.coverImageUrl" src="" alt="Cover visi dan misi" class="w-full h-56 object-cover rounded-2xl shadow-lg mb-6">
-      <h2 class="text-xs font-bold text-blue-900 uppercase tracking-widest mb-2" data-cms-text="vision_mission.visionTitle">
-        {{ vision_mission.visionTitle }}
+      <img data-cms-show="vision_mission.coverImageUrl" data-cms-image="vision_mission.coverImageUrl" src="" alt="Cover visi dan misi" class="w-full h-56 object-cover rounded-2xl shadow-lg mb-6" onerror="this.style.display='none'">
+      <span class="text-xs font-bold text-blue-900 uppercase tracking-widest mb-2 block" data-cms-text="sections.vision_mission.badge">
+        {{ sections.vision_mission.badge }}
+      </span>
+      <h2 class="text-2xl md:text-3xl font-bold text-blue-950 mb-4" data-cms-text="sections.vision_mission.title">
+        {{ sections.vision_mission.title }}
       </h2>
       <p class="text-lg md:text-xl font-medium text-slate-800 leading-relaxed italic" data-cms-text="vision_mission.visionContent">
         "{{ vision_mission.visionContent }}"
@@ -111,7 +117,8 @@
   <section id="program" class="py-16 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="text-center mb-10">
-        <h2 class="text-2xl md:text-3xl font-bold text-blue-950">Program Akademik</h2>
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-1" data-cms-text="sections.programs.badge">{{ sections.programs.badge }}</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-950" data-cms-text="sections.programs.title">{{ sections.programs.title }}</h2>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
         <div data-cms-repeat="programs" data-cms-limit="6" class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs">
@@ -127,11 +134,12 @@
   <section id="fasilitas" class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="text-center mb-10">
-        <h2 class="text-2xl md:text-3xl font-bold text-blue-950">Fasilitas Kampus</h2>
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-1" data-cms-text="sections.facilities.badge">{{ sections.facilities.badge }}</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-950" data-cms-text="sections.facilities.title">{{ sections.facilities.title }}</h2>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div data-cms-repeat="facilities" data-cms-limit="6" class="bg-slate-50 rounded-xl overflow-hidden border border-slate-200">
-          <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="{{ item.name }}" class="w-full h-44 object-cover">
+          <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="{{ item.name }}" class="w-full h-44 object-cover" onerror="this.style.display='none'">
           <div class="p-4">
             <h3 class="font-bold text-slate-900 text-sm" data-cms-text="item.name">{{ item.name }}</h3>
             <p class="text-xs text-slate-500 mt-1" data-cms-text="item.description">{{ item.description }}</p>
@@ -145,11 +153,12 @@
   <section id="berita" class="py-16 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
       <div class="text-center mb-10">
-        <h2 class="text-2xl md:text-3xl font-bold text-blue-950">Warta Akademik</h2>
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-1" data-cms-text="sections.news.badge">{{ sections.news.badge }}</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-950" data-cms-text="sections.news.title">{{ sections.news.title }}</h2>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
         <article data-cms-repeat="news" data-cms-limit="3" class="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-xs flex flex-col justify-between">
-          <img data-cms-image="item.coverImageUrl" src="{{ item.coverImageUrl }}" alt="{{ item.title }}" class="w-full h-40 object-cover">
+          <img data-cms-image="item.coverImageUrl" src="{{ item.coverImageUrl }}" alt="{{ item.title }}" class="w-full h-40 object-cover" onerror="this.style.display='none'">
           <div class="p-5 flex-1 flex flex-col justify-between">
             <div>
               <h3 class="font-bold text-sm text-slate-900 mb-2" data-cms-text="item.title">{{ item.title }}</h3>
@@ -173,7 +182,7 @@
           <p class="text-xs text-blue-200 mt-2" data-cms-text="site.description">{{ site.description }}</p>
         </div>
         <div>
-          <h4 class="font-bold text-xs uppercase text-blue-300 mb-3">Informasi Kontak</h4>
+          <h4 class="font-bold text-xs uppercase text-blue-300 mb-3" data-cms-text="sections.contact.title">{{ sections.contact.title }}</h4>
           <p class="text-xs text-blue-100" data-cms-text="site.contact.address">{{ site.contact.address }}</p>
           <p class="text-xs text-blue-100 mt-1" data-cms-text="site.contact.phone">{{ site.contact.phone }}</p>
           <p class="text-xs text-blue-100 mt-1" data-cms-text="site.contact.email">{{ site.contact.email }}</p>

@@ -38,6 +38,17 @@ const form = ref({
     youtube: '',
     tiktok: '',
     twitter: ''
+  },
+  sectionHeadlines: {
+    hero: { badge: 'Selamat Datang', title: 'Selamat Datang di Website Resmi', description: '' },
+    programs: { badge: 'Pendidikan Unggulan', title: 'Program & Jurusan Unggulan', description: 'Program pendidikan berkualitas untuk mencetak lulusan berprestasi.' },
+    facilities: { badge: 'Sarana Belajar', title: 'Fasilitas Kampus', description: 'Sarana dan prasarana modern untuk mendukung proses belajar mengajar.' },
+    news: { badge: 'Informasi Terkini', title: 'Berita & Kegiatan', description: 'Kumpulan berita, kegiatan, dan pengumuman terbaru dari sekolah kami.' },
+    vision_mission: { badge: 'Visi & Misi', title: 'Visi, Misi & Tujuan', description: 'Landasan dan arah perjuangan dalam membina generasi bangsa.' },
+    staff: { badge: 'Tenaga Pendidik', title: 'Guru & Tenaga Kependidikan', description: 'Didukung oleh pendidik profesional dan berdedikasi tinggi.' },
+    testimonials: { badge: 'Kata Alumni', title: 'Testimoni & Kisah Sukses', description: 'Apa kata para alumni mengenai pengalaman berharga mereka.' },
+    ppdb: { badge: 'Penerimaan Siswa Baru', title: 'Pendaftaran PPDB Online', description: 'Bergabunglah bersama keluarga besar kami.' },
+    contact: { badge: 'Hubungi Kami', title: 'Kontak & Lokasi Kampus', description: 'Kunjungi kampus kami atau hubungi kami melalui saluran resmi.' }
   }
 });
 
@@ -57,6 +68,10 @@ async function loadSettings() {
         socialLinks: {
           ...form.value.socialLinks,
           ...(res.data.socialLinks || {})
+        },
+        sectionHeadlines: {
+          ...form.value.sectionHeadlines,
+          ...(res.data.sectionHeadlines || {})
         }
       };
     }
@@ -225,6 +240,134 @@ onMounted(() => {
             placeholder="Selamat datang di website resmi SMA Negeri 1 Nusantara..."
             class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600"
           ></textarea>
+        </div>
+      </div>
+
+      <!-- Card 4: Kustomisasi Judul & Badge Seksi (Headlines) -->
+      <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
+        <div class="flex items-center justify-between border-b pb-4">
+          <div>
+            <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider text-emerald-800">4. Judul & Badge Tiap Seksi Website</h3>
+            <p class="text-xs text-slate-500">Ubah teks headline, badge atas, dan sub-judul untuk masing-masing bagian website</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Fasilitas -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 flex items-center gap-1.5">🏢 Seksi Fasilitas</h4>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Badge Atas</label>
+              <input v-model="form.sectionHeadlines.facilities.badge" type="text" placeholder="Sarana Belajar" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Judul Utama Seksi</label>
+              <input v-model="form.sectionHeadlines.facilities.title" type="text" placeholder="Fasilitas Kampus" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Deskripsi Singkat</label>
+              <input v-model="form.sectionHeadlines.facilities.description" type="text" placeholder="Sarana dan prasarana modern..." class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+          </div>
+
+          <!-- Berita -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 flex items-center gap-1.5">📰 Seksi Berita & Informasi</h4>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Badge Atas</label>
+              <input v-model="form.sectionHeadlines.news.badge" type="text" placeholder="Informasi Terkini" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Judul Utama Seksi</label>
+              <input v-model="form.sectionHeadlines.news.title" type="text" placeholder="Berita & Kegiatan" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Deskripsi Singkat</label>
+              <input v-model="form.sectionHeadlines.news.description" type="text" placeholder="Kumpulan berita terbaru..." class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+          </div>
+
+          <!-- Program & Jurusan -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 flex items-center gap-1.5">🎓 Seksi Program & Jurusan</h4>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Badge Atas</label>
+              <input v-model="form.sectionHeadlines.programs.badge" type="text" placeholder="Kurikulum & Karir" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Judul Utama Seksi</label>
+              <input v-model="form.sectionHeadlines.programs.title" type="text" placeholder="Program & Jurusan Unggulan" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Deskripsi Singkat</label>
+              <input v-model="form.sectionHeadlines.programs.description" type="text" placeholder="Program pendidikan berkualitas..." class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+          </div>
+
+          <!-- Visi & Misi -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 flex items-center gap-1.5">🎯 Seksi Visi & Misi</h4>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Badge Atas</label>
+              <input v-model="form.sectionHeadlines.vision_mission.badge" type="text" placeholder="Komitmen & Nilai Luhur" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Judul Utama Seksi</label>
+              <input v-model="form.sectionHeadlines.vision_mission.title" type="text" placeholder="Visi & Misi Sekolah" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+          </div>
+
+          <!-- Guru & Staf -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 flex items-center gap-1.5">👨‍🏫 Seksi Guru & Staf</h4>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Badge Atas</label>
+              <input v-model="form.sectionHeadlines.staff.badge" type="text" placeholder="Pendidik Profesional" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Judul Utama Seksi</label>
+              <input v-model="form.sectionHeadlines.staff.title" type="text" placeholder="Guru & Tenaga Pendidik" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+          </div>
+
+          <!-- Testimoni -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 flex items-center gap-1.5">💬 Seksi Testimoni</h4>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Badge Atas</label>
+              <input v-model="form.sectionHeadlines.testimonials.badge" type="text" placeholder="Kata Alumni" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Judul Utama Seksi</label>
+              <input v-model="form.sectionHeadlines.testimonials.title" type="text" placeholder="Kata Alumni Kami" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+          </div>
+
+          <!-- PPDB -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 flex items-center gap-1.5">📝 Seksi PPDB</h4>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Badge Atas</label>
+              <input v-model="form.sectionHeadlines.ppdb.badge" type="text" placeholder="Penerimaan Siswa Baru" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Judul Utama Seksi</label>
+              <input v-model="form.sectionHeadlines.ppdb.title" type="text" placeholder="Informasi PPDB Online" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+          </div>
+
+          <!-- Kontak -->
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 flex items-center gap-1.5">📍 Seksi Kontak & Footer</h4>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Badge Atas</label>
+              <input v-model="form.sectionHeadlines.contact.badge" type="text" placeholder="Hubungi Kami" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Judul Seksi</label>
+              <input v-model="form.sectionHeadlines.contact.title" type="text" placeholder="Kontak & Lokasi" class="w-full px-3 py-2 text-xs rounded-lg border bg-white">
+            </div>
+          </div>
         </div>
       </div>
     </form>
