@@ -239,7 +239,7 @@ onMounted(() => {
             <div class="flex items-center gap-3">
               <input
                 v-model="form.imageUrl"
-                type="url"
+                type="text"
                 required
                 placeholder="https://images.unsplash.com/..."
                 class="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600"

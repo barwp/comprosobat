@@ -77,6 +77,15 @@ async function toggleVersionActive(versionId: string, currentActive: boolean) {
   }
 }
 
+async function uploadPreviewImage(event: Event, versionId: string) {
+  const file = (event.target as HTMLInputElement).files?.[0];
+  if (!file) return;
+  const body = new FormData(); body.append('file', file);
+  const res = await useApiClient(`/admin/templates/versions/${versionId}/preview-image`, { method: 'POST', body });
+  if (res.success) { toast.success('Gambar tersimpan', 'Preview template sudah tersedia secara publik.'); await loadTemplates(); }
+  else toast.error('Upload gagal', res.error?.message || 'Gambar tidak dapat disimpan.');
+}
+
 async function openTemplatePreview(tpl: any, ver: any) {
   isPreviewOpen.value = true;
   isPreviewLoading.value = true;
@@ -152,6 +161,10 @@ onMounted(() => {
               </div>
 
               <div class="flex items-center gap-2">
+                <label class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-[11px] cursor-pointer">
+                  🖼 Gambar
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif" class="hidden" @change="uploadPreviewImage($event, ver.id)">
+                </label>
                 <span
                   class="px-2 py-0.5 rounded-full font-bold uppercase text-[10px]"
                   :class="ver.isActive ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-slate-800 text-slate-400'"

@@ -60,6 +60,15 @@ adminRoutes.get('/templates', async (c) => {
   return c.json({ success: true, data: templates });
 });
 
+adminRoutes.post('/templates/versions/:versionId/preview-image', async (c) => {
+  const user = c.get('user') as AuthUser;
+  const body = await c.req.parseBody();
+  const file = body['file'];
+  if (!file || typeof file === 'string') return c.json({ success: false, error: { code: 'NO_FILE', message: 'File gambar wajib diunggah.' } }, 400);
+  const result = await templateService.saveTemplatePreviewImage(c.req.param('versionId'), file.name, Buffer.from(await file.arrayBuffer()), user.id);
+  return c.json({ success: true, data: result });
+});
+
 adminRoutes.post('/templates/upload', async (c) => {
   const superAdmin = c.get('user') as AuthUser;
   const body = await c.req.parseBody();

@@ -182,13 +182,15 @@ export async function resolvePreviewSiteData(siteId: string) {
 export function buildTemplateContextFromSnapshot(snapshot: any) {
   const settings = snapshot.settings || {};
   const entries: any[] = snapshot.contentEntries || [];
+  const activeEntries = entries.filter(e => !e.deletedAt && e.status !== 'ARCHIVED');
   const menus: any[] = snapshot.menuItems || [];
   const mediaAssets: any[] = snapshot.mediaAssets || [];
 
   // Group modules from entries or directly from snapshot.modules
-  const heroSlides = snapshot.modules?.hero_slides || entries.filter(e => e.type === 'hero_slide').map(e => e.payload);
+  const heroSlides = (snapshot.modules?.hero_slides || activeEntries.filter(e => e.type === 'hero_slide').map(e => e.payload))
+    .filter((item: any) => item?.isActive !== false)
+    .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0));
   const programs = snapshot.modules?.programs || entries.filter(e => e.type === 'program').map(e => e.payload);
-  const activeEntries = entries.filter(e => !e.deletedAt && e.status !== 'ARCHIVED');
   const facilitiesSource = snapshot.modules?.facilities || activeEntries.filter(e => e.type === 'facility').map(e => e.payload);
   const facilities = facilitiesSource.filter((item: any) => item.isActive !== false).map((item: any) => ({
     ...item,
@@ -206,7 +208,9 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
     url: `/berita/${item.slug || slugify(item.title || 'berita')}`,
     publishedAt: item.publishedAt || 'Draft terbaru'
   }));
-  const visionMissionEntry = snapshot.modules?.vision_mission ? { payload: snapshot.modules.vision_mission } : entries.find(e => e.type === 'vision_mission');
+  const visionMissionEntry = snapshot.modules?.vision_mission
+    ? { payload: snapshot.modules.vision_mission }
+    : activeEntries.filter(e => e.type === 'vision_mission').sort((a, b) => +new Date(b.updatedAt || b.createdAt) - +new Date(a.updatedAt || a.createdAt))[0];
   const statsEntry = snapshot.modules?.statistics ? { payload: snapshot.modules.statistics } : entries.find(e => e.type === 'history_statistic');
   const staffSource = snapshot.modules?.staff || activeEntries.filter(e => e.type === 'staff').map(e => e.payload);
   const staff = staffSource.filter((item: any) => item.isActive !== false)
@@ -238,6 +242,20 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
   const sortedMenus = [...menus].filter((item: any) => item.isActive !== false)
     .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0));
 
+  const modules = {
+      hero_slides: heroSlides,
+      programs,
+      facilities,
+      news,
+      vision_mission: normalizeVisionMission(visionMissionEntry?.payload || {}),
+      statistics: normalizeHistoryStatistics(statsEntry?.payload || {}),
+      staff,
+      testimonials,
+      ppdb: normalizePpdb(ppdbEntry?.payload || {}),
+      video_profile: videoProfile,
+      media
+    };
+
   return {
     site: {
       name: settings.siteName || 'Website Sekolah',
@@ -260,19 +278,19 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
       },
       social: settings.socialLinks || settings.social || {}
     },
-    modules: {
-      hero_slides: heroSlides,
-      programs,
-      facilities,
-      news,
-      vision_mission: normalizeVisionMission(visionMissionEntry?.payload || {}),
-      statistics: normalizeHistoryStatistics(statsEntry?.payload || {}),
-      staff,
-      testimonials,
-      ppdb: normalizePpdb(ppdbEntry?.payload || {}),
-      video_profile: videoProfile,
-      media
-    },
+    modules,
+    // Backwards-compatible aliases for official templates using the old root paths.
+    hero_slides: modules.hero_slides,
+    programs: modules.programs,
+    facilities: modules.facilities,
+    news: modules.news,
+    vision_mission: modules.vision_mission,
+    statistics: modules.statistics,
+    staff: modules.staff,
+    testimonials: modules.testimonials,
+    ppdb: modules.ppdb,
+    video_profile: modules.video_profile,
+    media: modules.media,
     navigation: {
       header: sortedMenus.filter(m => m.location === 'header'),
       footer: sortedMenus.filter(m => m.location === 'footer')

@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import { useAuth } from '~/composables/useAuth';
 import { useApiClient } from '~/composables/useApi';
 import { useToast } from '~/composables/useToast';
+import MediaSelectorModal from '~/components/MediaSelectorModal.vue';
 
 definePageMeta({ layout: 'dashboard' });
 
@@ -12,12 +13,14 @@ const toast = useToast();
 const siteId = ref<string | null>(null);
 const isLoading = ref(true);
 const isSaving = ref(false);
+const showMediaModal = ref(false);
 
 const form = ref({
   visionTitle: 'Visi Sekolah',
   visionContent: '',
   missionTitle: 'Misi Sekolah',
   missionItems: ['']
+  ,coverImageUrl: ''
 });
 
 async function loadData() {
@@ -34,6 +37,7 @@ async function loadData() {
         visionContent: entry.payload?.visionContent || entry.payload?.vision || '',
         missionTitle: entry.payload?.missionTitle || 'Misi Sekolah',
         missionItems: entry.payload?.missionItems || entry.payload?.missions || ['']
+        ,coverImageUrl: entry.payload?.coverImageUrl || ''
       };
     }
   }
@@ -125,6 +129,15 @@ onMounted(() => {
         </div>
       </div>
 
+      <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-3">
+        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider text-emerald-800">Cover Visual (Opsional)</h3>
+        <div class="flex gap-3">
+          <input v-model="form.coverImageUrl" type="url" placeholder="https://... atau pilih dari Media Library" class="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-sm">
+          <button type="button" @click="showMediaModal = true" class="px-4 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-bold">Pilih Media</button>
+        </div>
+        <img v-if="form.coverImageUrl" :src="form.coverImageUrl" class="w-full max-h-56 object-cover rounded-xl" alt="Cover visi dan misi">
+      </div>
+
       <!-- Misi Card -->
       <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
         <div class="flex items-center justify-between">
@@ -166,5 +179,11 @@ onMounted(() => {
         </div>
       </div>
     </form>
+    <MediaSelectorModal
+      :site-id="siteId || ''"
+      :is-open="showMediaModal"
+      @close="showMediaModal = false"
+      @select="(url) => { form.coverImageUrl = url; showMediaModal = false }"
+    />
   </div>
 </template>

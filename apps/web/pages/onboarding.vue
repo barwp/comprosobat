@@ -394,7 +394,8 @@ onMounted(() => {
           >
             <div class="space-y-3">
               <div class="aspect-[16/10] bg-slate-100 rounded-xl overflow-hidden border border-slate-200 flex items-center justify-center font-bold text-slate-400 text-sm">
-                🖼️ Preview {{ tpl.name }}
+                <img v-if="tpl.previewUrl" :src="tpl.previewUrl" :alt="`Preview ${tpl.name}`" class="w-full h-full object-cover">
+                <span v-else>🖼️ Preview {{ tpl.name }}</span>
               </div>
               <div class="flex items-center justify-between">
                 <h3 class="font-bold text-base text-slate-900">{{ tpl.name }}</h3>

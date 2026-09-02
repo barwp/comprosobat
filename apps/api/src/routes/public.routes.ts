@@ -24,6 +24,17 @@ publicRoutes.get('/resolve', async (c) => {
   return c.json({ success: true, data: resolved });
 });
 
+publicRoutes.get('/template-assets/:templateKey/:version/:filename', (c) => {
+  const filePath = path.resolve(process.cwd(), config.storageLocalPath, 'templates', c.req.param('templateKey'), c.req.param('version'), 'assets', c.req.param('filename'));
+  const root = path.resolve(process.cwd(), config.storageLocalPath, 'templates');
+  if (!filePath.startsWith(root + path.sep) || !fs.existsSync(filePath)) return c.text('Template image not found', 404);
+  const ext = path.extname(filePath).toLowerCase();
+  const mime: Record<string, string> = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.gif': 'image/gif' };
+  c.header('Content-Type', mime[ext] || 'application/octet-stream');
+  c.header('Cache-Control', 'public, max-age=31536000, immutable');
+  return c.body(fs.readFileSync(filePath));
+});
+
 publicRoutes.get('/news/:slug', async (c) => {
   const siteSlug = c.req.query('site') || 'man5sleman';
   const resolved = await resolvePublicSiteByHostOrSlug(siteSlug);

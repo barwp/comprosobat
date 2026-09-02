@@ -29,7 +29,31 @@ export async function listActiveTemplates() {
       eq(schema.templateVersions.isActive, true)
     ));
 
-  return versions;
+  return versions.map((item: any) => ({
+    ...item,
+    previewUrl: (item.manifest as any)?.preview
+      ? `/api/v1/public/template-assets/${item.key}/${item.version}/${(item.manifest as any).preview.replace(/^assets\//, '')}`
+      : null
+  }));
+}
+
+export async function saveTemplatePreviewImage(versionId: string, fileName: string, fileBuffer: Buffer, userId: string) {
+  const db = getDatabaseClient();
+  const [record] = await db.select({ versionId: schema.templateVersions.id, templateKey: schema.templates.key, version: schema.templateVersions.version, manifest: schema.templateVersions.manifest })
+    .from(schema.templateVersions).innerJoin(schema.templates, eq(schema.templates.id, schema.templateVersions.templateId))
+    .where(eq(schema.templateVersions.id, versionId)).limit(1);
+  if (!record) throw new AppError('Versi template tidak ditemukan.', 'TEMPLATE_NOT_FOUND', 404);
+  const ext = path.extname(fileName).toLowerCase();
+  const allowed = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+  if (!allowed.includes(ext)) throw new AppError('Gambar harus berformat JPG, PNG, WEBP, atau GIF.', 'INVALID_IMAGE', 400);
+  if (fileBuffer.length > 8 * 1024 * 1024) throw new AppError('Ukuran gambar maksimal 8 MB.', 'IMAGE_TOO_LARGE', 400);
+  const dir = path.resolve(process.cwd(), config.storageLocalPath, 'templates', record.templateKey, record.version, 'assets');
+  fs.mkdirSync(dir, { recursive: true });
+  const target = path.join(dir, `preview${ext}`);
+  fs.writeFileSync(target, fileBuffer);
+  const manifest = { ...(record.manifest as any || {}), preview: `assets/preview${ext}` };
+  await db.update(schema.templateVersions).set({ manifest }).where(eq(schema.templateVersions.id, versionId));
+  return { previewUrl: `/api/v1/public/template-assets/${record.templateKey}/${record.version}/preview${ext}` };
 }
 
 export async function listAllTemplatesForAdmin() {
