@@ -82,7 +82,7 @@ onMounted(() => {
     </div>
 
     <!-- Schools Table -->
-    <div class="bg-slate-950 rounded-3xl border border-slate-800 overflow-hidden">
+    <div class="bg-slate-950 rounded-3xl border border-slate-800 overflow-x-auto">
       <div v-if="filteredSchools.length === 0" class="text-center py-12 text-slate-500 text-sm">
         Tidak ada sekolah yang cocok dengan pencarian.
       </div>

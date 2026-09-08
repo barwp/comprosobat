@@ -55,7 +55,7 @@ async function handleInstantPublish() {
 </script>
 
 <template>
-  <header class="h-16 bg-white border-b border-slate-200 sticky top-0 z-20 flex items-center justify-between px-8 shadow-sm">
+  <header class="min-h-16 bg-white border-b border-slate-200 sticky top-0 z-20 flex flex-wrap gap-3 items-center justify-between px-4 sm:px-8 py-3 shadow-sm">
     <div>
       <h1 class="text-lg font-bold text-slate-900 leading-tight">
         {{ title || 'Dashboard Sekolah' }}

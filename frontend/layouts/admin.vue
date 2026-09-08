@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuth } from '~/composables/useAuth';
 import ToastContainer from '~/components/ToastContainer.vue';
 
 const router = useRouter();
+const mobileMenuOpen = ref(false);
 const { user, isSuperAdmin, initAuth, logout } = useAuth();
 
 onMounted(() => {
@@ -22,7 +23,8 @@ onMounted(() => {
 <template>
   <div class="min-h-screen bg-slate-900 text-slate-100 flex">
     <!-- Super Admin Sidebar -->
-    <aside class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col h-screen fixed top-0 left-0 z-30">
+    <button v-if="mobileMenuOpen" aria-label="Tutup menu admin" class="fixed inset-0 bg-black/40 z-30 lg:hidden" @click="mobileMenuOpen = false" />
+    <aside :class="mobileMenuOpen ? 'visible translate-x-0' : 'invisible -translate-x-full lg:visible lg:translate-x-0'" class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col h-screen fixed top-0 left-0 z-30">
       <div class="h-16 border-b border-slate-800 flex items-center px-6 gap-3 bg-purple-950 text-white">
         <div class="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center font-bold text-lg">
           🛡️
@@ -33,7 +35,7 @@ onMounted(() => {
         </div>
       </div>
 
-      <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1 text-sm font-medium">
+      <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1 text-sm font-medium" @click="mobileMenuOpen = false">
         <NuxtLink
           to="/admin/dashboard"
           class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-slate-800 transition"
@@ -103,8 +105,9 @@ onMounted(() => {
       </div>
     </aside>
 
-    <div class="flex-1 ml-64 flex flex-col min-h-screen">
-      <main class="flex-1 p-8 max-w-7xl w-full mx-auto">
+    <div class="flex-1 min-w-0 lg:ml-64 flex flex-col min-h-screen">
+      <button class="lg:hidden px-4 py-3 text-left font-bold bg-slate-950" :aria-expanded="mobileMenuOpen" @click="mobileMenuOpen = !mobileMenuOpen">☰ Menu Admin</button>
+      <main class="flex-1 min-w-0 p-4 sm:p-8 max-w-7xl w-full mx-auto">
         <slot />
       </main>
     </div>

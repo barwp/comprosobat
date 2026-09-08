@@ -19,4 +19,5 @@ storage/db/*
 storage-*
 **/storage-*
 coverage
+qa-results
 .system_generated

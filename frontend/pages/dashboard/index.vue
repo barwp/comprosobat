@@ -2,10 +2,12 @@
 import { ref, onMounted } from 'vue';
 import { useAuth } from '~/composables/useAuth';
 import { useApiClient } from '~/composables/useApi';
+import { useToast } from '~/composables/useToast';
 
 definePageMeta({ layout: 'dashboard' });
 
 const { user } = useAuth();
+const toast = useToast();
 const onboarding = ref<any>(null);
 const stats = ref({
   newsCount: 0,
@@ -14,6 +16,7 @@ const stats = ref({
   facilitiesCount: 0
 });
 const isLoading = ref(true);
+const isPublishing = ref(false);
 
 async function loadDashboardData() {
   if (!user.value?.school?.id) return;
@@ -40,6 +43,29 @@ async function loadDashboardData() {
   isLoading.value = false;
 }
 
+async function handleInstantPublish() {
+  if (!onboarding.value?.siteId) {
+    toast.error('Gagal Publikasi', 'Situs sekolah belum terkonfigurasi.');
+    return;
+  }
+
+  isPublishing.value = true;
+  const res = await useApiClient(`/sites/${onboarding.value.siteId}/publish`, {
+    method: 'POST',
+    body: { summary: 'Publikasi langsung dari dashboard' }
+  });
+  isPublishing.value = false;
+
+  if (res.success) {
+    toast.success('Website Berhasil Online! 🚀', 'Draft telah dipublikasikan dan langsung aktif.');
+    onboarding.value.isPublished = true;
+    const liveTarget = `/?slug=${onboarding.value?.slug || res.data?.slug || ''}`;
+    window.open(liveTarget, '_blank');
+  } else {
+    toast.error('Gagal Mempublikasikan', res.error?.message);
+  }
+}
+
 onMounted(() => {
   loadDashboardData();
 });
@@ -58,7 +84,7 @@ onMounted(() => {
           {{ user?.school?.name || 'Website Sekolah' }}
         </h2>
         <p class="text-xs sm:text-sm text-emerald-100 max-w-xl">
-          Lengkapi modul konten sekolah Anda, periksa tampilan pada Live Preview, lalu publikasikan website ke alamat subdomain.
+          Lengkapi modul konten sekolah Anda, periksa tampilan pada Live Preview, lalu publikasikan website langsung ke alamat subdomain.
         </p>
       </div>
 
@@ -69,12 +95,16 @@ onMounted(() => {
         >
           👁️ Live Preview
         </NuxtLink>
-        <NuxtLink
-          to="/dashboard/publish"
-          class="px-6 py-3 rounded-xl bg-white text-emerald-950 hover:bg-emerald-50 font-extrabold text-xs shadow-lg transition"
+        <button
+          type="button"
+          @click="handleInstantPublish"
+          :disabled="isPublishing"
+          class="px-6 py-3 rounded-xl bg-white text-emerald-950 hover:bg-emerald-50 font-extrabold text-xs shadow-lg transition cursor-pointer disabled:opacity-50 inline-flex items-center gap-2"
         >
-          🚀 Publikasikan Rilis
-        </NuxtLink>
+          <span>🚀</span>
+          <span>{{ isPublishing ? 'Mempublikasikan...' : 'Publikasikan Sekarang' }}</span>
+          <span class="text-[10px] text-emerald-700">↗</span>
+        </button>
       </div>
     </div>
 

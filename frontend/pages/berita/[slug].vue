@@ -24,7 +24,7 @@ useSeoMeta({ title: () => data.value?.seoTitle || data.value?.title || 'Berita',
       <template v-else-if="data">
         <img v-if="data.coverImageUrl" :src="data.coverImageUrl" :alt="data.title" class="w-full max-h-[440px] object-cover">
         <div class="p-7 md:p-12">
-          <NuxtLink :to="`/?slug=${siteSlug}`" class="text-xs font-bold text-emerald-700">← Kembali ke website</NuxtLink>
+          <a :href="`/?slug=${encodeURIComponent(siteSlug)}`" class="text-xs font-bold text-emerald-700">← Kembali ke website</a>
           <div class="text-xs text-slate-500 mt-6">{{ data.category }} · {{ data.author }} · {{ data.publishedAt ? new Date(data.publishedAt).toLocaleDateString('id-ID') : '' }}</div>
           <h1 class="text-3xl md:text-4xl font-black text-slate-900 mt-3 leading-tight">{{ data.title }}</h1>
           <p v-if="data.summary" class="text-lg text-slate-600 mt-4">{{ data.summary }}</p>

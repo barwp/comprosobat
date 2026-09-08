@@ -28,7 +28,7 @@ onMounted(() => {
       <p class="text-xs text-slate-400">Rekaman jejak aktivitas autentikasi, perubahan konten, mutasi status, dan rilis publikasi</p>
     </div>
 
-    <div class="bg-slate-950 rounded-3xl border border-slate-800 overflow-hidden">
+    <div class="bg-slate-950 rounded-3xl border border-slate-800 overflow-x-auto">
       <div v-if="logs.length === 0" class="text-center py-12 text-slate-500 text-sm">
         Belum ada log aktivitas.
       </div>

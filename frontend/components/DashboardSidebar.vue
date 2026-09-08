@@ -5,6 +5,7 @@ import { useAuth } from '~/composables/useAuth';
 import { useSiteTemplate } from '~/composables/useSiteTemplate';
 
 const route = useRoute();
+defineEmits(['navigate']);
 const { user, isSuperAdmin, logout } = useAuth();
 const { template, fetchActiveTemplate, supportsModule } = useSiteTemplate();
 
@@ -42,8 +43,7 @@ const navItems = computed(() => {
   // Add system utilities at bottom
   items.push(
     { label: 'Media Library', path: '/dashboard/media', icon: '📁' },
-    { label: 'Live Preview', path: '/dashboard/preview', icon: '👁️' },
-    { label: 'Publikasi & Riwayat', path: '/dashboard/publish', icon: '🚀' }
+    { label: 'Live Preview', path: '/dashboard/preview', icon: '👁️' }
   );
 
   return items;
@@ -95,6 +95,7 @@ function isActive(path: string) {
         v-for="item in navItems"
         :key="item.path"
         :to="item.path"
+        @click="$emit('navigate')"
         class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium transition duration-150"
         :class="isActive(item.path)
           ? 'bg-emerald-800 text-white shadow-sm font-semibold'

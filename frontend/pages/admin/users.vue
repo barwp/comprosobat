@@ -45,7 +45,7 @@ onMounted(() => {
       <p class="text-xs text-slate-400">Kelola akun administrator, staf editor sekolah, dan hak akses</p>
     </div>
 
-    <div class="bg-slate-950 rounded-3xl border border-slate-800 overflow-hidden">
+    <div class="bg-slate-950 rounded-3xl border border-slate-800 overflow-x-auto">
       <table class="w-full text-left text-sm">
         <thead class="bg-slate-900/60 text-slate-400 text-xs font-bold uppercase tracking-wider border-b border-slate-800">
           <tr>
