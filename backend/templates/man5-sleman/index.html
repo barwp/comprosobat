@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.name }} - {{ site.tagline }}</title>
+  <meta name="description" content="{{ site.description }}">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --color-primary: {{ site.primaryColor }};
+      --color-secondary: {{ site.secondaryColor }};
+      --font-family-base: 'Plus Jakarta Sans', sans-serif;
+    }
+    body {
+      font-family: var(--font-family-base, 'Plus Jakarta Sans', sans-serif);
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-[#0d2b52] selection:text-white">
+
+  <!-- ================= TOPBAR ================= -->
+  <div class="bg-[#061526] text-slate-300 text-xs py-2 px-4 border-b border-[#0d2b52] hidden md:block">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-6">
+        <span class="flex items-center gap-1.5" data-cms-show="site.contact.address">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#ffcb08]"></i>
+          <span data-cms-text="site.contact.address">{{ site.contact.address }}</span>
+        </span>
+        <span class="flex items-center gap-1.5" data-cms-show="site.contact.phone">
+          <i data-lucide="phone" class="w-3.5 h-3.5 text-[#ffcb08]"></i>
+          <span data-cms-text="site.contact.phone">{{ site.contact.phone }}</span>
+        </span>
+        <span class="flex items-center gap-1.5" data-cms-show="site.contact.email">
+          <i data-lucide="mail" class="w-3.5 h-3.5 text-[#ffcb08]"></i>
+          <span data-cms-text="site.contact.email">{{ site.contact.email }}</span>
+        </span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="text-[#ffcb08] font-bold flex items-center gap-1.5">
+          <i data-lucide="award" class="w-4 h-4"></i>
+          Akreditasi <span data-cms-text="modules.statistics.accreditation">{{ modules.statistics.accreditation }}</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= HEADER / NAVBAR ================= -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <a href="#beranda" class="flex items-center gap-3 min-w-0 flex-shrink">
+        <img data-cms-image="site.logo" src="{{ site.logo.url }}" alt="{{ site.logo.alt }}" class="h-12 w-auto object-contain flex-shrink-0" onerror="this.style.display='none'">
+        <div class="min-w-0">
+          <span class="font-extrabold text-base text-[#0d2b52] tracking-tight block uppercase truncate" data-cms-text="site.name">{{ site.name }}</span>
+          <span class="text-xs font-semibold text-gray-500 truncate block max-w-[260px] sm:max-w-md" data-cms-text="site.tagline">{{ site.tagline }}</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-1">
+        <a data-cms-repeat="navigation.header" data-cms-href="item.target" href="#" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-[#0d2b52] transition-colors">
+          <span data-cms-text="item.label">Menu</span>
+        </a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="#ppdb" class="inline-flex items-center justify-center gap-2 bg-[#0d2b52] hover:bg-[#061526] text-white font-semibold text-sm px-6 py-2.5 rounded-xl shadow-xs transition-all">
+          <i data-lucide="user-plus" class="w-4 h-4"></i>
+          <span>Daftar PPDB</span>
+        </a>
+      </div>
+
+      <!-- Mobile Toggle -->
+      <div class="flex items-center gap-2 lg:hidden">
+        <a href="#ppdb" class="bg-[#0d2b52] text-white text-xs font-bold px-3 py-1.5 rounded-lg">PPDB</a>
+        <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="p-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-gray-200 bg-white px-6 py-4 space-y-2">
+      <a data-cms-repeat="navigation.header" data-cms-href="item.target" href="#" class="block px-4 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100">
+        <span data-cms-text="item.label">Menu</span>
+      </a>
+      <a href="#ppdb" class="block text-center bg-[#0d2b52] text-white font-bold py-2.5 rounded-xl text-sm mt-2">
+        Daftar Sekarang
+      </a>
+    </div>
+  </header>
+
+  <!-- ================= HERO SLIDER SECTION ================= -->
+  <section id="beranda" class="relative bg-gradient-to-br from-[#0d2b52] to-[#061526] text-white overflow-hidden">
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+      <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20"></div>
+    </div>
+    
+    <div class="hero-slider relative max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24" data-hero-slider>
+      <!-- Slides Container -->
+      <div class="hero-slides-wrapper relative">
+        <div class="hero-slide transition-opacity duration-700" data-cms-repeat="hero_slides">
+          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="text-center lg:text-left space-y-6">
+              <div class="inline-block bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
+                <span class="text-sm font-medium text-[#ffcb08]">🏫 <span data-cms-text="item.badge">{{ sections.hero.badge }}</span></span>
+              </div>
+              <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight" data-cms-text="item.title">
+                {{ item.title }}
+              </h1>
+              <p class="text-base sm:text-lg text-white/90 leading-relaxed max-w-2xl" data-cms-text="item.subtitle">
+                {{ item.subtitle }}
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                <a data-cms-link="item.ctaUrl" data-cms-href="item.ctaUrl" href="{{ item.ctaUrl }}" class="inline-flex items-center justify-center gap-2 bg-white text-[#0d2b52] hover:bg-gray-100 font-bold px-8 py-3.5 rounded-xl shadow-lg transition-all">
+                  <span data-cms-text="item.ctaText">{{ item.ctaText }}</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+                <a data-cms-link="item.ctaSecondaryUrl" data-cms-href="item.ctaSecondaryUrl" href="#profil" class="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-xl border border-white/20 transition-colors">
+                  <span data-cms-text="item.ctaSecondaryText">Lihat Profil</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="relative">
+              <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-gray-900 border-2 border-white/20">
+                <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="Hero Slide" class="w-full h-full object-cover" onerror="this.style.display='none'">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button data-hero-prev class="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-sm transition-all border border-white/20 shadow-lg" aria-label="Slide Sebelumnya">
+        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+      </button>
+      <button data-hero-next class="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-sm transition-all border border-white/20 shadow-lg" aria-label="Slide Selanjutnya">
+        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+      </button>
+
+      <!-- Dots Indicator -->
+      <div data-hero-dots class="flex items-center justify-center gap-2 mt-8 z-20"></div>
+    </div>
+  </section>
+
+  <!-- ================= QUICK STATS BANNER ================= -->
+  <section data-cms-show="modules.statistics.stats" class="bg-white py-12 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div data-cms-repeat="modules.statistics.stats" class="text-center">
+          <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#eef3fb] text-[#0d2b52] mb-3 font-bold">
+            <i data-lucide="award" class="w-7 h-7"></i>
+          </div>
+          <p class="text-3xl lg:text-4xl font-bold text-[#312b36] mb-1" data-cms-text="item.value">{{ item.value }}</p>
+          <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider" data-cms-text="item.label">{{ item.label }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROFIL MADRASAH / VISI MISI ================= -->
+  <section id="profil" class="bg-[#eef3fb] py-20 lg:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 space-y-3">
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-[#0d2b52] bg-[#c5d8f5] px-3 py-1 rounded-full" data-cms-text="sections.vision_mission.badge">{{ sections.vision_mission.badge }}</span>
+        <h2 class="text-3xl lg:text-4xl font-bold text-[#312b36]" data-cms-text="sections.vision_mission.title">{{ sections.vision_mission.title }}</h2>
+        <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed" data-cms-text="site.description">{{ site.description }}</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <div class="space-y-6">
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+            <h3 class="text-xs font-black uppercase tracking-widest text-[#0d2b52] mb-3 flex items-center gap-2" data-cms-text="modules.vision_mission.visionTitle">
+              <i data-lucide="sparkles" class="w-4 h-4 text-[#ffcb08]"></i>
+              {{ modules.vision_mission.visionTitle }}
+            </h3>
+            <p class="text-base sm:text-lg font-bold text-[#312b36] leading-relaxed italic" data-cms-text="modules.vision_mission.visionContent">
+              "{{ modules.vision_mission.visionContent }}"
+            </p>
+          </div>
+
+          <div data-cms-show="modules.statistics.historySummary" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <h4 class="font-bold text-[#0d2b52] text-sm mb-2" data-cms-text="modules.statistics.historyTitle">{{ modules.statistics.historyTitle }}</h4>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed" data-cms-text="modules.statistics.historySummary">{{ modules.statistics.historySummary }}</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+          <h3 class="text-xs font-black uppercase tracking-widest text-[#0d2b52] mb-4 flex items-center gap-2" data-cms-text="modules.vision_mission.missionTitle">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-[#10b981]"></i>
+            {{ modules.vision_mission.missionTitle }}
+          </h3>
+          <ul class="space-y-3">
+            <li data-cms-repeat="modules.vision_mission.missionItems" class="flex items-start gap-3 text-sm text-gray-700">
+              <i data-lucide="check-circle" class="w-5 h-5 text-[#0d2b52] flex-shrink-0 mt-0.5"></i>
+              <span data-cms-text="item">{{ item }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROGRAM UNGGULAN ================= -->
+  <section id="program" class="bg-white py-20 lg:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 space-y-3">
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-[#0d2b52] bg-[#eef3fb] px-3 py-1 rounded-full" data-cms-text="sections.programs.badge">{{ sections.programs.badge }}</span>
+        <h2 class="text-3xl lg:text-4xl font-bold text-[#312b36]" data-cms-text="sections.programs.title">{{ sections.programs.title }}</h2>
+        <p class="text-sm text-gray-600 max-w-2xl mx-auto" data-cms-text="sections.programs.description">{{ sections.programs.description }}</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div data-cms-repeat="programs" class="bg-white border-2 border-gray-100 hover:border-[#0d2b52] rounded-2xl p-8 shadow-xs hover:shadow-lg transition-all duration-300 group">
+          <div class="w-12 h-12 rounded-xl bg-[#eef3fb] text-[#0d2b52] flex items-center justify-center mb-4 group-hover:bg-[#0d2b52] group-hover:text-white transition-colors">
+            <i data-lucide="book-open" class="w-6 h-6"></i>
+          </div>
+          <span class="text-[10px] font-bold uppercase text-gray-400 tracking-wider" data-cms-text="item.category">{{ item.category }}</span>
+          <h3 class="text-xl font-bold text-[#312b36] mt-1 mb-2 group-hover:text-[#0d2b52] transition-colors" data-cms-text="item.title">{{ item.title }}</h3>
+          <p class="text-sm text-gray-600 leading-relaxed" data-cms-text="item.description">{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FASILITAS & SARANA ================= -->
+  <section id="fasilitas" class="bg-[#eef3fb] py-20 lg:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 space-y-3">
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-[#0d2b52] bg-white px-3 py-1 rounded-full shadow-xs" data-cms-text="sections.facilities.badge">{{ sections.facilities.badge }}</span>
+        <h2 class="text-3xl lg:text-4xl font-bold text-[#312b36]" data-cms-text="sections.facilities.title">{{ sections.facilities.title }}</h2>
+        <p class="text-sm text-gray-600 max-w-2xl mx-auto" data-cms-text="sections.facilities.description">{{ sections.facilities.description }}</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div data-cms-repeat="facilities" class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all">
+          <div class="h-48 overflow-hidden bg-slate-100">
+            <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="{{ item.name }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.style.display='none'">
+          </div>
+          <div class="p-6">
+            <span class="text-[10px] font-bold uppercase text-[#0d2b52]" data-cms-text="item.category">{{ item.category }}</span>
+            <h3 class="text-lg font-bold text-[#312b36] mt-1 mb-1" data-cms-text="item.name">{{ item.name }}</h3>
+            <p class="text-xs sm:text-sm text-gray-600" data-cms-text="item.description">{{ item.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DEWAN GURU & TENAGA PENDIDIK ================= -->
+  <section id="guru" class="bg-white py-20 lg:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 space-y-3">
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-[#0d2b52] bg-[#eef3fb] px-3 py-1 rounded-full" data-cms-text="sections.staff.badge">{{ sections.staff.badge }}</span>
+        <h2 class="text-3xl lg:text-4xl font-bold text-[#312b36]" data-cms-text="sections.staff.title">{{ sections.staff.title }}</h2>
+        <p class="text-sm text-gray-600 max-w-2xl mx-auto" data-cms-text="sections.staff.description">{{ sections.staff.description }}</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div data-cms-repeat="staff" class="bg-[#f9fafb] rounded-2xl overflow-hidden border border-gray-100 p-6 text-center hover:shadow-md transition-all">
+          <div class="w-24 h-24 mx-auto rounded-full overflow-hidden bg-[#eef3fb] mb-4 border-2 border-[#0d2b52]">
+            <img data-cms-image="item.photoUrl" src="{{ item.photoUrl }}" alt="{{ item.name }}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+          </div>
+          <h3 class="text-base font-bold text-[#312b36]" data-cms-text="item.name">{{ item.name }}</h3>
+          <p class="text-xs font-semibold text-[#1a4b8a] mt-1" data-cms-text="item.role">{{ item.role }}</p>
+          <p class="text-[11px] text-gray-500 mt-1" data-cms-text="item.subject">{{ item.subject }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ORGANISASI SISWA & EKSKUL ================= -->
+  <section id="ekskul" class="bg-[#eef3fb] py-20 lg:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 space-y-3">
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-[#0d2b52] bg-white px-3 py-1 rounded-full" data-cms-text="sections.student_orgs.badge">{{ sections.student_orgs.badge }}</span>
+        <h2 class="text-3xl lg:text-4xl font-bold text-[#312b36]" data-cms-text="sections.student_orgs.title">{{ sections.student_orgs.title }}</h2>
+        <p class="text-sm text-gray-600 max-w-2xl mx-auto" data-cms-text="sections.student_orgs.description">{{ sections.student_orgs.description }}</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div data-cms-repeat="student_organizations" class="bg-white rounded-2xl p-6 shadow-xs border border-gray-100 text-center">
+          <div class="w-14 h-14 mx-auto rounded-2xl bg-[#eef3fb] text-[#0d2b52] flex items-center justify-center font-bold text-lg mb-3 overflow-hidden">
+            <img data-cms-show="item.logoUrl" data-cms-image="item.logoUrl" src="" alt="{{ item.name }}" class="w-full h-full object-cover">
+            <span data-cms-hide="item.logoUrl"><i data-lucide="users" class="w-6 h-6"></i></span>
+          </div>
+          <span class="text-[10px] font-bold uppercase text-[#1a4b8a]" data-cms-text="item.category">{{ item.category }}</span>
+          <h3 class="font-bold text-[#312b36] text-sm mt-1" data-cms-text="item.name">{{ item.name }}</h3>
+          <p class="text-xs text-gray-500 mt-1 leading-relaxed" data-cms-text="item.description">{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONI ALUMNI ================= -->
+  <section id="testimoni" class="bg-white py-20 lg:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 space-y-3">
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-[#0d2b52] bg-[#eef3fb] px-3 py-1 rounded-full" data-cms-text="sections.testimonials.badge">{{ sections.testimonials.badge }}</span>
+        <h2 class="text-3xl lg:text-4xl font-bold text-[#312b36]" data-cms-text="sections.testimonials.title">{{ sections.testimonials.title }}</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div data-cms-repeat="testimonials" class="bg-[#f9fafb] p-8 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between">
+          <p class="text-sm text-gray-700 italic leading-relaxed mb-6" data-cms-text="item.content">"{{ item.content }}"</p>
+          <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
+            <div class="w-10 h-10 rounded-full bg-[#0d2b52] text-white flex items-center justify-center font-bold text-sm">
+              <i data-lucide="user" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-sm text-[#312b36]" data-cms-text="item.alumniName">{{ item.alumniName }}</h4>
+              <p class="text-xs text-gray-500" data-cms-text="item.graduationYear">Alumni {{ item.graduationYear }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BERITA & ARTIKEL ================= -->
+  <section id="berita" class="bg-[#eef3fb] py-20 lg:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 space-y-3">
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-[#0d2b52] bg-white px-3 py-1 rounded-full shadow-xs" data-cms-text="sections.news.badge">{{ sections.news.badge }}</span>
+        <h2 class="text-3xl lg:text-4xl font-bold text-[#312b36]" data-cms-text="sections.news.title">{{ sections.news.title }}</h2>
+        <p class="text-sm text-gray-600 max-w-2xl mx-auto" data-cms-text="sections.news.description">{{ sections.news.description }}</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <article data-cms-repeat="news" data-cms-limit="3" class="bg-white border border-gray-100 rounded-2xl overflow-hidden hover:border-[#0d2b52] hover:shadow-lg transition-all flex flex-col justify-between">
+          <div class="aspect-[16/9] overflow-hidden bg-slate-100">
+            <img data-cms-image="item.coverImageUrl" src="{{ item.coverImageUrl }}" alt="{{ item.title }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="this.style.display='none'">
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-xs text-gray-500 mb-2">
+                <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                <span data-cms-text="item.publishedAt">{{ item.publishedAt }}</span>
+              </div>
+              <h3 class="text-base font-bold text-[#312b36] mb-2 line-clamp-2" data-cms-text="item.title">{{ item.title }}</h3>
+              <p class="text-xs text-gray-600 line-clamp-3 mb-4" data-cms-text="item.summary">{{ item.summary }}</p>
+            </div>
+            <a data-cms-link="item.url" href="{{ item.url }}" class="text-[#0d2b52] font-semibold text-xs inline-flex items-center gap-1 hover:gap-2 transition-all">
+              <span>Baca Selengkapnya</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIDEO PROFIL SEKOLAH ================= -->
+  <section id="video" data-cms-show="modules.video_profile.hasVideo" class="py-16 md:py-24 bg-white border-t border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-center">
+      <div class="space-y-4">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#0d2b52] bg-[#eef3fb] px-3 py-1 rounded-full">Video Profil</span>
+        <h2 class="text-2xl md:text-4xl font-bold text-[#312b36]" data-cms-text="modules.video_profile.title">Video Profil Madrasah</h2>
+        <p class="text-sm text-gray-600 leading-relaxed" data-cms-text="modules.video_profile.description">Saksikan kilas pembelajaran, fasilitas, serta kehidupan madrasah kami.</p>
+        <a data-cms-href="modules.video_profile.videoUrl" href="#" target="_blank" class="inline-flex mt-4 px-6 py-3 rounded-xl bg-[#0d2b52] text-white font-bold text-xs uppercase">Buka di YouTube</a>
+      </div>
+      <div class="aspect-video rounded-2xl overflow-hidden bg-black shadow-xl border border-gray-200">
+        <iframe data-cms-src="modules.video_profile.embedUrl" src="" title="Video profil sekolah" class="w-full h-full" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PPDB SECTION ================= -->
+  <section id="ppdb" class="bg-gradient-to-br from-[#0d2b52] to-[#061526] text-white py-20 lg:py-24" data-cms-show="modules.ppdb.isActive">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <span class="text-xs font-bold uppercase tracking-widest text-[#ffcb08] bg-white/10 px-3 py-1 rounded-full" data-cms-text="sections.ppdb.badge">{{ sections.ppdb.badge }}</span>
+          <h2 class="text-3xl lg:text-4xl font-bold" data-cms-text="modules.ppdb.title">{{ modules.ppdb.title }}</h2>
+          <p class="text-sm text-white/80 leading-relaxed" data-cms-text="modules.ppdb.description">{{ modules.ppdb.description }}</p>
+          
+          <div class="grid sm:grid-cols-2 gap-3 pt-2">
+            <div data-cms-repeat="modules.ppdb.registrationPaths" class="bg-white/10 p-4 rounded-xl border border-white/10">
+              <h4 class="font-bold text-xs text-[#ffcb08]" data-cms-text="item.title">{{ item.title }}</h4>
+              <p class="text-[11px] text-white/70 mt-1" data-cms-text="item.description">{{ item.description }}</p>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <a data-cms-show="modules.ppdb.showExternalCta" data-cms-href="modules.ppdb.ctaUrl" href="#" class="inline-flex px-8 py-3.5 rounded-xl bg-[#ffcb08] hover:bg-[#e6b800] text-[#0d2b52] font-bold text-sm">
+              <span data-cms-text="modules.ppdb.ctaText">{{ modules.ppdb.ctaText }}</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white text-slate-800 p-8 rounded-2xl shadow-xl">
+          <h3 class="font-bold text-[#0d2b52] text-lg mb-1">Formulir Pendaftaran Online</h3>
+          <p class="text-xs text-gray-500 mb-4">Silakan lengkapi data awal calon siswa.</p>
+          <form id="ppdb-form" data-ppdb-form="{{ meta.siteId }}" class="space-y-3">
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">Nama Lengkap *</label>
+              <input name="studentName" type="text" required placeholder="Nama calon siswa" class="w-full px-3.5 py-2 text-xs rounded-lg border border-gray-200 focus:border-[#0d2b52] outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">NISN *</label>
+              <input name="nisn" type="text" required placeholder="Nomor Induk Siswa Nasional" class="w-full px-3.5 py-2 text-xs rounded-lg border border-gray-200 focus:border-[#0d2b52] outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">WhatsApp *</label>
+              <input name="whatsapp" type="tel" required placeholder="08xxxxxxxxxx" class="w-full px-3.5 py-2 text-xs rounded-lg border border-gray-200 focus:border-[#0d2b52] outline-none">
+            </div>
+            <button type="submit" class="w-full py-3 bg-[#0d2b52] hover:bg-[#061526] text-white font-bold text-xs uppercase rounded-xl shadow-sm transition-all mt-2">
+              Kirim Pendaftaran
+            </button>
+            <p data-ppdb-message class="text-xs text-center text-gray-500"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALERI MEDIA ================= -->
+  <section id="media" data-cms-show="modules.media" class="bg-white py-20 lg:py-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 space-y-3">
+        <h2 class="text-3xl lg:text-4xl font-bold text-[#312b36]">Galeri Media & Dokumentasi</h2>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+        <div data-cms-repeat="modules.media" class="aspect-[4/3] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow bg-slate-100">
+          <img data-cms-image="item.url" src="" alt="{{ item.alt }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= KONTAK & FOOTER ================= -->
+  <footer id="kontak" class="bg-[#0d2b52] text-white py-16">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 pb-12 border-b border-white/10">
+        <div class="space-y-6">
+          <div class="flex items-center gap-3">
+            <img data-cms-image="site.logo" src="{{ site.logo.url }}" alt="{{ site.logo.alt }}" class="h-12 w-auto object-contain brightness-0 invert" onerror="this.style.display='none'">
+            <div>
+              <h3 class="text-lg font-bold text-white uppercase" data-cms-text="site.name">{{ site.name }}</h3>
+              <p class="text-xs text-white/70" data-cms-text="site.tagline">{{ site.tagline }}</p>
+            </div>
+          </div>
+          <p class="text-sm text-white/80 leading-relaxed" data-cms-text="site.description">{{ site.description }}</p>
+          <div class="space-y-3 text-sm text-white/80">
+            <div class="flex items-start gap-3">
+              <i data-lucide="map-pin" class="w-5 h-5 text-[#ffcb08] flex-shrink-0 mt-0.5"></i>
+              <span data-cms-text="site.contact.address">{{ site.contact.address }}</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="phone" class="w-5 h-5 text-[#ffcb08] flex-shrink-0"></i>
+              <span data-cms-text="site.contact.phone">{{ site.contact.phone }}</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="mail" class="w-5 h-5 text-[#ffcb08] flex-shrink-0"></i>
+              <span data-cms-text="site.contact.email">{{ site.contact.email }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4 bg-white/10 p-8 rounded-2xl border border-white/10">
+          <h4 class="text-xl font-bold">Navigasi Footer</h4>
+          <ul class="space-y-2 text-sm text-white/80">
+            <li data-cms-repeat="navigation.footer">
+              <a data-cms-href="item.target" href="#" class="hover:text-[#ffcb08] transition-colors" data-cms-text="item.label">Tautan</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 text-center text-xs text-white/60">
+        © 2026 <strong data-cms-text="site.name">{{ site.name }}</strong>. All rights reserved. Powered by SobatWeb.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

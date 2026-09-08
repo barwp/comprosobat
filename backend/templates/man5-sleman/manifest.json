@@ -1,0 +1,233 @@
+{
+  "$schema": "../../packages/contracts/src/template.schema.json",
+  "schemaVersion": "1.0.0",
+  "templateKey": "man5-sleman",
+  "name": "Template Unggulan MAN 5 Sleman",
+  "version": "1.0.0",
+  "category": "Madrasah / MA",
+  "description": "Template profil madrasah unggulan dengan nuansa hijau botol islami, aksen emas royal, dan integrasi penuh 14 modul CMS SobatWeb.",
+  "author": "SobatWeb Core Team",
+  "entry": "index.html",
+  "preview": "assets/preview.webp",
+  "supportedModules": [
+    "site_settings",
+    "hero_slides",
+    "programs",
+    "facilities",
+    "news",
+    "vision_mission",
+    "statistics",
+    "staff",
+    "student_organizations",
+    "testimonials",
+    "ppdb",
+    "video_profile",
+    "contact",
+    "navigation",
+    "media"
+  ],
+  "sections": [
+    {
+      "key": "settings",
+      "module": "site_settings",
+      "label": "Pengaturan Situs & SEO",
+      "icon": "⚙️",
+      "path": "/dashboard/settings",
+      "description": "Identitas madrasah, logo, favicon, dan pengaturan tema visual.",
+      "order": 1,
+      "fields": [
+        { "key": "siteName", "label": "Nama Madrasah", "type": "text", "required": true },
+        { "key": "tagline", "label": "Slogan / Tagline", "type": "text" },
+        { "key": "description", "label": "Deskripsi Profil", "type": "textarea" },
+        { "key": "logoUrl", "label": "Logo Madrasah", "type": "image" },
+        { "key": "faviconUrl", "label": "Favicon", "type": "image" },
+        { "key": "primaryColor", "label": "Warna Primer (Hijau)", "type": "color" },
+        { "key": "secondaryColor", "label": "Warna Sekunder (Emas)", "type": "color" },
+        { "key": "fontFamily", "label": "Font Utama", "type": "select", "options": ["Plus Jakarta Sans", "Inter", "Poppins"] }
+      ]
+    },
+    {
+      "key": "hero",
+      "module": "hero_slides",
+      "label": "Slide Beranda (Hero)",
+      "icon": "🖼️",
+      "path": "/dashboard/hero",
+      "description": "Banner visual utama di bagian atas halaman beranda.",
+      "order": 2,
+      "fields": [
+        { "key": "title", "label": "Judul Utama Hero", "type": "text", "required": true },
+        { "key": "subtitle", "label": "Teks Penjelas / Subjudul", "type": "textarea" },
+        { "key": "imageUrl", "label": "Gambar Background Banner", "type": "image", "required": true },
+        { "key": "ctaText", "label": "Teks Tombol Aksi (CTA)", "type": "text" },
+        { "key": "ctaUrl", "label": "Tautan Tombol Aksi", "type": "url" }
+      ]
+    },
+    {
+      "key": "vision_mission",
+      "module": "vision_mission",
+      "label": "Visi, Misi & Nilai",
+      "icon": "🎯",
+      "path": "/dashboard/vision-mission",
+      "description": "Visi madrasah dan butir-butir misi pencapaian.",
+      "order": 3,
+      "fields": [
+        { "key": "visionTitle", "label": "Judul Visi", "type": "text" },
+        { "key": "vision", "label": "Pernyataan Visi Utama", "type": "textarea", "required": true },
+        { "key": "missionTitle", "label": "Judul Misi", "type": "text" },
+        { "key": "missionItems", "label": "Daftar Misi Madrasah", "type": "list" }
+      ]
+    },
+    {
+      "key": "statistics",
+      "module": "statistics",
+      "label": "Statistik & Prestasi",
+      "icon": "📈",
+      "path": "/dashboard/statistics",
+      "description": "Angka capaian, akreditasi, santri, guru, dan prestasi lomba.",
+      "order": 4,
+      "fields": [
+        { "key": "accreditation", "label": "Status Akreditasi", "type": "text" },
+        { "key": "studentCount", "label": "Jumlah Hafidz / Siswa", "type": "text" },
+        { "key": "teacherCount", "label": "Jumlah Pendidik S1/S2", "type": "text" },
+        { "key": "achievementCount", "label": "Jumlah Prestasi", "type": "text" }
+      ]
+    },
+    {
+      "key": "programs",
+      "module": "programs",
+      "label": "Program Unggulan",
+      "icon": "🎓",
+      "path": "/dashboard/programs",
+      "description": "Kelas khusus seperti Tahfidz, Madrasah Riset, dan Kelas Bahasa.",
+      "order": 5,
+      "fields": [
+        { "key": "title", "label": "Nama Program", "type": "text", "required": true },
+        { "key": "category", "label": "Kategori Program", "type": "text" },
+        { "key": "description", "label": "Penjelasan Program", "type": "textarea", "required": true }
+      ]
+    },
+    {
+      "key": "facilities",
+      "module": "facilities",
+      "label": "Fasilitas & Sarana",
+      "icon": "🏢",
+      "path": "/dashboard/facilities",
+      "description": "Galeri sarana prasarana penunjang kegiatan belajar madrasah.",
+      "order": 6,
+      "fields": [
+        { "key": "name", "label": "Nama Fasilitas", "type": "text", "required": true },
+        { "key": "category", "label": "Kategori Fasilitas", "type": "text" },
+        { "key": "description", "label": "Deskripsi Fasilitas", "type": "textarea" },
+        { "key": "imageUrl", "label": "Foto Fasilitas", "type": "image", "required": true }
+      ]
+    },
+    {
+      "key": "news",
+      "module": "news",
+      "label": "Berita & Pengumuman",
+      "icon": "📰",
+      "path": "/dashboard/news",
+      "description": "Warta kegiatan, prestasi siswa, dan artikel madrasah.",
+      "order": 7,
+      "fields": [
+        { "key": "title", "label": "Judul Berita", "type": "text", "required": true },
+        { "key": "summary", "label": "Ringkasan Singkat", "type": "textarea" },
+        { "key": "contentHtml", "label": "Konten Berita Lengkap (Rich Text)", "type": "richtext", "required": true },
+        { "key": "coverImageUrl", "label": "Foto Sampul Berita", "type": "image" },
+        { "key": "category", "label": "Kategori Berita", "type": "select", "options": ["Prestasi", "Akademik", "Kegiatan", "Pengumuman"] }
+      ]
+    },
+    {
+      "key": "staff",
+      "module": "staff",
+      "label": "Guru & Staf Pendidik",
+      "icon": "👨‍🏫",
+      "path": "/dashboard/staff",
+      "description": "Daftar guru pengampu, pimpinan madrasah, dan tenaga kependidikan.",
+      "order": 8,
+      "fields": [
+        { "key": "name", "label": "Nama Lengkap & Gelar", "type": "text", "required": true },
+        { "key": "role", "label": "Jabatan / Tugas", "type": "text" },
+        { "key": "subject", "label": "Mata Pelajaran Pengampu", "type": "text" },
+        { "key": "photoUrl", "label": "Foto Profil Guru", "type": "image" }
+      ]
+    },
+    {
+      "key": "testimonials",
+      "module": "testimonials",
+      "label": "Testimoni Alumni",
+      "icon": "💬",
+      "path": "/dashboard/testimonials",
+      "description": "Inspirasi dan kesan pesan alumni lulusan madrasah.",
+      "order": 9,
+      "fields": [
+        { "key": "alumniName", "label": "Nama Lengkap Alumni", "type": "text", "required": true },
+        { "key": "graduationYear", "label": "Tahun Kelulusan / Angkatan", "type": "text" },
+        { "key": "content", "label": "Kesan & Pesan Alumni", "type": "textarea", "required": true }
+      ]
+    },
+    {
+      "key": "ppdb",
+      "module": "ppdb",
+      "label": "Pendaftaran PPDB",
+      "icon": "📝",
+      "path": "/dashboard/ppdb",
+      "description": "Informasi penerimaan santri/siswa baru dan formulir minat online.",
+      "order": 10,
+      "fields": [
+        { "key": "title", "label": "Judul Banner PPDB", "type": "text" },
+        { "key": "subtitle", "label": "Deskripsi Informasi PPDB", "type": "textarea" },
+        { "key": "period", "label": "Tahun Pelajaran", "type": "text" },
+        { "key": "formMode", "label": "Metode Formulir", "type": "select", "options": ["internal", "external"] }
+      ]
+    },
+    {
+      "key": "contact",
+      "module": "contact",
+      "label": "Kontak & Alamat",
+      "icon": "📍",
+      "path": "/dashboard/contact",
+      "description": "Alamat fisik madrasah, nomor telepon, email resmi, dan jam layanan.",
+      "order": 11,
+      "fields": [
+        { "key": "address", "label": "Alamat Lengkap", "type": "textarea", "required": true },
+        { "key": "phone", "label": "Nomor Telepon Kantor / WA", "type": "text" },
+        { "key": "email", "label": "Alamat Email Resmi", "type": "text" },
+        { "key": "operationalHours", "label": "Jam Operasional", "type": "text" }
+      ]
+    },
+    {
+      "key": "navigation",
+      "module": "navigation",
+      "label": "Menu & Navigasi",
+      "icon": "🧭",
+      "path": "/dashboard/navigation",
+      "description": "Susunan menu navbar header dan tautan cepat footer.",
+      "order": 12,
+      "fields": [
+        { "key": "headerMenu", "label": "Menu Header Navbar", "type": "list" },
+        { "key": "footerLinks", "label": "Tautan Footer", "type": "list" }
+      ]
+    }
+  ],
+  "themeFields": [
+    {
+      "key": "primaryColor",
+      "label": "Warna Primer Brand (Hijau)",
+      "type": "color",
+      "defaultValue": "#1a6b2f"
+    },
+    {
+      "key": "secondaryColor",
+      "label": "Warna Aksen (Emas)",
+      "type": "color",
+      "defaultValue": "#c9a227"
+    },
+    {
+      "key": "fontFamily",
+      "label": "Keluarga Font",
+      "type": "font",
+      "defaultValue": "Plus Jakarta Sans"
+    }
+  ]
+}

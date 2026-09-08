@@ -47,47 +47,64 @@
 
 ---
 
-## 📂 Struktur Monorepo
+## 📂 Struktur Proyek (Terpisah Backend & Frontend)
 
 ```text
 sobatwebcompro/
-├── apps/
-│   ├── api/                    # Hono REST API & Multi-Tenant Backend (Port 4000)
-│   └── web/                    # Nuxt 3 + Vue 3 + Tailwind CSS Frontend (Port 3000)
-├── packages/
-│   ├── contracts/              # Shared Zod Schemas & TypeScript Types
-│   ├── database/               # Drizzle ORM Schema, Migrations, Seeds & Dual Client (PostgreSQL / PGlite)
-│   └── template-engine/        # HTML Binding Parser, Sanitizer, ZIP Validator & Renderer
-├── templates/
-│   ├── school-modern/          # Official School Modern Template (Tailwind & Hero Slider)
-│   └── school-classic/         # Official School Classic Template (Academic Navy/Gold)
-├── docker-compose.yml          # Optional PostgreSQL Docker configuration
-├── pnpm-workspace.yaml         # Turborepo & PNPM workspace config
-└── package.json
+├── backend/                  # Standalone Backend Service (Port 4000)
+│   ├── src/                  # Elysia / Hono REST API & Multi-Tenant Engine
+│   ├── packages/             # Database (Drizzle), Template Engine, Contracts
+│   ├── templates/            # 5 Official HTML School Templates
+│   ├── storage/              # SQLite DB & Media Upload Storage
+│   ├── tests/                # Unit & Integration Tests (33 pass)
+│   ├── package.json          # Standalone Backend Scripts & Dependencies
+│   └── .env
+│
+├── frontend/                 # Standalone Frontend App (Port 3005)
+│   ├── components/           # Vue 3 UI Components (Modals, Sliders, Editors)
+│   ├── composables/          # Nuxt State & API composables
+│   ├── pages/                # Nuxt Pages (Dashboard CMS, Auth, Public)
+│   ├── packages/contracts/   # Client Type Contracts
+│   ├── package.json          # Standalone Frontend Scripts & Dependencies
+│   └── .env
+│
+├── pnpm-workspace.yaml       # Workspace config (backend & frontend)
+└── package.json              # Root orchestration shortcuts
 ```
 
 ---
 
-## 🚀 Panduan Memulai Cepat (Local Development)
+## 🚀 Panduan Menjalankan (Standalone & Root)
 
-### 1. Prasyarat
-- Node.js >= 20.x
-- PNPM >= 9.x
-
-### 2. Instalasi Dependensi
+### 1. Menjalankan Backend Secara Terpisah
+Masuk ke folder `backend` dan jalankan:
 ```bash
-pnpm install
+cd backend
+pnpm dev
+# atau menggunakan Bun:
+bun src/index.ts
 ```
+Backend akan aktif di `http://localhost:4000`.
 
-### 3. Database Migration & Seeding
-Proyek telah dilengkapi dengan zero-config embedded `@electric-sql/pglite` (atau dapat menggunakan PostgreSQL URL standar pada `.env`). Jalankan migrasi dan seed:
-
+### 2. Menjalankan Frontend Secara Terpisah
+Masuk ke folder `frontend` dan jalankan:
 ```bash
-# Menjalankan migrasi DDL database
-pnpm --filter @sobatweb/database migrate
+cd frontend
+pnpm dev
+```
+Frontend Nuxt 3 akan aktif di `http://localhost:3005`.
 
-# Menjalankan seeder akun & template bawaan
-pnpm --filter @sobatweb/database seed
+### 3. Menjalankan dari Folder Root
+```bash
+# Menjalankan backend dan frontend bersamaan
+pnpm dev
+
+# Atau menjalankan salah satu dari root:
+pnpm dev:backend
+pnpm dev:frontend
+
+# Menjalankan test suite backend:
+pnpm test
 ```
 
 ### 4. Akun Demo Bawaan (Hasil Seeder)

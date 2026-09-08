@@ -21,20 +21,20 @@ importers:
         specifier: ^3.0.7
         version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(jsdom@26.1.0)(terser@5.51.2)(tsx@4.23.13)(yaml@2.9.0)
 
-  apps/api:
+  backend:
     dependencies:
       '@hono/node-server':
         specifier: ^1.13.8
         version: 1.19.17(hono@4.13.5)
       '@sobatweb/contracts':
         specifier: workspace:*
-        version: link:../../packages/contracts
+        version: link:../frontend/packages/contracts
       '@sobatweb/database':
         specifier: workspace:*
-        version: link:../../packages/database
+        version: link:packages/database
       '@sobatweb/template-engine':
         specifier: workspace:*
-        version: link:../../packages/template-engine
+        version: link:packages/template-engine
       argon2:
         specifier: ^0.41.1
         version: 0.41.1
@@ -76,41 +76,7 @@ importers:
         specifier: ^3.0.7
         version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(jsdom@26.1.0)(terser@5.51.2)(tsx@4.23.13)(yaml@2.9.0)
 
-  apps/web:
-    dependencies:
-      '@sobatweb/contracts':
-        specifier: workspace:*
-        version: link:../../packages/contracts
-      lucide-vue-next:
-        specifier: ^0.475.0
-        version: 0.475.0(vue@3.5.42(typescript@5.9.3))
-      nuxt:
-        specifier: ^3.15.4
-        version: 3.21.11(@electric-sql/pglite@0.2.17)(@oxc-project/types@0.143.0)(@types/node@22.20.1)(@vue/compiler-sfc@3.5.42)(cac@6.7.14)(db0@0.3.4(@electric-sql/pglite@0.2.17)(drizzle-orm@0.39.3(@electric-sql/pglite@0.2.17)(@types/pg@8.23.1)(pg@8.23.0)(postgres@3.4.9)))(drizzle-orm@0.39.3(@electric-sql/pglite@0.2.17)(@types/pg@8.23.1)(pg@8.23.0)(postgres@3.4.9))(esbuild@0.28.2)(ioredis@5.11.1)(magicast@0.5.4)(rollup-plugin-visualizer@7.1.1(rollup@4.63.1))(rollup@4.63.1)(srvx@0.11.22)(terser@5.51.2)(tsx@4.23.13)(typescript@5.9.3)(vite@7.3.6(@types/node@22.20.1)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)(yaml@2.9.0))(vue-tsc@2.2.12(typescript@5.9.3))(yaml@2.9.0)
-      vue:
-        specifier: ^3.5.13
-        version: 3.5.42(typescript@5.9.3)
-      vue-router:
-        specifier: ^4.5.0
-        version: 4.6.4(vue@3.5.42(typescript@5.9.3))
-    devDependencies:
-      '@nuxtjs/tailwindcss':
-        specifier: ^6.13.1
-        version: 6.14.0(magicast@0.5.4)(tsx@4.23.13)(yaml@2.9.0)
-      '@types/node':
-        specifier: ^22.13.5
-        version: 22.20.1
-      tailwindcss:
-        specifier: ^3.4.17
-        version: 3.4.19(tsx@4.23.13)(yaml@2.9.0)
-      typescript:
-        specifier: ^5.7.3
-        version: 5.9.3
-      vue-tsc:
-        specifier: ^2.2.8
-        version: 2.2.12(typescript@5.9.3)
-
-  packages/contracts:
+  backend/packages/contracts:
     dependencies:
       zod:
         specifier: ^3.24.2
@@ -120,14 +86,14 @@ importers:
         specifier: ^5.7.3
         version: 5.9.3
 
-  packages/database:
+  backend/packages/database:
     dependencies:
       '@electric-sql/pglite':
         specifier: ^0.2.17
         version: 0.2.17
       '@sobatweb/contracts':
         specifier: workspace:*
-        version: link:../contracts
+        version: link:../../../frontend/packages/contracts
       '@types/pg':
         specifier: ^8.11.11
         version: 8.23.1
@@ -160,11 +126,11 @@ importers:
         specifier: ^5.7.3
         version: 5.9.3
 
-  packages/template-engine:
+  backend/packages/template-engine:
     dependencies:
       '@sobatweb/contracts':
         specifier: workspace:*
-        version: link:../contracts
+        version: link:../../../frontend/packages/contracts
       cheerio:
         specifier: ^1.0.0
         version: 1.2.0
@@ -199,6 +165,50 @@ importers:
       vitest:
         specifier: ^3.0.7
         version: 3.2.7(@types/node@22.20.1)(jiti@2.7.0)(jsdom@26.1.0)(terser@5.51.2)(tsx@4.23.13)(yaml@2.9.0)
+
+  frontend:
+    dependencies:
+      '@sobatweb/contracts':
+        specifier: workspace:*
+        version: link:packages/contracts
+      lucide-vue-next:
+        specifier: ^0.475.0
+        version: 0.475.0(vue@3.5.42(typescript@5.9.3))
+      nuxt:
+        specifier: ^3.15.4
+        version: 3.21.11(@electric-sql/pglite@0.2.17)(@oxc-project/types@0.143.0)(@types/node@22.20.1)(@vue/compiler-sfc@3.5.42)(cac@6.7.14)(db0@0.3.4(@electric-sql/pglite@0.2.17)(drizzle-orm@0.39.3(@electric-sql/pglite@0.2.17)(@types/pg@8.23.1)(pg@8.23.0)(postgres@3.4.9)))(drizzle-orm@0.39.3(@electric-sql/pglite@0.2.17)(@types/pg@8.23.1)(pg@8.23.0)(postgres@3.4.9))(esbuild@0.28.2)(ioredis@5.11.1)(magicast@0.5.4)(rollup-plugin-visualizer@7.1.1(rollup@4.63.1))(rollup@4.63.1)(srvx@0.11.22)(terser@5.51.2)(tsx@4.23.13)(typescript@5.9.3)(vite@7.3.6(@types/node@22.20.1)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)(yaml@2.9.0))(vue-tsc@2.2.12(typescript@5.9.3))(yaml@2.9.0)
+      vue:
+        specifier: ^3.5.13
+        version: 3.5.42(typescript@5.9.3)
+      vue-router:
+        specifier: ^4.5.0
+        version: 4.6.4(vue@3.5.42(typescript@5.9.3))
+    devDependencies:
+      '@nuxtjs/tailwindcss':
+        specifier: ^6.13.1
+        version: 6.14.0(magicast@0.5.4)(tsx@4.23.13)(yaml@2.9.0)
+      '@types/node':
+        specifier: ^22.13.5
+        version: 22.20.1
+      tailwindcss:
+        specifier: ^3.4.17
+        version: 3.4.19(tsx@4.23.13)(yaml@2.9.0)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
+      vue-tsc:
+        specifier: ^2.2.8
+        version: 2.2.12(typescript@5.9.3)
+
+  frontend/packages/contracts:
+    dependencies:
+      zod:
+        specifier: ^3.24.2
+        version: 3.25.76
+    devDependencies:
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
 
 packages:
 

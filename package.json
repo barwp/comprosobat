@@ -4,8 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "turbo run dev --parallel",
+    "dev:backend": "pnpm --filter @sobatweb/backend dev",
+    "dev:frontend": "pnpm --filter @sobatweb/frontend dev",
     "build": "turbo run build",
-    "test": "turbo run test",
+    "build:backend": "pnpm --filter @sobatweb/backend build",
+    "build:frontend": "pnpm --filter @sobatweb/frontend build",
+    "test": "pnpm --filter @sobatweb/backend test",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "db:generate": "pnpm --filter @sobatweb/database generate",
