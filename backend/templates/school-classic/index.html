@@ -231,7 +231,7 @@
 
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
         <div data-cms-repeat="modules.statistics.stats" class="text-center p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15">
-          <i data-lucide="award" class="w-6 h-6 text-[#C9A84C] mx-auto mb-3"></i>
+          <i data-lucide="{{ item.icon }}" class="w-6 h-6 text-[#C9A84C] mx-auto mb-3"></i>
           <p class="text-3xl lg:text-4xl font-black text-white mb-1 serif-title" data-cms-text="item.value">{{ item.value }}</p>
           <p class="text-xs text-white/65 font-medium uppercase tracking-wide" data-cms-text="item.label">{{ item.label }}</p>
         </div>

@@ -155,7 +155,7 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-slate-800/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-700 p-6 md:p-8">
       <div data-cms-repeat="modules.statistics.stats" class="flex items-center gap-4">
         <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center flex-shrink-0 font-bold">
-          <i data-lucide="cpu" class="w-6 h-6"></i>
+          <i data-lucide="{{ item.icon }}" class="w-6 h-6"></i>
         </div>
         <div>
           <div class="text-2xl font-black text-white" data-cms-text="item.value">{{ item.value }}</div>

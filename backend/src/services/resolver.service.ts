@@ -426,9 +426,14 @@ function normalizeVisionMission(payload: any) {
 }
 
 function normalizeHistoryStatistics(payload: any) {
+  const defaultIcons = ['award', 'users', 'graduation-cap', 'trophy', 'book-open', 'check-circle'];
   const stats = (payload.stats || []).filter((item: any) => item.isActive !== false)
     .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0))
-    .map((item: any) => ({ ...item, value: `${item.rawValue ?? item.value ?? ''}${item.suffix || ''}` }));
+    .map((item: any, idx: number) => ({
+      ...item,
+      icon: item.icon || defaultIcons[idx % defaultIcons.length],
+      value: `${item.rawValue ?? item.value ?? ''}${item.suffix || ''}`
+    }));
   return { ...payload, stats };
 }
 

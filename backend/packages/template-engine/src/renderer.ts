@@ -292,6 +292,7 @@ function injectThemeStyles($: cheerio.CheerioAPI, context: RenderContext) {
 
   // Ensure Lucide CDN is loaded if not present
   if ($('script[src*="lucide"]').length === 0) {
+    $('head').append('<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>');
     $('head').append('<script src="https://unpkg.com/lucide@latest"></script>');
   }
 
@@ -344,9 +345,26 @@ function injectRuntimeHelper($: cheerio.CheerioAPI) {
       (function() {
         function initIcons() {
           if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
-            lucide.createIcons();
+            try {
+              lucide.createIcons();
+            } catch (e) {
+              console.error('Lucide render error:', e);
+            }
           }
         }
+
+        // Retry loop to ensure Lucide renders even if script loads asynchronously
+        var lucideAttempts = 0;
+        var lucideInterval = setInterval(function() {
+          lucideAttempts++;
+          if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+            initIcons();
+            clearInterval(lucideInterval);
+          } else if (lucideAttempts >= 50) {
+            clearInterval(lucideInterval);
+          }
+        }, 100);
+
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', initIcons);
         } else {
