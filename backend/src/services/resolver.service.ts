@@ -279,11 +279,18 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
   const staffSource = staffEntries.length > 0 ? staffEntries : (snapshot.modules?.staff || []);
   const staff = staffSource.filter((item: any) => item.isActive !== false)
     .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0))
-    .map((item: any) => ({
-      ...item,
-      initials: String(item.name || 'G').split(/\s+/).slice(0, 2).map((part: string) => part[0]).join(''),
-      photoUrl: item.photoUrl || ''
-    }));
+    .map((item: any) => {
+      const resolvedRole = item.role || item.position || 'Tenaga Pendidik';
+      return {
+        ...item,
+        name: item.name || item.title || '',
+        role: resolvedRole,
+        position: item.position || resolvedRole,
+        subject: item.subject || '',
+        initials: String(item.name || item.title || 'G').split(/\s+/).slice(0, 2).map((part: string) => part[0]).join(''),
+        photoUrl: item.photoUrl || ''
+      };
+    });
 
   const testimonialEntries = activeEntries.filter(e => e.type === 'testimonial').map(e => ({
     ...e.payload,

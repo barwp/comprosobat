@@ -63,8 +63,13 @@ function openEditModal(item: any) {
   editingId.value = item.id;
   form.value = {
     ...item.payload,
-    name: item.title,
-    sortOrder: item.sortOrder
+    name: item.title || item.payload?.name || '',
+    position: item.payload?.position || item.payload?.role || '',
+    photoUrl: item.payload?.photoUrl || '',
+    bio: item.payload?.bio || '',
+    contactEmail: item.payload?.contactEmail || '',
+    sortOrder: item.sortOrder ?? 1,
+    isActive: item.payload?.isActive !== false
   };
   showModal.value = true;
 }
@@ -73,13 +78,19 @@ async function handleSave() {
   if (!siteId.value || !form.value.name || !form.value.position) return;
   isSaving.value = true;
 
+  const payloadToSave = {
+    ...form.value,
+    position: form.value.position,
+    role: form.value.position
+  };
+
   if (isEditing.value && editingId.value) {
     const res = await useApiClient(`/sites/${siteId.value}/content/${editingId.value}`, {
       method: 'PATCH',
       body: {
         title: form.value.name,
         sortOrder: form.value.sortOrder,
-        payload: form.value
+        payload: payloadToSave
       }
     });
     if (res.success) {
@@ -96,7 +107,7 @@ async function handleSave() {
         type: 'staff',
         title: form.value.name,
         sortOrder: form.value.sortOrder,
-        payload: form.value
+        payload: payloadToSave
       }
     });
     if (res.success) {
@@ -152,10 +163,10 @@ onMounted(() => {
         class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between text-center"
       >
         <div class="space-y-3">
-          <img :src="item.payload?.photoUrl" :alt="item.title" class="w-24 h-24 rounded-full mx-auto object-cover border-2 border-emerald-100 shadow-sm">
+          <img :src="item.payload?.photoUrl" :alt="item.title" class="w-24 h-24 rounded-full mx-auto object-cover border-2 border-emerald-100 shadow-sm" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop'">
           <div>
-            <h3 class="font-bold text-sm text-slate-900">{{ item.title }}</h3>
-            <p class="text-xs font-semibold text-emerald-800 mt-0.5">{{ item.payload?.position }}</p>
+            <h3 class="font-bold text-sm text-slate-900">{{ item.title || item.payload?.name }}</h3>
+            <p class="text-xs font-semibold text-emerald-800 mt-0.5">{{ item.payload?.position || item.payload?.role || 'Tenaga Pendidik' }}</p>
           </div>
         </div>
         <div class="pt-4 mt-4 border-t border-slate-100 flex justify-center gap-2">

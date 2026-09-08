@@ -394,11 +394,42 @@
           <h2 class="text-3xl lg:text-4xl font-extrabold leading-tight" data-cms-text="modules.ppdb.title">{{ modules.ppdb.title }}</h2>
           <p class="text-white/70 text-sm leading-relaxed" data-cms-text="modules.ppdb.description">{{ modules.ppdb.description }}</p>
           
-          <div class="grid sm:grid-cols-2 gap-3 pt-2">
-            <div data-cms-repeat="modules.ppdb.registrationPaths" class="bg-white/10 p-4 rounded-xl border border-white/10">
-              <h4 class="font-bold text-xs text-blue-300" data-cms-text="item.title">{{ item.title }}</h4>
-              <p class="text-[11px] text-white/70 mt-1" data-cms-text="item.description">{{ item.description }}</p>
+          <!-- Jalur Pendaftaran -->
+          <div data-cms-show="modules.ppdb.registrationPaths" class="space-y-2 pt-2">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-blue-300">Jalur Pendaftaran</h4>
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div data-cms-repeat="modules.ppdb.registrationPaths" class="bg-white/10 p-4 rounded-xl border border-white/10">
+                <h4 class="font-bold text-xs text-blue-300" data-cms-text="item.title">{{ item.title }}</h4>
+                <p class="text-[11px] text-white/70 mt-1" data-cms-text="item.description">{{ item.description }}</p>
+              </div>
             </div>
+          </div>
+
+          <!-- Alur / Langkah Pendaftaran -->
+          <div data-cms-show="modules.ppdb.registrationSteps" class="space-y-2 pt-2">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-blue-300">Alur & Langkah Pendaftaran</h4>
+            <div class="space-y-2">
+              <div data-cms-repeat="modules.ppdb.registrationSteps" class="flex items-start gap-3 bg-white/10 p-3.5 rounded-xl border border-white/10">
+                <div class="w-6 h-6 rounded-full bg-white text-[#1a3461] font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span data-cms-text="item.stepNumber">{{ item.stepNumber }}</span>
+                </div>
+                <div>
+                  <h5 class="font-bold text-xs text-white" data-cms-text="item.title">{{ item.title }}</h5>
+                  <p class="text-[11px] text-white/70 mt-0.5" data-cms-text="item.description">{{ item.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Persyaratan Pendaftaran -->
+          <div data-cms-show="modules.ppdb.requirements" class="space-y-2 pt-2">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-blue-300">Persyaratan Pendaftaran</h4>
+            <ul class="grid sm:grid-cols-2 gap-2 text-xs text-white/80">
+              <li data-cms-repeat="modules.ppdb.requirements" class="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-lg border border-white/10">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5 text-blue-300 flex-shrink-0"></i>
+                <span data-cms-text="item">{{ item }}</span>
+              </li>
+            </ul>
           </div>
 
           <div class="pt-2">
