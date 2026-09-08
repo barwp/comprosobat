@@ -102,40 +102,57 @@
     </div>
   </header>
 
-  <!-- ================= HERO SECTION ================= -->
-  <section id="beranda" class="relative bg-gradient-to-br from-[#0d2b52] to-[#061526] text-white overflow-hidden" data-cms-repeat="hero_slides" data-cms-limit="1">
+  <!-- ================= HERO SLIDER SECTION ================= -->
+  <section id="beranda" class="relative bg-gradient-to-br from-[#0d2b52] to-[#061526] text-white overflow-hidden">
     <div class="absolute inset-0 opacity-10 pointer-events-none">
       <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20"></div>
     </div>
-    <div class="relative max-w-7xl mx-auto px-6 lg:px-8 py-20 lg:py-28">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div class="text-center lg:text-left space-y-6">
-          <div class="inline-block bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
-            <span class="text-sm font-medium text-[#ffcb08]" data-cms-text="sections.hero.badge">🏫 {{ sections.hero.badge }}</span>
-          </div>
-          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight" data-cms-text="item.title">
-            {{ item.title }}
-          </h1>
-          <p class="text-base sm:text-lg text-white/90 leading-relaxed max-w-2xl" data-cms-text="item.subtitle">
-            {{ item.subtitle }}
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
-            <a data-cms-link="item.ctaUrl" href="{{ item.ctaUrl }}" class="inline-flex items-center justify-center gap-2 bg-white text-[#0d2b52] hover:bg-gray-100 font-bold px-8 py-3.5 rounded-xl shadow-lg transition-all">
-              <span data-cms-text="item.ctaText">{{ item.ctaText }}</span>
-              <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </a>
-            <a href="#profil" class="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-xl border border-white/20 transition-colors">
-              Lihat Profil
-            </a>
-          </div>
-        </div>
+    
+    <div class="hero-slider relative max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24" data-hero-slider>
+      <!-- Slides Container -->
+      <div class="hero-slides-wrapper relative">
+        <div class="hero-slide transition-opacity duration-700" data-cms-repeat="hero_slides">
+          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="text-center lg:text-left space-y-6">
+              <div class="inline-block bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
+                <span class="text-sm font-medium text-[#ffcb08]">🏫 <span data-cms-text="item.badge">{{ sections.hero.badge }}</span></span>
+              </div>
+              <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight" data-cms-text="item.title">
+                {{ item.title }}
+              </h1>
+              <p class="text-base sm:text-lg text-white/90 leading-relaxed max-w-2xl" data-cms-text="item.subtitle">
+                {{ item.subtitle }}
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                <a data-cms-link="item.ctaUrl" data-cms-href="item.ctaUrl" href="{{ item.ctaUrl }}" class="inline-flex items-center justify-center gap-2 bg-white text-[#0d2b52] hover:bg-gray-100 font-bold px-8 py-3.5 rounded-xl shadow-lg transition-all">
+                  <span data-cms-text="item.ctaText">{{ item.ctaText }}</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+                <a data-cms-link="item.ctaSecondaryUrl" data-cms-href="item.ctaSecondaryUrl" href="#profil" class="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-bold px-8 py-3.5 rounded-xl border border-white/20 transition-colors">
+                  <span data-cms-text="item.ctaSecondaryText">Lihat Profil</span>
+                </a>
+              </div>
+            </div>
 
-        <div class="relative">
-          <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-gray-900 border-2 border-white/20">
-            <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="Hero" class="w-full h-full object-cover" onerror="this.style.display='none'">
+            <div class="relative">
+              <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-gray-900 border-2 border-white/20">
+                <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="Hero Slide" class="w-full h-full object-cover" onerror="this.style.display='none'">
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Navigation Arrows -->
+      <button data-hero-prev class="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-sm transition-all border border-white/20 shadow-lg" aria-label="Slide Sebelumnya">
+        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+      </button>
+      <button data-hero-next class="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-sm transition-all border border-white/20 shadow-lg" aria-label="Slide Selanjutnya">
+        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+      </button>
+
+      <!-- Dots Indicator -->
+      <div data-hero-dots class="flex items-center justify-center gap-2 mt-8 z-20"></div>
     </div>
   </section>
 

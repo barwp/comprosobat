@@ -187,9 +187,37 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
   const mediaAssets: any[] = snapshot.mediaAssets || [];
 
   // Group modules from entries or directly from snapshot.modules
-  const heroSlides = (snapshot.modules?.hero_slides || activeEntries.filter(e => e.type === 'hero_slide').map(e => e.payload))
-    .filter((item: any) => item?.isActive !== false)
-    .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0));
+  const heroSlidesSource = (snapshot.modules?.hero_slides || activeEntries.filter(e => e.type === 'hero_slide').map(e => ({
+    ...e.payload,
+    title: e.payload?.title || e.title,
+    sortOrder: e.sortOrder ?? e.payload?.sortOrder ?? 0
+  })));
+  const rawHeroList = Array.isArray(heroSlidesSource) ? heroSlidesSource : [heroSlidesSource];
+  const normalizedHeroList = rawHeroList
+    .filter((item: any) => item && item.isActive !== false)
+    .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0))
+    .map((item: any) => ({
+      badge: item.badge || settings.sectionHeadlines?.hero?.badge || 'Sekolah Unggulan',
+      title: item.title || settings.sectionHeadlines?.hero?.title || settings.siteName || 'Selamat Datang di Sekolah Kami',
+      subtitle: item.subtitle || settings.sectionHeadlines?.hero?.subtitle || settings.tagline || settings.description || '',
+      imageUrl: item.imageUrl || 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&h=900&fit=crop',
+      ctaText: item.ctaText || 'Daftar Sekarang',
+      ctaUrl: item.ctaUrl || '#ppdb',
+      ctaSecondaryText: item.ctaSecondaryText || 'Lihat Profil',
+      ctaSecondaryUrl: item.ctaSecondaryUrl || '#profil',
+      ...item
+    }));
+
+  const heroSlides = normalizedHeroList.length > 0 ? normalizedHeroList : [{
+    badge: settings.sectionHeadlines?.hero?.badge || 'Sekolah Unggulan',
+    title: settings.sectionHeadlines?.hero?.title || settings.siteName || 'Selamat Datang di Sekolah Kami',
+    subtitle: settings.sectionHeadlines?.hero?.subtitle || settings.tagline || settings.description || 'Membentuk generasi cerdas, berakhlak mulia, dan berdaya saing global.',
+    imageUrl: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&h=900&fit=crop',
+    ctaText: 'Daftar Sekarang',
+    ctaUrl: '#ppdb',
+    ctaSecondaryText: 'Lihat Profil',
+    ctaSecondaryUrl: '#profil'
+  }];
   const programs = snapshot.modules?.programs || entries.filter(e => e.type === 'program').map(e => e.payload);
   const facilitiesSource = snapshot.modules?.facilities || activeEntries.filter(e => e.type === 'facility').map(e => e.payload);
   const facilities = facilitiesSource.filter((item: any) => item.isActive !== false).map((item: any) => ({
@@ -224,9 +252,11 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
   const testimonials = testimonialsSource.filter((item: any) => item.isActive !== false).map((item: any) => ({
     ...item,
     name: item.name || item.alumniName || '',
+    alumniName: item.alumniName || item.name || '',
     initials: String(item.name || item.alumniName || 'A').split(/\s+/).slice(0, 2).map((part: string) => part[0]).join(''),
     role: item.currentRole || item.role || 'Alumni',
     quote: item.quote || item.content || '',
+    content: item.content || item.quote || '',
     photoUrl: item.photoUrl || ''
   }));
   const ppdbEntry = snapshot.modules?.ppdb ? { payload: snapshot.modules.ppdb } : entries.find(e => e.type === 'ppdb');

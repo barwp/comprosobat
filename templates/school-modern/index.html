@@ -98,51 +98,58 @@
     </div>
   </nav>
 
-  <!-- ================= HERO ================= -->
-  <section id="beranda" class="relative pt-16 pb-20 overflow-hidden bg-[#1a3461] text-white" data-cms-repeat="hero_slides" data-cms-limit="1">
+  <!-- ================= HERO SLIDER SECTION ================= -->
+  <section id="beranda" class="relative pt-16 pb-20 overflow-hidden bg-[#1a3461] text-white">
     <div class="absolute inset-0 pointer-events-none overflow-hidden">
       <div class="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-10" style="background: radial-gradient(circle, #60a5fa 0%, transparent 70%);"></div>
       <div class="absolute bottom-0 left-0 w-[350px] h-[350px] rounded-full opacity-10" style="background: radial-gradient(circle, #3b82f6 0%, transparent 70%);"></div>
     </div>
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <div class="inline-flex items-center gap-2 bg-white/10 text-blue-200 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 tracking-wide uppercase">
-            <i data-lucide="star" class="w-3.5 h-3.5 fill-blue-300 text-blue-300"></i>
-            <span data-cms-text="sections.hero.badge">{{ sections.hero.badge }}</span>
-          </div>
-          <h1 class="text-3xl sm:text-5xl lg:text-[3.2rem] font-extrabold text-white leading-[1.12] mb-6" data-cms-text="item.title">
-            {{ item.title }}
-          </h1>
-          <p class="text-base text-white/60 leading-relaxed mb-8 max-w-lg" data-cms-text="item.subtitle">
-            {{ item.subtitle }}
-          </p>
-          <div class="flex flex-wrap gap-4 mb-8">
-            <a data-cms-link="item.ctaUrl" href="{{ item.ctaUrl }}" class="px-7 py-3.5 bg-white text-[#1a3461] font-bold text-sm rounded-xl hover:bg-blue-50 transition shadow-lg inline-flex items-center gap-2">
-              <span data-cms-text="item.ctaText">{{ item.ctaText }}</span>
-              <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </a>
-            <a href="#tentang" class="px-7 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold text-sm rounded-xl border border-white/20 transition">
-              Pelajari Lebih Lanjut
-            </a>
-          </div>
-        </div>
-
-        <div class="relative hidden lg:grid grid-cols-2 gap-3">
-          <div class="rounded-2xl overflow-hidden h-72 shadow-xl bg-slate-800">
-            <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="Hero" class="w-full h-full object-cover" onerror="this.style.display='none'">
-          </div>
-          <div class="flex flex-col gap-3 pt-8">
-            <div class="rounded-2xl overflow-hidden h-40 shadow-lg bg-slate-800">
-              <img src="https://images.unsplash.com/photo-1549431971-f54b3f5c82d8?w=600&fit=crop" alt="Membaca" class="w-full h-full object-cover">
+    <div class="hero-slider relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20" data-hero-slider>
+      <div class="hero-slides-wrapper relative">
+        <div class="hero-slide transition-opacity duration-700" data-cms-repeat="hero_slides">
+          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div class="inline-flex items-center gap-2 bg-white/10 text-blue-200 text-xs font-semibold px-4 py-1.5 rounded-full mb-6 tracking-wide uppercase">
+                <i data-lucide="star" class="w-3.5 h-3.5 fill-blue-300 text-blue-300"></i>
+                <span data-cms-text="item.badge">{{ sections.hero.badge }}</span>
+              </div>
+              <h1 class="text-3xl sm:text-5xl lg:text-[3.2rem] font-extrabold text-white leading-[1.12] mb-6" data-cms-text="item.title">
+                {{ item.title }}
+              </h1>
+              <p class="text-base text-white/60 leading-relaxed mb-8 max-w-lg" data-cms-text="item.subtitle">
+                {{ item.subtitle }}
+              </p>
+              <div class="flex flex-wrap gap-4 mb-8">
+                <a data-cms-link="item.ctaUrl" data-cms-href="item.ctaUrl" href="{{ item.ctaUrl }}" class="px-7 py-3.5 bg-white text-[#1a3461] font-bold text-sm rounded-xl hover:bg-blue-50 transition shadow-lg inline-flex items-center gap-2">
+                  <span data-cms-text="item.ctaText">{{ item.ctaText }}</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+                <a data-cms-link="item.ctaSecondaryUrl" data-cms-href="item.ctaSecondaryUrl" href="#tentang" class="px-7 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold text-sm rounded-xl border border-white/20 transition">
+                  <span data-cms-text="item.ctaSecondaryText">Pelajari Lebih Lanjut</span>
+                </a>
+              </div>
             </div>
-            <div class="rounded-2xl overflow-hidden h-40 shadow-lg bg-slate-800">
-              <img src="https://images.unsplash.com/photo-1643216755260-cb0bc30473c8?w=600&fit=crop" alt="Di kelas" class="w-full h-full object-cover">
+
+            <div class="relative">
+              <div class="rounded-2xl overflow-hidden h-72 sm:h-80 shadow-2xl bg-slate-800 border-2 border-white/20">
+                <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="Hero Slide" class="w-full h-full object-cover" onerror="this.style.display='none'">
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Navigation Arrows -->
+      <button data-hero-prev class="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center transition-all border border-white/20 shadow-lg" aria-label="Slide Sebelumnya">
+        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+      </button>
+      <button data-hero-next class="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center transition-all border border-white/20 shadow-lg" aria-label="Slide Selanjutnya">
+        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Dots Indicator -->
+      <div data-hero-dots class="flex items-center justify-center gap-2 mt-8 z-20"></div>
     </div>
   </section>
 

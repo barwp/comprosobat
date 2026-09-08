@@ -101,38 +101,53 @@
     </div>
   </nav>
 
-  <!-- ================= HERO ================= -->
-  <section id="beranda" class="relative pt-8 lg:pt-12 pb-16 lg:pb-24 flex items-center overflow-hidden bg-[#FAF8F5]" data-cms-repeat="hero_slides" data-cms-limit="1">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        <div class="order-2 lg:order-1">
-          <div class="inline-flex items-center gap-2 bg-[#8B1E3F]/10 text-[#8B1E3F] text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-wide uppercase">
-            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
-            <span data-cms-text="sections.hero.badge">{{ sections.hero.badge }}</span>
-          </div>
-          <h1 class="text-3xl sm:text-5xl lg:text-[3.4rem] font-bold text-[#1C1A20] leading-[1.15] mb-6 serif-title" data-cms-text="item.title">
-            {{ item.title }}
-          </h1>
-          <p class="text-base sm:text-lg text-[#6B6570] leading-relaxed mb-8 max-w-xl" data-cms-text="item.subtitle">
-            {{ item.subtitle }}
-          </p>
-          <div class="flex flex-wrap gap-4 mb-12">
-            <a data-cms-link="item.ctaUrl" href="{{ item.ctaUrl }}" class="inline-flex items-center gap-2 bg-[#8B1E3F] hover:bg-[#6E1831] text-white font-bold px-7 py-4 rounded-2xl shadow-md transition-all text-base">
-              <span data-cms-text="item.ctaText">{{ item.ctaText }}</span>
-              <i data-lucide="arrow-right" class="w-5 h-5"></i>
-            </a>
-            <a href="#profil" class="inline-flex items-center gap-2 border-2 border-[#8B1E3F] text-[#8B1E3F] hover:bg-[#8B1E3F] hover:text-white font-bold px-7 py-4 rounded-2xl transition-all text-base">
-              Lihat Profil Sekolah
-            </a>
-          </div>
-        </div>
+  <!-- ================= HERO SLIDER SECTION ================= -->
+  <section id="beranda" class="relative pt-8 lg:pt-12 pb-16 lg:pb-24 flex items-center overflow-hidden bg-[#FAF8F5]">
+    <div class="hero-slider relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" data-hero-slider>
+      <div class="hero-slides-wrapper relative">
+        <div class="hero-slide transition-opacity duration-700" data-cms-repeat="hero_slides">
+          <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div class="order-2 lg:order-1">
+              <div class="inline-flex items-center gap-2 bg-[#8B1E3F]/10 text-[#8B1E3F] text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-wide uppercase">
+                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                <span data-cms-text="item.badge">{{ sections.hero.badge }}</span>
+              </div>
+              <h1 class="text-3xl sm:text-5xl lg:text-[3.4rem] font-bold text-[#1C1A20] leading-[1.15] mb-6 serif-title" data-cms-text="item.title">
+                {{ item.title }}
+              </h1>
+              <p class="text-base sm:text-lg text-[#6B6570] leading-relaxed mb-8 max-w-xl" data-cms-text="item.subtitle">
+                {{ item.subtitle }}
+              </p>
+              <div class="flex flex-wrap gap-4 mb-8">
+                <a data-cms-link="item.ctaUrl" data-cms-href="item.ctaUrl" href="{{ item.ctaUrl }}" class="inline-flex items-center gap-2 bg-[#8B1E3F] hover:bg-[#6E1831] text-white font-bold px-7 py-4 rounded-2xl shadow-md transition-all text-base">
+                  <span data-cms-text="item.ctaText">{{ item.ctaText }}</span>
+                  <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+                <a data-cms-link="item.ctaSecondaryUrl" data-cms-href="item.ctaSecondaryUrl" href="#profil" class="inline-flex items-center gap-2 border-2 border-[#8B1E3F] text-[#8B1E3F] hover:bg-[#8B1E3F] hover:text-white font-bold px-7 py-4 rounded-2xl transition-all text-base">
+                  <span data-cms-text="item.ctaSecondaryText">Lihat Profil Sekolah</span>
+                </a>
+              </div>
+            </div>
 
-        <div class="order-1 lg:order-2 relative">
-          <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-[#E8E0D5]">
-            <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="Siswa Al-Hikmah Nusantara" class="w-full h-[380px] sm:h-[460px] object-cover" onerror="this.style.display='none'">
+            <div class="order-1 lg:order-2 relative">
+              <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-[#E8E0D5]">
+                <img data-cms-image="item.imageUrl" src="{{ item.imageUrl }}" alt="Hero Slide" class="w-full h-[380px] sm:h-[460px] object-cover" onerror="this.style.display='none'">
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Navigation Arrows -->
+      <button data-hero-prev class="absolute left-1 lg:left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-[#8B1E3F]/80 hover:bg-[#8B1E3F] text-white flex items-center justify-center transition-all shadow-md" aria-label="Slide Sebelumnya">
+        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+      </button>
+      <button data-hero-next class="absolute right-1 lg:right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-[#8B1E3F]/80 hover:bg-[#8B1E3F] text-white flex items-center justify-center transition-all shadow-md" aria-label="Slide Selanjutnya">
+        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Dots Indicator -->
+      <div data-hero-dots class="flex items-center justify-center gap-2 mt-6 z-20"></div>
     </div>
   </section>
 
