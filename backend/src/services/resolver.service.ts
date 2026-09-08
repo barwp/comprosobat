@@ -218,7 +218,22 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
     ctaSecondaryText: 'Lihat Profil',
     ctaSecondaryUrl: '#profil'
   }];
-  const programs = snapshot.modules?.programs || entries.filter(e => e.type === 'program').map(e => e.payload);
+  const programsSource = snapshot.modules?.programs || entries.filter(e => e.type === 'program').map(e => e.payload);
+  const programs = programsSource.filter((item: any) => item.isActive !== false).map((item: any, idx: number) => {
+    let icon = item.icon || '';
+    if (!icon) {
+      const titleLower = String(item.title || item.name || '').toLowerCase();
+      if (titleLower.includes('tahfidz') || titleLower.includes('qur')) icon = 'book-open';
+      else if (titleLower.includes('riset') || titleLower.includes('sains') || titleLower.includes('ipa')) icon = 'flask-conical';
+      else if (titleLower.includes('bahasa') || titleLower.includes('diplomasi')) icon = 'languages';
+      else if (titleLower.includes('teknologi') || titleLower.includes('multimedia') || titleLower.includes('komputer') || titleLower.includes('rpl')) icon = 'laptop';
+      else {
+        const fallbacks = ['book-open', 'flask-conical', 'languages', 'laptop', 'award', 'cpu', 'sparkles'];
+        icon = fallbacks[idx % fallbacks.length];
+      }
+    }
+    return { ...item, icon };
+  });
   const facilitiesSource = snapshot.modules?.facilities || activeEntries.filter(e => e.type === 'facility').map(e => e.payload);
   const facilities = facilitiesSource.filter((item: any) => item.isActive !== false).map((item: any) => ({
     ...item,
@@ -253,7 +268,7 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
     ...item,
     name: item.name || item.alumniName || '',
     alumniName: item.alumniName || item.name || '',
-    initials: String(item.name || item.alumniName || 'A').split(/\s+/).slice(0, 2).map((part: string) => part[0]).join(''),
+    initials: String(item.name || item.alumniName || 'A').split(/\s+/).filter(Boolean).slice(0, 2).map((part: string) => part[0]).join('').toUpperCase() || 'A',
     role: item.currentRole || item.role || 'Alumni',
     quote: item.quote || item.content || '',
     content: item.content || item.quote || '',
@@ -265,14 +280,29 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
   const studentOrgsSource = snapshot.modules?.student_organizations || activeEntries.filter(e => e.type === 'student_organization' || e.type === 'student_orgs').map(e => e.payload);
   const student_organizations = studentOrgsSource.filter((item: any) => item.isActive !== false)
     .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0))
-    .map((item: any) => ({
-      ...item,
-      name: item.name || item.title || '',
-      category: item.category || 'Organisasi Siswa',
-      description: item.description || '',
-      logoUrl: item.logoUrl || item.imageUrl || '',
-      badge: item.badge || item.category || 'Ekskul'
-    }));
+    .map((item: any, idx: number) => {
+      let icon = item.icon || '';
+      if (!icon) {
+        const nameLower = String(item.name || item.title || '').toLowerCase();
+        if (nameLower.includes('osis') || nameLower.includes('mpk')) icon = 'award';
+        else if (nameLower.includes('pramuka') || nameLower.includes('pmr')) icon = 'compass';
+        else if (nameLower.includes('robot') || nameLower.includes('it') || nameLower.includes('komputer')) icon = 'cpu';
+        else if (nameLower.includes('kir') || nameLower.includes('jurnal')) icon = 'microscope';
+        else {
+          const fallbacks = ['users', 'award', 'compass', 'cpu', 'microscope', 'heart', 'shield'];
+          icon = fallbacks[idx % fallbacks.length];
+        }
+      }
+      return {
+        ...item,
+        icon,
+        name: item.name || item.title || '',
+        category: item.category || 'Organisasi Siswa',
+        description: item.description || '',
+        logoUrl: item.logoUrl || item.imageUrl || '',
+        badge: item.badge || item.category || 'Ekskul'
+      };
+    });
   const media = mediaAssets
     .filter((asset: any) => String(asset.mimeType || '').startsWith('image/'))
     .map((asset: any) => ({

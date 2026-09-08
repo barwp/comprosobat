@@ -228,7 +228,7 @@
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div data-cms-repeat="programs" class="bg-white border-2 border-gray-100 hover:border-[#0d2b52] rounded-2xl p-8 shadow-xs hover:shadow-lg transition-all duration-300 group">
           <div class="w-12 h-12 rounded-xl bg-[#eef3fb] text-[#0d2b52] flex items-center justify-center mb-4 group-hover:bg-[#0d2b52] group-hover:text-white transition-colors">
-            <i data-lucide="book-open" class="w-6 h-6"></i>
+            <i data-lucide="{{ item.icon }}" class="w-6 h-6"></i>
           </div>
           <span class="text-[10px] font-bold uppercase text-gray-400 tracking-wider" data-cms-text="item.category">{{ item.category }}</span>
           <h3 class="text-xl font-bold text-[#312b36] mt-1 mb-2 group-hover:text-[#0d2b52] transition-colors" data-cms-text="item.title">{{ item.title }}</h3>
@@ -273,7 +273,7 @@
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div data-cms-repeat="staff" class="bg-[#f9fafb] rounded-2xl overflow-hidden border border-gray-100 p-6 text-center hover:shadow-md transition-all">
-          <div class="w-24 h-24 mx-auto rounded-full overflow-hidden bg-[#eef3fb] mb-4 border-2 border-[#0d2b52]">
+          <div class="w-24 h-24 mx-auto rounded-full overflow-hidden bg-[#eef3fb] mb-4 border-2 border-[#0d2b52] flex items-center justify-center">
             <img data-cms-image="item.photoUrl" src="{{ item.photoUrl }}" alt="{{ item.name }}" class="w-full h-full object-cover" onerror="this.style.display='none'">
           </div>
           <h3 class="text-base font-bold text-[#312b36]" data-cms-text="item.name">{{ item.name }}</h3>
@@ -288,7 +288,7 @@
   <section id="ekskul" class="bg-[#eef3fb] py-20 lg:py-24">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center mb-16 space-y-3">
-        <span class="inline-block text-xs font-bold uppercase tracking-widest text-[#0d2b52] bg-white px-3 py-1 rounded-full" data-cms-text="sections.student_orgs.badge">{{ sections.student_orgs.badge }}</span>
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-[#0d2b52] bg-white px-3 py-1 rounded-full shadow-xs" data-cms-text="sections.student_orgs.badge">{{ sections.student_orgs.badge }}</span>
         <h2 class="text-3xl lg:text-4xl font-bold text-[#312b36]" data-cms-text="sections.student_orgs.title">{{ sections.student_orgs.title }}</h2>
         <p class="text-sm text-gray-600 max-w-2xl mx-auto" data-cms-text="sections.student_orgs.description">{{ sections.student_orgs.description }}</p>
       </div>
@@ -297,7 +297,7 @@
         <div data-cms-repeat="student_organizations" class="bg-white rounded-2xl p-6 shadow-xs border border-gray-100 text-center">
           <div class="w-14 h-14 mx-auto rounded-2xl bg-[#eef3fb] text-[#0d2b52] flex items-center justify-center font-bold text-lg mb-3 overflow-hidden">
             <img data-cms-show="item.logoUrl" data-cms-image="item.logoUrl" src="" alt="{{ item.name }}" class="w-full h-full object-cover">
-            <span data-cms-hide="item.logoUrl"><i data-lucide="users" class="w-6 h-6"></i></span>
+            <span data-cms-hide="item.logoUrl"><i data-lucide="{{ item.icon }}" class="w-6 h-6"></i></span>
           </div>
           <span class="text-[10px] font-bold uppercase text-[#1a4b8a]" data-cms-text="item.category">{{ item.category }}</span>
           <h3 class="font-bold text-[#312b36] text-sm mt-1" data-cms-text="item.name">{{ item.name }}</h3>
@@ -319,8 +319,9 @@
         <div data-cms-repeat="testimonials" class="bg-[#f9fafb] p-8 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between">
           <p class="text-sm text-gray-700 italic leading-relaxed mb-6" data-cms-text="item.content">"{{ item.content }}"</p>
           <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
-            <div class="w-10 h-10 rounded-full bg-[#0d2b52] text-white flex items-center justify-center font-bold text-sm">
-              <i data-lucide="user" class="w-5 h-5"></i>
+            <div class="w-10 h-10 rounded-full bg-[#0d2b52] text-[#ffcb08] flex items-center justify-center font-bold text-sm overflow-hidden flex-shrink-0">
+              <img data-cms-show="item.photoUrl" data-cms-image="item.photoUrl" src="" alt="{{ item.alumniName }}" class="w-full h-full object-cover">
+              <span data-cms-hide="item.photoUrl"><i data-lucide="user" class="w-5 h-5"></i></span>
             </div>
             <div>
               <h4 class="font-bold text-sm text-[#312b36]" data-cms-text="item.alumniName">{{ item.alumniName }}</h4>
