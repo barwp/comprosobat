@@ -182,6 +182,11 @@
         <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed" data-cms-text="site.description">{{ site.description }}</p>
       </div>
 
+      <!-- Cover Visual Visi & Misi -->
+      <div data-cms-show="modules.vision_mission.coverImageUrl" class="mb-10 rounded-2xl overflow-hidden shadow-md max-h-[380px] bg-slate-100 border border-gray-200">
+        <img data-cms-image="modules.vision_mission.coverImageUrl" src="{{ modules.vision_mission.coverImageUrl }}" alt="Cover Visi Misi" class="w-full h-full object-cover">
+      </div>
+
       <div class="grid lg:grid-cols-2 gap-12 items-start">
         <div class="space-y-6">
           <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
@@ -194,9 +199,15 @@
             </p>
           </div>
 
-          <div data-cms-show="modules.statistics.historySummary" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <h4 class="font-bold text-[#0d2b52] text-sm mb-2" data-cms-text="modules.statistics.historyTitle">{{ modules.statistics.historyTitle }}</h4>
+          <div data-cms-show="modules.statistics.historySummary" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-[#0d2b52] text-sm" data-cms-text="modules.statistics.historyTitle">{{ modules.statistics.historyTitle }}</h4>
+              <span data-cms-show="modules.statistics.establishmentYear" class="text-xs font-bold text-[#0d2b52] bg-[#eef3fb] px-2.5 py-1 rounded-full">Berdiri {{ modules.statistics.establishmentYear }}</span>
+            </div>
             <p class="text-xs sm:text-sm text-gray-600 leading-relaxed" data-cms-text="modules.statistics.historySummary">{{ modules.statistics.historySummary }}</p>
+            <div data-cms-show="modules.statistics.imageUrl" class="rounded-xl overflow-hidden max-h-48 pt-2">
+              <img data-cms-image="modules.statistics.imageUrl" src="{{ modules.statistics.imageUrl }}" alt="Gambar Sejarah" class="w-full h-full object-cover rounded-xl">
+            </div>
           </div>
         </div>
 

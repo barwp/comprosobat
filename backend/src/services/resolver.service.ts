@@ -417,7 +417,13 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
       name: settings.siteName || 'Website Sekolah',
       tagline: settings.tagline || '',
       description: settings.description || '',
-      logo: { url: settings.logoUrl || '', alt: settings.logoAlt || 'Logo Sekolah' },
+      logo: {
+        url: settings.logoUrl || 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=200&h=200&fit=crop',
+        alt: settings.logoAlt || settings.siteName || 'Logo Sekolah'
+      },
+      logoUrl: settings.logoUrl || 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=200&h=200&fit=crop',
+      hasCustomLogo: Boolean(settings.logoUrl),
+      initials: (settings.siteName || 'SW').split(/\s+/).filter(Boolean).slice(0, 2).map((w: string) => w[0]).join('').toUpperCase() || 'SW',
       favicon: settings.faviconUrl || '',
       primaryColor: settings.primaryColor || '#1a6b2f',
       secondaryColor: settings.secondaryColor || '#c9a227',
@@ -492,12 +498,16 @@ function toVideoEmbedUrl(value: string) {
 }
 
 function normalizeVisionMission(payload: any) {
+  const coverImageUrl = payload.coverImageUrl || payload.imageUrl || payload.coverImage || '';
   return {
     ...payload,
-    visionTitle: payload.visionTitle || 'Visi Madrasah',
+    visionTitle: payload.visionTitle || 'Visi Sekolah',
     visionContent: payload.visionContent || payload.vision || '',
-    missionTitle: payload.missionTitle || 'Misi Utama',
-    missionItems: payload.missionItems || payload.missions || []
+    missionTitle: payload.missionTitle || 'Misi Sekolah',
+    missionItems: payload.missionItems || payload.missions || [],
+    coverImageUrl,
+    imageUrl: coverImageUrl,
+    hasCoverImage: Boolean(coverImageUrl)
   };
 }
 
@@ -516,11 +526,16 @@ function normalizeHistoryStatistics(payload: any) {
         value: displayVal || `${item.value || ''}`
       };
     });
+  const imageUrl = payload.imageUrl || payload.supportingImageUrl || payload.coverImageUrl || '';
   return {
     ...payload,
-    establishmentYear: payload.establishmentYear || '1990',
+    establishmentYear: payload.establishmentYear || '2000',
     historyTitle: payload.historyTitle || 'Sejarah Sekolah',
     historySummary: payload.historySummary || '',
+    imageUrl,
+    supportingImageUrl: imageUrl,
+    hasImage: Boolean(imageUrl),
+    accreditation: payload.accreditation || 'A (Unggul)',
     stats: stats.length > 0 ? stats : [
       { label: 'Siswa Aktif', value: '1.200+', icon: 'users' },
       { label: 'Guru & Pendidik', value: '75+', icon: 'award' },

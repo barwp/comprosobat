@@ -193,17 +193,34 @@
             </li>
           </ul>
 
+          <div data-cms-show="modules.statistics.historySummary" class="bg-white rounded-2xl p-6 border border-gray-100 shadow-xs mb-6 space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-[#1a3461] text-sm" data-cms-text="modules.statistics.historyTitle">{{ modules.statistics.historyTitle }}</h4>
+              <span data-cms-show="modules.statistics.establishmentYear" class="text-xs font-bold text-[#2563eb] bg-blue-50 px-2.5 py-1 rounded-full">Berdiri {{ modules.statistics.establishmentYear }}</span>
+            </div>
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed" data-cms-text="modules.statistics.historySummary">{{ modules.statistics.historySummary }}</p>
+          </div>
+
           <a href="#program" class="inline-flex items-center gap-2 text-white text-sm font-bold px-7 py-3.5 rounded-xl shadow-md hover:shadow-lg transition-all bg-[#1a3461]">
             <span>Lihat Program Kami</span>
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </a>
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
-          <img src="https://images.unsplash.com/photo-1780043044375-92839d6d1c7f?w=600&fit=crop" alt="Gedung sekolah" class="w-full h-52 object-cover rounded-2xl">
-          <img src="https://images.unsplash.com/photo-1551161001-5c4184cc4317?w=600&fit=crop" alt="Aktivitas siswa" class="w-full h-52 object-cover rounded-2xl mt-6">
-          <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&fit=crop" alt="Guru mengajar" class="w-full h-52 object-cover rounded-2xl -mt-6">
-          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&fit=crop" alt="Suasana kelas" class="w-full h-52 object-cover rounded-2xl">
+        <div>
+          <!-- Dynamic Cover Visual Visi Misi / Sejarah -->
+          <div data-cms-show="modules.vision_mission.coverImageUrl" class="rounded-2xl overflow-hidden shadow-lg max-h-[420px] bg-white border border-gray-100 mb-4">
+            <img data-cms-image="modules.vision_mission.coverImageUrl" src="{{ modules.vision_mission.coverImageUrl }}" alt="Cover Visi Misi" class="w-full h-full object-cover rounded-2xl">
+          </div>
+          <div data-cms-show="modules.statistics.imageUrl" class="rounded-2xl overflow-hidden shadow-lg max-h-[300px] bg-white border border-gray-100">
+            <img data-cms-image="modules.statistics.imageUrl" src="{{ modules.statistics.imageUrl }}" alt="Gambar Sejarah" class="w-full h-full object-cover rounded-2xl">
+          </div>
+          <div data-cms-hide="modules.vision_mission.coverImageUrl" class="grid grid-cols-2 gap-3">
+            <img src="https://images.unsplash.com/photo-1780043044375-92839d6d1c7f?w=600&fit=crop" alt="Gedung sekolah" class="w-full h-52 object-cover rounded-2xl">
+            <img src="https://images.unsplash.com/photo-1551161001-5c4184cc4317?w=600&fit=crop" alt="Aktivitas siswa" class="w-full h-52 object-cover rounded-2xl mt-6">
+            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&fit=crop" alt="Guru mengajar" class="w-full h-52 object-cover rounded-2xl -mt-6">
+            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&fit=crop" alt="Suasana kelas" class="w-full h-52 object-cover rounded-2xl">
+          </div>
         </div>
       </div>
     </div>

@@ -371,9 +371,14 @@ export async function runSeed() {
       status: 'ACTIVE'
     });
 
+    const populatedSettings = {
+      logoUrl: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=200&h=200&fit=crop',
+      ...opts.settings
+    };
+
     await db.insert(schema.siteSettings).values({
       siteId: site.id,
-      settings: opts.settings
+      settings: populatedSettings
     });
 
     // Hero
@@ -574,7 +579,7 @@ export async function runSeed() {
 
     // Snapshot Manifest
     const snapshotManifest = {
-      settings: opts.settings,
+      settings: populatedSettings,
       modules: {
         hero_slides: [opts.hero],
         vision_mission: opts.vision,
@@ -598,11 +603,13 @@ export async function runSeed() {
       status: 'ACTIVE',
       summary: opts.releaseSummary,
       snapshotManifest,
+      createdAt: new Date(),
       createdBy: user.id
     }).returning();
 
     await db.update(schema.schoolSites).set({
-      activeReleaseId: rel.id
+      activeReleaseId: rel.id,
+      activeTemplateVersionId: opts.templateVerId
     }).where(eq(schema.schoolSites.id, site.id));
 
     console.log(`✅ [Populated] Seeded ${opts.schoolName} (${opts.adminEmail}) -> http://localhost:3005/?slug=${opts.slug}`);
@@ -678,6 +685,7 @@ export async function runSeed() {
         siteName: opts.siteName,
         tagline: opts.tagline,
         description: `Website profil resmi ${opts.schoolName}.`,
+        logoUrl: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=200&h=200&fit=crop',
         primaryColor: opts.primaryColor,
         secondaryColor: opts.secondaryColor,
         address: opts.address,

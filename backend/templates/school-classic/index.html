@@ -162,11 +162,30 @@
         <p class="text-[#6B6570] text-base leading-relaxed" data-cms-text="site.description">{{ site.description }}</p>
       </div>
 
+      <!-- Cover Visual Visi & Misi -->
+      <div data-cms-show="modules.vision_mission.coverImageUrl" class="mb-10 rounded-2xl overflow-hidden shadow-md max-h-[380px] bg-[#FAF8F5] border border-[#E8E0D5]">
+        <img data-cms-image="modules.vision_mission.coverImageUrl" src="{{ modules.vision_mission.coverImageUrl }}" alt="Cover Visi Misi" class="w-full h-full object-cover">
+      </div>
+
       <div class="grid lg:grid-cols-2 gap-8 mb-12">
-        <div class="bg-[#FAF8F5] rounded-2xl p-8 border border-[#E8E0D5]">
-          <h3 class="text-xs font-bold uppercase tracking-widest text-[#8B1E3F] mb-3" data-cms-text="modules.vision_mission.visionTitle">{{ modules.vision_mission.visionTitle }}</h3>
-          <p class="text-lg font-bold text-[#1C1A20] serif-title leading-relaxed italic" data-cms-text="modules.vision_mission.visionContent">"{{ modules.vision_mission.visionContent }}"</p>
+        <div class="space-y-6">
+          <div class="bg-[#FAF8F5] rounded-2xl p-8 border border-[#E8E0D5]">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-[#8B1E3F] mb-3" data-cms-text="modules.vision_mission.visionTitle">{{ modules.vision_mission.visionTitle }}</h3>
+            <p class="text-lg font-bold text-[#1C1A20] serif-title leading-relaxed italic" data-cms-text="modules.vision_mission.visionContent">"{{ modules.vision_mission.visionContent }}"</p>
+          </div>
+
+          <div data-cms-show="modules.statistics.historySummary" class="bg-[#FAF8F5] rounded-2xl p-6 border border-[#E8E0D5] space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-[#1C1A20] serif-title text-sm" data-cms-text="modules.statistics.historyTitle">{{ modules.statistics.historyTitle }}</h4>
+              <span data-cms-show="modules.statistics.establishmentYear" class="text-xs font-bold text-[#8B1E3F] bg-white px-2.5 py-1 rounded-full border border-[#E8E0D5]">Berdiri {{ modules.statistics.establishmentYear }}</span>
+            </div>
+            <p class="text-xs sm:text-sm text-[#6B6570] leading-relaxed" data-cms-text="modules.statistics.historySummary">{{ modules.statistics.historySummary }}</p>
+            <div data-cms-show="modules.statistics.imageUrl" class="rounded-xl overflow-hidden max-h-48 pt-2">
+              <img data-cms-image="modules.statistics.imageUrl" src="{{ modules.statistics.imageUrl }}" alt="Gambar Sejarah" class="w-full h-full object-cover rounded-xl">
+            </div>
+          </div>
         </div>
+
         <div class="bg-[#FAF8F5] rounded-2xl p-8 border border-[#E8E0D5]">
           <h3 class="text-xs font-bold uppercase tracking-widest text-[#8B1E3F] mb-4" data-cms-text="modules.vision_mission.missionTitle">{{ modules.vision_mission.missionTitle }}</h3>
           <ul class="space-y-3">

@@ -195,6 +195,11 @@
         </p>
       </div>
 
+      <!-- Cover Visual Visi Misi -->
+      <div data-cms-show="modules.vision_mission.coverImageUrl" class="mb-10 rounded-3xl overflow-hidden shadow-md max-h-[380px] bg-slate-950 border border-slate-800">
+        <img data-cms-image="modules.vision_mission.coverImageUrl" src="{{ modules.vision_mission.coverImageUrl }}" alt="Cover Visi Misi" class="w-full h-full object-cover">
+      </div>
+
       <div class="grid lg:grid-cols-12 gap-8 items-start">
         <div class="lg:col-span-6 space-y-6">
           <div class="p-8 rounded-3xl bg-slate-800/80 border border-slate-700">
@@ -203,9 +208,15 @@
               "{{ modules.vision_mission.visionContent }}"
             </p>
           </div>
-          <div data-cms-show="modules.statistics.historySummary" class="p-6 rounded-2xl bg-slate-950 border border-slate-800">
-            <h4 class="font-bold text-white text-sm mb-1" data-cms-text="modules.statistics.historyTitle">{{ modules.statistics.historyTitle }}</h4>
+          <div data-cms-show="modules.statistics.historySummary" class="p-6 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-white text-sm" data-cms-text="modules.statistics.historyTitle">{{ modules.statistics.historyTitle }}</h4>
+              <span data-cms-show="modules.statistics.establishmentYear" class="text-xs font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full border border-amber-500/20">Berdiri {{ modules.statistics.establishmentYear }}</span>
+            </div>
             <p class="text-xs text-slate-400 leading-relaxed" data-cms-text="modules.statistics.historySummary">{{ modules.statistics.historySummary }}</p>
+            <div data-cms-show="modules.statistics.imageUrl" class="rounded-xl overflow-hidden max-h-48 pt-2">
+              <img data-cms-image="modules.statistics.imageUrl" src="{{ modules.statistics.imageUrl }}" alt="Gambar Sejarah" class="w-full h-full object-cover rounded-xl">
+            </div>
           </div>
         </div>
 
