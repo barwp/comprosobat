@@ -444,19 +444,27 @@
   </section>
 
   <!-- ================= KONTAK & FOOTER ================= -->
-  <footer id="kontak" class="bg-[#0d2b52] text-white py-16">
+  <footer id="kontak" class="bg-[#0d2b52] text-white pt-16 pb-12 border-t border-white/10">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-12 pb-12 border-b border-white/10">
-        <div class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-white/10">
+        <!-- School Identity & Contact (6 cols) -->
+        <div class="lg:col-span-6 space-y-6">
           <div class="flex items-center gap-3">
-            <img data-cms-image="site.logo" src="{{ site.logo.url }}" alt="{{ site.logo.alt }}" class="h-12 w-auto object-contain brightness-0 invert" onerror="this.style.display='none'">
+            <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 border border-white/15 overflow-hidden">
+              <img data-cms-image="site.logo" src="{{ site.logo.url }}" alt="{{ site.logo.alt }}" class="w-8 h-8 object-contain brightness-0 invert" onerror="this.style.display='none'">
+              <span class="text-white font-black text-xl">🏫</span>
+            </div>
             <div>
-              <h3 class="text-lg font-bold text-white uppercase" data-cms-text="site.name">{{ site.name }}</h3>
-              <p class="text-xs text-white/70" data-cms-text="site.tagline">{{ site.tagline }}</p>
+              <h3 class="text-lg font-bold text-white uppercase tracking-tight" data-cms-text="site.name">{{ site.name }}</h3>
+              <p class="text-xs text-[#ffcb08] font-medium" data-cms-text="site.tagline">{{ site.tagline }}</p>
             </div>
           </div>
-          <p class="text-sm text-white/80 leading-relaxed" data-cms-text="site.description">{{ site.description }}</p>
-          <div class="space-y-3 text-sm text-white/80">
+          
+          <p class="text-sm text-white/80 leading-relaxed max-w-xl" data-cms-text="site.description">
+            {{ site.description }}
+          </p>
+
+          <div class="space-y-3 text-sm text-white/85">
             <div class="flex items-start gap-3">
               <i data-lucide="map-pin" class="w-5 h-5 text-[#ffcb08] flex-shrink-0 mt-0.5"></i>
               <span data-cms-text="site.contact.address">{{ site.contact.address }}</span>
@@ -472,18 +480,36 @@
           </div>
         </div>
 
-        <div class="space-y-4 bg-white/10 p-8 rounded-2xl border border-white/10">
-          <h4 class="text-xl font-bold">Navigasi Footer</h4>
-          <ul class="space-y-2 text-sm text-white/80">
+        <!-- Quick Links (3 cols) -->
+        <div class="lg:col-span-3 space-y-4">
+          <h4 class="text-sm font-bold uppercase tracking-wider text-[#ffcb08]">Jelajah & Menu</h4>
+          <ul class="space-y-2.5 text-sm text-white/80">
             <li data-cms-repeat="navigation.footer">
-              <a data-cms-href="item.target" href="#" class="hover:text-[#ffcb08] transition-colors" data-cms-text="item.label">Tautan</a>
+              <a data-cms-href="item.target" href="#" class="hover:text-[#ffcb08] transition-colors flex items-center gap-2">
+                <span class="text-[#ffcb08] text-xs">›</span>
+                <span data-cms-text="item.label">Tautan</span>
+              </a>
             </li>
           </ul>
+        </div>
+
+        <!-- Operational Hours & PPDB (3 cols) -->
+        <div class="lg:col-span-3 space-y-4">
+          <h4 class="text-sm font-bold uppercase tracking-wider text-[#ffcb08]">Jam Pelayanan</h4>
+          <p class="text-sm text-white/80 leading-relaxed" data-cms-text="site.contact.operationalHours">
+            {{ site.contact.operationalHours }}
+          </p>
+          <div class="pt-2">
+            <a href="#ppdb" class="inline-flex items-center gap-2 bg-[#ffcb08] hover:bg-[#e6b707] text-[#0d2b52] font-bold text-xs px-5 py-2.5 rounded-xl shadow-md transition-all">
+              <i data-lucide="user-plus" class="w-4 h-4"></i>
+              <span>Pendaftaran PPDB</span>
+            </a>
+          </div>
         </div>
       </div>
 
       <div class="pt-8 text-center text-xs text-white/60">
-        © 2026 <strong data-cms-text="site.name">{{ site.name }}</strong>. All rights reserved. Powered by SobatWeb.
+        © 2026 <strong data-cms-text="site.name">{{ site.name }}</strong>. Seluruh hak cipta dilindungi. Powered by SobatWeb.
       </div>
     </div>
   </footer>

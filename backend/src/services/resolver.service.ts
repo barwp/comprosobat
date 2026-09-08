@@ -323,6 +323,18 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
         description: userVal.description || defVal.description
       };
     }
+  const defaultNavMenus = [
+    { label: 'Beranda', target: '#beranda', location: 'header', sortOrder: 1 },
+    { label: 'Profil Sekolah', target: '#profil', location: 'header', sortOrder: 2 },
+    { label: 'Program Unggulan', target: '#program', location: 'header', sortOrder: 3 },
+    { label: 'Fasilitas', target: '#fasilitas', location: 'header', sortOrder: 4 },
+    { label: 'Berita', target: '#berita', location: 'header', sortOrder: 5 },
+    { label: 'Pendaftaran PPDB', target: '#ppdb', location: 'header', sortOrder: 6 },
+    { label: 'Kontak', target: '#kontak', location: 'header', sortOrder: 7 }
+  ];
+
+  const rawHeader = sortedMenus.filter(m => m.location === 'header');
+  const rawFooter = sortedMenus.filter(m => m.location === 'footer');
 
   return {
     site: {
@@ -363,8 +375,8 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
     video_profile: modules.video_profile,
     media: modules.media,
     navigation: {
-      header: sortedMenus.filter(m => m.location === 'header'),
-      footer: sortedMenus.filter(m => m.location === 'footer')
+      header: rawHeader.length > 0 ? rawHeader : defaultNavMenus,
+      footer: rawFooter.length > 0 ? rawFooter : (rawHeader.length > 0 ? rawHeader : defaultNavMenus)
     },
     seo: {
       title: settings.seoTitle || settings.siteName,
