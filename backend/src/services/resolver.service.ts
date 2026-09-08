@@ -469,20 +469,24 @@ function normalizeHistoryStatistics(payload: any) {
 
 function normalizePpdb(payload: any) {
   let resolvedCtaUrl = payload.ctaUrl || '';
+  let resolvedCtaText = payload.ctaText || '';
   if (payload.formMode === 'whatsapp' && payload.whatsappNumber) {
     resolvedCtaUrl = `https://wa.me/${String(payload.whatsappNumber).replace(/\D/g, '').replace(/^0/, '62')}`;
-  } else if (payload.formMode === 'internal' && !resolvedCtaUrl) {
-    resolvedCtaUrl = '#ppdb-form';
+    resolvedCtaText = resolvedCtaText || 'Daftar via WhatsApp';
+  } else if (payload.formMode === 'external') {
+    resolvedCtaText = resolvedCtaText || 'Portal Pendaftaran Online';
   }
+  const hasExternalCta = Boolean(resolvedCtaText && resolvedCtaUrl && payload.formMode !== 'internal');
   return {
     ...payload,
     isActive: Object.keys(payload).length > 0 && payload.isActive !== false,
+    ctaText: resolvedCtaText,
     ctaUrl: resolvedCtaUrl || '#ppdb-form',
     registrationPaths: (payload.registrationPaths || []).filter((item: any) => item.isActive !== false),
     requirements: payload.requirements || [],
     registrationSteps: payload.registrationSteps || [],
-    showInternalForm: payload.formMode === 'internal',
-    showExternalCta: payload.formMode !== 'internal'
+    showInternalForm: payload.formMode === 'internal' || !payload.formMode || payload.formMode === 'both',
+    showExternalCta: hasExternalCta
   };
 }
 
