@@ -346,6 +346,8 @@ function injectThemeStyles($: cheerio.CheerioAPI, context: RenderContext) {
 
       .border-brand-800 { border-color: #11461e !important; }
       .border-brand-500 { border-color: var(--color-primary, #1a6b2f) !important; }
+
+      .hero-slide:not(:first-child) { display: none; }
     </style>
   `);
 }

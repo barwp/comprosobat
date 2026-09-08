@@ -194,20 +194,25 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
   }));
   const heroSlidesSource = heroEntries.length > 0 ? heroEntries : (snapshot.modules?.hero_slides || []);
   const rawHeroList = Array.isArray(heroSlidesSource) ? heroSlidesSource : [heroSlidesSource];
+  const defaultHeroImg = 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&h=900&fit=crop';
   const normalizedHeroList = rawHeroList
     .filter((item: any) => item && item.isActive !== false)
     .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0))
-    .map((item: any) => ({
-      badge: item.badge || settings.sectionHeadlines?.hero?.badge || 'Sekolah Unggulan',
-      title: item.title || settings.sectionHeadlines?.hero?.title || settings.siteName || 'Selamat Datang di Sekolah Kami',
-      subtitle: item.subtitle || settings.sectionHeadlines?.hero?.subtitle || settings.tagline || settings.description || '',
-      imageUrl: item.imageUrl || 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&h=900&fit=crop',
-      ctaText: item.ctaText || 'Daftar Sekarang',
-      ctaUrl: item.ctaUrl || '#ppdb',
-      ctaSecondaryText: item.ctaSecondaryText || 'Lihat Profil',
-      ctaSecondaryUrl: item.ctaSecondaryUrl || '#profil',
-      ...item
-    }));
+    .map((item: any) => {
+      const rawImg = String(item.imageUrl || item.image || item.bannerImageUrl || '').trim();
+      const imageUrl = rawImg.length > 0 ? rawImg : defaultHeroImg;
+      return {
+        badge: item.badge || settings.sectionHeadlines?.hero?.badge || 'Sekolah Unggulan',
+        title: item.title || settings.sectionHeadlines?.hero?.title || settings.siteName || 'Selamat Datang di Sekolah Kami',
+        subtitle: item.subtitle || settings.sectionHeadlines?.hero?.subtitle || settings.tagline || settings.description || '',
+        ctaText: item.ctaText || 'Daftar Sekarang',
+        ctaUrl: item.ctaUrl || '#ppdb',
+        ctaSecondaryText: item.ctaSecondaryText || 'Lihat Profil',
+        ctaSecondaryUrl: item.ctaSecondaryUrl || '#profil',
+        ...item,
+        imageUrl
+      };
+    });
 
   const heroSlides = normalizedHeroList.length > 0 ? normalizedHeroList : [{
     badge: settings.sectionHeadlines?.hero?.badge || 'Sekolah Unggulan',
