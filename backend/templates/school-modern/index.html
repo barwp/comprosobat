@@ -410,6 +410,11 @@
           <span class="text-xs font-bold uppercase tracking-widest text-blue-200 bg-white/10 px-3 py-1 rounded-full" data-cms-text="sections.ppdb.badge">{{ sections.ppdb.badge }}</span>
           <h2 class="text-3xl lg:text-4xl font-extrabold leading-tight" data-cms-text="modules.ppdb.title">{{ modules.ppdb.title }}</h2>
           <p class="text-white/70 text-sm leading-relaxed" data-cms-text="modules.ppdb.description">{{ modules.ppdb.description }}</p>
+
+          <!-- PPDB Banner Image -->
+          <div data-cms-show="modules.ppdb.bannerImageUrl" class="rounded-2xl overflow-hidden shadow-lg border border-white/10">
+            <img data-cms-image="modules.ppdb.bannerImageUrl" src="{{ modules.ppdb.bannerImageUrl }}" alt="Banner PPDB" class="w-full h-auto max-h-80 object-cover rounded-2xl" onerror="this.parentElement.style.display='none'">
+          </div>
           
           <!-- Jalur Pendaftaran -->
           <div data-cms-show="modules.ppdb.registrationPaths" class="space-y-2 pt-2">

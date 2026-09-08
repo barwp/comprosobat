@@ -1,4 +1,4 @@
-import { getDatabaseClient, schema, eq, and, desc, asc, isNull, sql } from '@sobatweb/database';
+import { getDatabaseClient, schema, eq, and, desc, asc, isNull, inArray, sql } from '@sobatweb/database';
 import { AppError } from '../middleware/error.js';
 import { sanitizeRichTextHtml } from '@sobatweb/template-engine';
 import { logAuditEvent } from './audit.service.js';
@@ -9,7 +9,11 @@ export async function listContentEntries(siteId: string, type?: string, includeD
 
   const conditions = [eq(schema.contentEntries.siteId, siteId)];
   if (type) {
-    conditions.push(eq(schema.contentEntries.type, type));
+    if (type === 'student_org' || type === 'student_organization' || type === 'student_orgs') {
+      conditions.push(inArray(schema.contentEntries.type, ['student_org', 'student_organization', 'student_orgs']));
+    } else {
+      conditions.push(eq(schema.contentEntries.type, type));
+    }
   }
   if (!includeDeleted) {
     conditions.push(isNull(schema.contentEntries.deletedAt));
