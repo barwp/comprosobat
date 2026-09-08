@@ -113,17 +113,17 @@
       <div class="hero-slides-wrapper relative">
         <div class="hero-slide transition-opacity duration-700" data-cms-repeat="hero_slides">
           <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div class="text-center lg:text-left space-y-6">
-              <div class="inline-block bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
+            <div class="text-left space-y-6">
+              <div class="inline-flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
                 <span class="text-sm font-medium text-[#ffcb08]">🏫 <span data-cms-text="item.badge">{{ sections.hero.badge }}</span></span>
               </div>
-              <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight" data-cms-text="item.title">
+              <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight text-left" data-cms-text="item.title">
                 {{ item.title }}
               </h1>
-              <p class="text-base sm:text-lg text-white/90 leading-relaxed max-w-2xl" data-cms-text="item.subtitle">
+              <p class="text-base sm:text-lg text-white/90 leading-relaxed max-w-2xl text-left" data-cms-text="item.subtitle">
                 {{ item.subtitle }}
               </p>
-              <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+              <div class="flex flex-col sm:flex-row gap-4 justify-start pt-2">
                 <a data-cms-link="item.ctaUrl" data-cms-href="item.ctaUrl" href="{{ item.ctaUrl }}" class="inline-flex items-center justify-center gap-2 bg-white text-[#0d2b52] hover:bg-gray-100 font-bold px-8 py-3.5 rounded-xl shadow-lg transition-all">
                   <span data-cms-text="item.ctaText">{{ item.ctaText }}</span>
                   <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -143,16 +143,18 @@
         </div>
       </div>
 
-      <!-- Navigation Arrows -->
-      <button data-hero-prev class="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-sm transition-all border border-white/20 shadow-lg" aria-label="Slide Sebelumnya">
-        <i data-lucide="chevron-left" class="w-6 h-6"></i>
-      </button>
-      <button data-hero-next class="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center backdrop-blur-sm transition-all border border-white/20 shadow-lg" aria-label="Slide Selanjutnya">
-        <i data-lucide="chevron-right" class="w-6 h-6"></i>
-      </button>
-
-      <!-- Dots Indicator -->
-      <div data-hero-dots class="flex items-center justify-center gap-2 mt-8 z-20"></div>
+      <!-- Slider Navigation Controls -->
+      <div class="flex items-center justify-between sm:justify-start gap-4 mt-8 pt-4 border-t border-white/10 z-20">
+        <div data-hero-dots class="flex items-center gap-2"></div>
+        <div class="flex items-center gap-2">
+          <button data-hero-prev type="button" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/25 text-white flex items-center justify-center border border-white/20 transition cursor-pointer shadow-sm" aria-label="Slide Sebelumnya">
+            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+          </button>
+          <button data-hero-next type="button" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/25 text-white flex items-center justify-center border border-white/20 transition cursor-pointer shadow-sm" aria-label="Slide Selanjutnya">
+            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
