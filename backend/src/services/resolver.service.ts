@@ -187,11 +187,12 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
   const mediaAssets: any[] = snapshot.mediaAssets || [];
 
   // Group modules from entries or directly from snapshot.modules
-  const heroSlidesSource = (snapshot.modules?.hero_slides || activeEntries.filter(e => e.type === 'hero_slide').map(e => ({
+  const heroEntries = activeEntries.filter(e => e.type === 'hero_slide').map(e => ({
     ...e.payload,
     title: e.payload?.title || e.title,
     sortOrder: e.sortOrder ?? e.payload?.sortOrder ?? 0
-  })));
+  }));
+  const heroSlidesSource = heroEntries.length > 0 ? heroEntries : (snapshot.modules?.hero_slides || []);
   const rawHeroList = Array.isArray(heroSlidesSource) ? heroSlidesSource : [heroSlidesSource];
   const normalizedHeroList = rawHeroList
     .filter((item: any) => item && item.isActive !== false)
@@ -218,7 +219,13 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
     ctaSecondaryText: 'Lihat Profil',
     ctaSecondaryUrl: '#profil'
   }];
-  const programsSource = snapshot.modules?.programs || entries.filter(e => e.type === 'program').map(e => e.payload);
+
+  const programEntries = activeEntries.filter(e => e.type === 'program').map(e => ({
+    ...e.payload,
+    title: e.payload?.title || e.title,
+    sortOrder: e.sortOrder ?? e.payload?.sortOrder ?? 0
+  }));
+  const programsSource = programEntries.length > 0 ? programEntries : (snapshot.modules?.programs || []);
   const programs = programsSource.filter((item: any) => item.isActive !== false).map((item: any, idx: number) => {
     let icon = item.icon || '';
     if (!icon) {
@@ -234,28 +241,42 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
     }
     return { ...item, icon };
   });
-  const facilitiesSource = snapshot.modules?.facilities || activeEntries.filter(e => e.type === 'facility').map(e => e.payload);
+
+  const facilityEntries = activeEntries.filter(e => e.type === 'facility').map(e => ({
+    ...e.payload,
+    name: e.payload?.name || e.title,
+    sortOrder: e.sortOrder ?? e.payload?.sortOrder ?? 0
+  }));
+  const facilitiesSource = facilityEntries.length > 0 ? facilityEntries : (snapshot.modules?.facilities || []);
   const facilities = facilitiesSource.filter((item: any) => item.isActive !== false).map((item: any) => ({
     ...item,
     imageUrl: item.thumbnailUrl || item.imageUrl || '',
     thumbnailUrl: item.thumbnailUrl || item.imageUrl || ''
   }));
-  const newsSource = snapshot.modules?.news || activeEntries.filter(e => e.type === 'news').map(e => ({
+
+  const newsEntries = activeEntries.filter(e => e.type === 'news').map(e => ({
     ...e.payload,
     title: e.payload?.title || e.title,
-    slug: e.slug || e.payload?.slug || ''
+    slug: e.slug || e.payload?.slug || '',
+    sortOrder: e.sortOrder ?? e.payload?.sortOrder ?? 0
   }));
+  const newsSource = newsEntries.length > 0 ? newsEntries : (snapshot.modules?.news || []);
   const news = newsSource.filter((item: any) => item.isActive !== false).map((item: any) => ({
     ...item,
     slug: item.slug || slugify(item.title || 'berita'),
     url: `/berita/${item.slug || slugify(item.title || 'berita')}`,
     publishedAt: item.publishedAt || 'Draft terbaru'
   }));
-  const visionMissionEntry = snapshot.modules?.vision_mission
-    ? { payload: snapshot.modules.vision_mission }
-    : activeEntries.filter(e => e.type === 'vision_mission').sort((a, b) => +new Date(b.updatedAt || b.createdAt) - +new Date(a.updatedAt || a.createdAt))[0];
-  const statsEntry = snapshot.modules?.statistics ? { payload: snapshot.modules.statistics } : entries.find(e => e.type === 'history_statistic');
-  const staffSource = snapshot.modules?.staff || activeEntries.filter(e => e.type === 'staff').map(e => e.payload);
+
+  const visionMissionEntry = activeEntries.filter(e => e.type === 'vision_mission').sort((a, b) => +new Date(b.updatedAt || b.createdAt || 0) - +new Date(a.updatedAt || a.createdAt || 0))[0] || (snapshot.modules?.vision_mission ? { payload: snapshot.modules.vision_mission } : undefined);
+  const statsEntry = activeEntries.filter(e => e.type === 'history_statistic').sort((a, b) => +new Date(b.updatedAt || b.createdAt || 0) - +new Date(a.updatedAt || a.createdAt || 0))[0] || (snapshot.modules?.statistics ? { payload: snapshot.modules.statistics } : undefined);
+
+  const staffEntries = activeEntries.filter(e => e.type === 'staff').map(e => ({
+    ...e.payload,
+    name: e.payload?.name || e.title,
+    sortOrder: e.sortOrder ?? e.payload?.sortOrder ?? 0
+  }));
+  const staffSource = staffEntries.length > 0 ? staffEntries : (snapshot.modules?.staff || []);
   const staff = staffSource.filter((item: any) => item.isActive !== false)
     .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0))
     .map((item: any) => ({
@@ -263,7 +284,16 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
       initials: String(item.name || 'G').split(/\s+/).slice(0, 2).map((part: string) => part[0]).join(''),
       photoUrl: item.photoUrl || ''
     }));
-  const testimonialsSource = snapshot.modules?.testimonials || activeEntries.filter(e => e.type === 'testimonial').map(e => e.payload);
+
+  const testimonialEntries = activeEntries.filter(e => e.type === 'testimonial').map(e => ({
+    ...e.payload,
+    name: e.payload?.name || e.payload?.alumniName || e.title,
+    alumniName: e.payload?.alumniName || e.payload?.name || e.title,
+    quote: e.payload?.quote || e.payload?.content || '',
+    content: e.payload?.content || e.payload?.quote || '',
+    sortOrder: e.sortOrder ?? e.payload?.sortOrder ?? 0
+  }));
+  const testimonialsSource = testimonialEntries.length > 0 ? testimonialEntries : (snapshot.modules?.testimonials || []);
   const testimonials = testimonialsSource.filter((item: any) => item.isActive !== false).map((item: any) => ({
     ...item,
     name: item.name || item.alumniName || '',
@@ -274,10 +304,18 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
     content: item.content || item.quote || '',
     photoUrl: item.photoUrl || ''
   }));
-  const ppdbEntry = snapshot.modules?.ppdb ? { payload: snapshot.modules.ppdb } : entries.find(e => e.type === 'ppdb');
-  const videoEntry = snapshot.modules?.video_profile ? { payload: snapshot.modules.video_profile } : entries.find(e => e.type === 'video_profile');
+
+  const ppdbEntry = activeEntries.filter(e => e.type === 'ppdb').sort((a, b) => +new Date(b.updatedAt || b.createdAt || 0) - +new Date(a.updatedAt || a.createdAt || 0))[0] || (snapshot.modules?.ppdb ? { payload: snapshot.modules.ppdb } : undefined);
+  const videoEntry = activeEntries.filter(e => e.type === 'video_profile').sort((a, b) => +new Date(b.updatedAt || b.createdAt || 0) - +new Date(a.updatedAt || a.createdAt || 0))[0] || (snapshot.modules?.video_profile ? { payload: snapshot.modules.video_profile } : undefined);
   const videoProfile = normalizeVideoProfile(videoEntry?.payload || {});
-  const studentOrgsSource = snapshot.modules?.student_organizations || activeEntries.filter(e => e.type === 'student_organization' || e.type === 'student_orgs').map(e => e.payload);
+
+  const studentOrgsEntries = activeEntries.filter(e => e.type === 'student_org' || e.type === 'student_organization' || e.type === 'student_orgs').map(e => ({
+    ...e.payload,
+    name: e.payload?.name || e.title,
+    title: e.payload?.title || e.title,
+    sortOrder: e.sortOrder ?? e.payload?.sortOrder ?? 0
+  }));
+  const studentOrgsSource = studentOrgsEntries.length > 0 ? studentOrgsEntries : (snapshot.modules?.student_organizations || []);
   const student_organizations = studentOrgsSource.filter((item: any) => item.isActive !== false)
     .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0))
     .map((item: any, idx: number) => {
@@ -303,6 +341,7 @@ export function buildTemplateContextFromSnapshot(snapshot: any) {
         badge: item.badge || item.category || 'Ekskul'
       };
     });
+
   const media = mediaAssets
     .filter((asset: any) => String(asset.mimeType || '').startsWith('image/'))
     .map((asset: any) => ({
@@ -457,14 +496,31 @@ function normalizeVisionMission(payload: any) {
 
 function normalizeHistoryStatistics(payload: any) {
   const defaultIcons = ['award', 'users', 'graduation-cap', 'trophy', 'book-open', 'check-circle'];
-  const stats = (payload.stats || []).filter((item: any) => item.isActive !== false)
+  const rawStats = Array.isArray(payload.stats) ? payload.stats : [];
+  const stats = rawStats.filter((item: any) => item && item.isActive !== false)
     .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0))
-    .map((item: any, idx: number) => ({
-      ...item,
-      icon: item.icon || defaultIcons[idx % defaultIcons.length],
-      value: `${item.rawValue ?? item.value ?? ''}${item.suffix || ''}`
-    }));
-  return { ...payload, stats };
+    .map((item: any, idx: number) => {
+      const rawVal = item.rawValue !== undefined && item.rawValue !== null ? item.rawValue : (item.value || '');
+      const suffix = item.suffix !== undefined ? item.suffix : '';
+      const displayVal = String(rawVal).includes(suffix) || !suffix ? String(rawVal) : `${rawVal}${suffix}`;
+      return {
+        ...item,
+        icon: item.icon || defaultIcons[idx % defaultIcons.length],
+        value: displayVal || `${item.value || ''}`
+      };
+    });
+  return {
+    ...payload,
+    establishmentYear: payload.establishmentYear || '1990',
+    historyTitle: payload.historyTitle || 'Sejarah Sekolah',
+    historySummary: payload.historySummary || '',
+    stats: stats.length > 0 ? stats : [
+      { label: 'Siswa Aktif', value: '1.200+', icon: 'users' },
+      { label: 'Guru & Pendidik', value: '75+', icon: 'award' },
+      { label: 'Alumni Sukses', value: '5.000+', icon: 'graduation-cap' },
+      { label: 'Prestasi', value: '120+', icon: 'trophy' }
+    ]
+  };
 }
 
 function normalizePpdb(payload: any) {
@@ -474,17 +530,32 @@ function normalizePpdb(payload: any) {
     resolvedCtaUrl = `https://wa.me/${String(payload.whatsappNumber).replace(/\D/g, '').replace(/^0/, '62')}`;
     resolvedCtaText = resolvedCtaText || 'Daftar via WhatsApp';
   } else if (payload.formMode === 'external') {
-    resolvedCtaText = resolvedCtaText || 'Portal Pendaftaran Online';
+    resolvedCtaText = resolvedCtaText || (resolvedCtaUrl ? 'Portal Pendaftaran Online' : '');
   }
   const hasExternalCta = Boolean(resolvedCtaText && resolvedCtaUrl && payload.formMode !== 'internal');
+  const rawPaths = Array.isArray(payload.registrationPaths) ? payload.registrationPaths : (Array.isArray(payload.paths) ? payload.paths : []);
+  const registrationPaths = rawPaths.filter((item: any) => item && item.isActive !== false);
+  const rawSteps = Array.isArray(payload.registrationSteps) ? payload.registrationSteps : (Array.isArray(payload.steps) ? payload.steps : []);
+  const registrationSteps = rawSteps.map((step: any, idx: number) => ({
+    stepNumber: step.stepNumber || idx + 1,
+    title: step.title || `Langkah ${idx + 1}`,
+    description: step.description || '',
+    url: step.url || ''
+  }));
+
   return {
     ...payload,
     isActive: Object.keys(payload).length > 0 && payload.isActive !== false,
-    ctaText: resolvedCtaText,
+    title: payload.title || 'Penerimaan Peserta Didik Baru (PPDB)',
+    description: payload.description || 'Bergabunglah bersama kami dan raih masa depan gemilang.',
+    ctaText: resolvedCtaText || 'Daftar Sekarang',
     ctaUrl: resolvedCtaUrl || '#ppdb-form',
-    registrationPaths: (payload.registrationPaths || []).filter((item: any) => item.isActive !== false),
-    requirements: payload.requirements || [],
-    registrationSteps: payload.registrationSteps || [],
+    registrationPaths: registrationPaths.length > 0 ? registrationPaths : [
+      { title: 'Jalur Prestasi', description: 'Bagi siswa berprestasi akademik & non-akademik.' },
+      { title: 'Jalur Reguler / Zonasi', description: 'Pendaftaran umum sesuai kuota yang tersedia.' }
+    ],
+    requirements: Array.isArray(payload.requirements) ? payload.requirements : [],
+    registrationSteps,
     showInternalForm: payload.formMode === 'internal' || !payload.formMode || payload.formMode === 'both',
     showExternalCta: hasExternalCta
   };

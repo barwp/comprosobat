@@ -16,7 +16,7 @@ const isSaving = ref(false);
 const showMediaModal = ref(false);
 
 const form = ref({
-  isActive: false,
+  isActive: true,
   title: 'Penerimaan Peserta Didik Baru (PPDB)',
   academicYear: '2026/2027',
   quota: 320,
@@ -51,7 +51,8 @@ async function loadData() {
       const entry = res.data[0];
       form.value = {
         ...form.value,
-        ...entry.payload
+        ...entry.payload,
+        isActive: entry.payload?.isActive !== undefined ? entry.payload.isActive : true
       };
     }
   }
@@ -151,7 +152,7 @@ onMounted(() => {
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4"><div><label class="block text-xs font-bold text-slate-700 mb-1.5">Mulai Pendaftaran</label><input v-model="form.startDate" type="date" class="w-full px-4 py-2.5 rounded-xl border text-sm"></div><div><label class="block text-xs font-bold text-slate-700 mb-1.5">Pengumuman</label><input v-model="form.announcementDate" type="date" class="w-full px-4 py-2.5 rounded-xl border text-sm"></div><div><label class="block text-xs font-bold text-slate-700 mb-1.5">Biaya</label><input v-model="form.costs" type="text" placeholder="Gratis / Rp..." class="w-full px-4 py-2.5 rounded-xl border text-sm"></div></div>
 
-        <div><label class="block text-xs font-bold text-slate-700 mb-1.5">Banner PPDB</label><div class="flex gap-2"><input v-model="form.bannerImageUrl" type="url" class="flex-1 px-4 py-2.5 rounded-xl border text-sm"><button type="button" @click="showMediaModal = true" class="px-4 rounded-xl bg-slate-100 text-xs font-bold">Media</button></div></div>
+        <div><label class="block text-xs font-bold text-slate-700 mb-1.5">Banner PPDB</label><div class="flex gap-2"><input v-model="form.bannerImageUrl" type="text" placeholder="/api/v1/... atau https://..." class="flex-1 px-4 py-2.5 rounded-xl border text-sm"><button type="button" @click="showMediaModal = true" class="px-4 rounded-xl bg-slate-100 text-xs font-bold">Media</button></div></div>
 
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Deskripsi Singkat Ajakan</label>

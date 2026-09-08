@@ -38,13 +38,39 @@ async function loadData() {
     const res = await useApiClient(`/sites/${siteId.value}/content?type=history_statistic`);
     if (res.success && res.data && res.data.length > 0) {
       const entry = res.data[0];
+      const rawStats = Array.isArray(entry.payload?.stats) ? entry.payload.stats : [];
+      const normalizedStats = rawStats.length > 0 ? rawStats.map((s: any, idx: number) => {
+        let numVal = 100;
+        let suffixVal = '+';
+        if (s.rawValue !== undefined && s.rawValue !== null) {
+          numVal = Number(s.rawValue) || 0;
+          suffixVal = s.suffix || '';
+        } else if (s.value !== undefined && s.value !== null) {
+          const str = String(s.value);
+          const match = str.match(/^([\d.,]+)(.*)$/);
+          if (match) {
+            numVal = parseInt(match[1].replace(/[.,]/g, ''), 10) || 0;
+            suffixVal = match[2] || '';
+          }
+        }
+        return {
+          key: s.key || `stat_${idx + 1}`,
+          label: s.label || 'Statistik',
+          rawValue: numVal,
+          suffix: suffixVal,
+          icon: s.icon || 'Users',
+          sortOrder: idx,
+          isActive: s.isActive !== false
+        };
+      }) : form.value.stats;
+
       form.value = {
         historyTitle: entry.payload?.historyTitle || 'Sejarah Singkat',
-        establishmentYear: entry.payload?.establishmentYear || 1990,
+        establishmentYear: Number(entry.payload?.establishmentYear) || 1990,
         historySummary: entry.payload?.historySummary || '',
         historyImageUrl: entry.payload?.historyImageUrl || '',
         accreditation: entry.payload?.accreditation || '',
-        stats: entry.payload?.stats || form.value.stats
+        stats: normalizedStats
       };
     }
   }
@@ -143,7 +169,7 @@ onMounted(() => {
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div><label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Akreditasi</label><input v-model="form.accreditation" type="text" placeholder="A (Unggul)" class="w-full px-4 py-2.5 rounded-xl border text-sm"></div>
-          <div><label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Gambar Pendukung</label><div class="flex gap-2"><input v-model="form.historyImageUrl" type="url" class="flex-1 min-w-0 px-4 py-2.5 rounded-xl border text-sm"><button type="button" @click="showMediaModal = true" class="px-3 rounded-xl bg-slate-100 text-xs font-bold">Media</button></div></div>
+          <div><label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Gambar Pendukung</label><div class="flex gap-2"><input v-model="form.historyImageUrl" type="text" placeholder="/api/v1/... atau https://..." class="flex-1 min-w-0 px-4 py-2.5 rounded-xl border text-sm"><button type="button" @click="showMediaModal = true" class="px-3 rounded-xl bg-slate-100 text-xs font-bold">Media</button></div></div>
         </div>
       </div>
 

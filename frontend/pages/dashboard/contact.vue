@@ -159,7 +159,7 @@ onMounted(() => {
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">URL Google Maps</label>
-            <input v-model="form.googleMapsUrl" type="url" placeholder="https://maps.google.com/?q=..." class="w-full px-4 py-2.5 rounded-xl border text-sm">
+            <input v-model="form.googleMapsUrl" type="text" placeholder="https://maps.google.com/?q=..." class="w-full px-4 py-2.5 rounded-xl border text-sm">
           </div>
         </div>
       </div>
@@ -171,19 +171,19 @@ onMounted(() => {
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Instagram URL</label>
-            <input v-model="form.socialLinks.instagram" type="url" placeholder="https://instagram.com/sekolah" class="w-full px-4 py-2.5 rounded-xl border text-sm">
+            <input v-model="form.socialLinks.instagram" type="text" placeholder="https://instagram.com/sekolah" class="w-full px-4 py-2.5 rounded-xl border text-sm">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">YouTube URL</label>
-            <input v-model="form.socialLinks.youtube" type="url" placeholder="https://youtube.com/@sekolah" class="w-full px-4 py-2.5 rounded-xl border text-sm">
+            <input v-model="form.socialLinks.youtube" type="text" placeholder="https://youtube.com/@sekolah" class="w-full px-4 py-2.5 rounded-xl border text-sm">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Facebook URL</label>
-            <input v-model="form.socialLinks.facebook" type="url" placeholder="https://facebook.com/sekolah" class="w-full px-4 py-2.5 rounded-xl border text-sm">
+            <input v-model="form.socialLinks.facebook" type="text" placeholder="https://facebook.com/sekolah" class="w-full px-4 py-2.5 rounded-xl border text-sm">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">TikTok URL</label>
-            <input v-model="form.socialLinks.tiktok" type="url" placeholder="https://tiktok.com/@sekolah" class="w-full px-4 py-2.5 rounded-xl border text-sm">
+            <input v-model="form.socialLinks.tiktok" type="text" placeholder="https://tiktok.com/@sekolah" class="w-full px-4 py-2.5 rounded-xl border text-sm">
           </div>
         </div>
       </div>
@@ -199,7 +199,7 @@ onMounted(() => {
 
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tautan URL Video (YouTube / Vimeo)</label>
-          <input v-model="videoForm.videoUrl" type="url" placeholder="https://www.youtube.com/watch?v=..." class="w-full px-4 py-2.5 rounded-xl border text-sm">
+          <input v-model="videoForm.videoUrl" type="text" placeholder="https://www.youtube.com/watch?v=..." class="w-full px-4 py-2.5 rounded-xl border text-sm">
         </div>
 
         <div>

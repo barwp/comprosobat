@@ -210,7 +210,7 @@ onMounted(() => {
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Foto Alumni</label>
             <div class="flex gap-3">
-              <input v-model="form.photoUrl" type="url" class="flex-1 px-4 py-2.5 rounded-xl border text-sm">
+              <input v-model="form.photoUrl" type="text" placeholder="/api/v1/... atau https://..." class="flex-1 px-4 py-2.5 rounded-xl border text-sm">
               <button type="button" @click="showMediaModal = true" class="px-4 py-2.5 rounded-xl bg-slate-100 text-xs font-bold">Media</button>
             </div>
           </div>

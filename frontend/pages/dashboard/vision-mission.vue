@@ -132,7 +132,7 @@ onMounted(() => {
       <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-3">
         <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider text-emerald-800">Cover Visual (Opsional)</h3>
         <div class="flex gap-3">
-          <input v-model="form.coverImageUrl" type="url" placeholder="https://... atau pilih dari Media Library" class="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-sm">
+          <input v-model="form.coverImageUrl" type="text" placeholder="/api/v1/... atau https://..." class="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-sm">
           <button type="button" @click="showMediaModal = true" class="px-4 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-bold">Pilih Media</button>
         </div>
         <img v-if="form.coverImageUrl" :src="form.coverImageUrl" class="w-full max-h-56 object-cover rounded-xl" alt="Cover visi dan misi">
